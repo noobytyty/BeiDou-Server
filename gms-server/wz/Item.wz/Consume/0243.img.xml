@@ -437,4 +437,17 @@
             <int name="npc" value="9900001"/>
         </imgdir>
     </imgdir>
+    <imgdir name="02438000">
+        <imgdir name="info">
+            <uol name="icon" value="Item/Cash/0515.img/05150040/info/icon"/>
+            <uol name="iconRaw" value="Item/Cash/0515.img/05150040/info/iconRaw"/>
+            <int name="price" value="1"/>
+            <int name="slotMax" value="99"/>
+            <int name="tradeBlock" value="1"/>
+        </imgdir>
+        <imgdir name="spec">
+            <string name="script" value="RandomBeautyCoupon"/>
+            <int name="npc" value="9900001"/>
+        </imgdir>
+    </imgdir>
 </imgdir>
