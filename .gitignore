@@ -34,3 +34,9 @@ main/resources/static/
 src/main/resources/static/
 .claude/settings.local.json
 CLAUDE.local.md
+
+# Local build tools (e.g. downloaded Maven distribution)
+/.tools/
+
+# WZ patch tool: track SKILL.md, ignore the downloadable native exe
+/.claude/skills/wz-patch-java/xml-img-patcher.exe
