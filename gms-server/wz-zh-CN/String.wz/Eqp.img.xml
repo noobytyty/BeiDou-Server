@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <imgdir name="Eqp.img">
     <imgdir name="Eqp">
         <imgdir name="Accessory">
@@ -22321,6 +22321,14 @@
             <imgdir name="1702251">
                 <string name="name" value="电锯惊魂枪" />
                 <string name="desc" value="散发恐怖气息的枪。可佩戴在#c所有武器\n#上。" />
+            </imgdir>
+            <imgdir name="1702252">
+                <string name="name" value="yty测试道具1" />
+                <string name="desc" value="好像是一把。" />
+            </imgdir>
+            <imgdir name="1702253">
+                <string name="name" value="yty测试道具2" />
+                <string name="desc" value="测试用22222" />
             </imgdir>
         </imgdir>
     </imgdir>
