@@ -243,6 +243,93 @@ function beautySlotsAction(selection) {
     }
 }
 
+// ===== 收藏图鉴（怪物卡 + 任务达人） =====
+var collectionMode = -1;
+var collSvc = Java.type("org.gms.server.CollectionService").getInstance();
+var COLLECTOR_BELT = 1132991;
+var ACHIEVEMENTS = [
+    [1142992, 25, 0, "卡牌新星"],       // 收集 25 张怪物卡
+    [1142993, 50, 0, "卡牌大师"],       // 收集 50 张怪物卡
+    [1142994, 100, 0, "卡牌收藏家"],    // 收集 100 张怪物卡
+    [1142995, 0, 50, "任务新秀"],       // 完成 50 个任务
+    [1142996, 0, 100, "任务达人"],      // 完成 100 个任务
+    [1142997, 0, 200, "任务大师"],      // 完成 200 个任务
+    [1142998, 100, 100, "收藏大师"]     // 100 卡 + 100 任务
+];
+
+function collectionMenu() {
+    var accId = cm.getPlayer().getAccountId();
+    var cards = collSvc.getCardCount(accId);
+    var quests = collSvc.getQuestCount(accId);
+    cm.sendSimple("收藏图鉴：\r\n怪物卡：" + cards + " 张（每 25 张全属性+1）\r\n完成任务：" + quests + " 个（每 50 个全属性+1、攻+1、HP/MP+100）\r\n\r\n#L0#查看当前加成#l\r\n#L1#领取收藏家腰带（" + COLLECTOR_BELT + "）#l\r\n#L2#领取成就勋章#l\r\n#L3#返回");
+}
+
+function collectionAction(selection) {
+    var accId = cm.getPlayer().getAccountId();
+    if (selection == 3) {
+        collectionMode = -1;
+        startAffixNpc();
+        return;
+    }
+    if (selection == 0) {
+        // 查看加成
+        var bonus = collSvc.getBonus(accId);
+        var msg = "当前收藏加成（穿戴收藏家腰带时生效）：\r\n";
+        msg += "力量 +" + bonus.str + "，敏捷 +" + bonus.dex + "，智力 +" + bonus.int_ + "，运气 +" + bonus.luk + "\r\n";
+        msg += "物攻 +" + bonus.watk + "，魔攻 +" + bonus.matk + "，HP +" + bonus.maxhp + "，MP +" + bonus.maxmp;
+        cm.sendOk(msg);
+        collectionMode = -1;
+        cm.dispose();
+        return;
+    }
+    if (selection == 1) {
+        // 领取收藏家腰带
+        if (cm.haveItem(COLLECTOR_BELT)) {
+            cm.sendOk("你已经拥有收藏家腰带了！");
+        } else if (!cm.canHold(COLLECTOR_BELT)) {
+            cm.sendOk("背包空间不足！");
+        } else {
+            cm.gainItem(COLLECTOR_BELT, 1);
+            cm.sendOk("已领取收藏家腰带 #t" + COLLECTOR_BELT + "#！穿戴后按你的收藏进度获得属性加成。");
+        }
+        collectionMode = -1;
+        cm.dispose();
+        return;
+    }
+    if (selection == 2) {
+        // 领取成就勋章
+        var cards = collSvc.getCardCount(accId);
+        var quests = collSvc.getQuestCount(accId);
+        var got = [];
+        var failed = [];
+        for (var i = 0; i < ACHIEVEMENTS.length; i++) {
+            var a = ACHIEVEMENTS[i];
+            var itemId = a[0];
+            if (cards >= a[1] && quests >= a[2]) {
+                if (cm.haveItem(itemId)) {
+                    failed.push("#t" + itemId + "#（已拥有）");
+                } else if (!cm.canHold(itemId)) {
+                    failed.push("#t" + itemId + "#（背包不足）");
+                } else {
+                    cm.gainItem(itemId, 1);
+                    got.push("#t" + itemId + "#");
+                }
+            } else {
+                failed.push("#t" + itemId + "#（需卡 " + a[1] + "/任务 " + a[2] + "）");
+            }
+        }
+        var msg = "成就勋章领取结果：\r\n";
+        if (got.length > 0) { msg += "已领取：" + got.join("、") + "\r\n"; } else { msg += "没有新达成的成就勋章。\r\n"; }
+        if (failed.length > 0) { msg += "未达成：" + failed.join("、"); }
+        cm.sendOk(msg);
+        collectionMode = -1;
+        cm.dispose();
+        return;
+    }
+    collectionMode = -1;
+    startAffixNpc();
+}
+
 // ===== 高级美容服务结束 =====
 
 var affixEquipSlot;
@@ -260,7 +347,7 @@ function startAffixNpc() {
     status = 0;
     affixOperation = -1;
     affixEquipSlot = -1;
-    cm.sendSimple("请选择词条工匠服务：\r\n#L0#查看装备词条#l\r\n#L1#重铸词条#l\r\n#L2#锁定或解锁词条#l\r\n#L3#分解装备#l\r\n#L4#高级美容服务#l");
+    cm.sendSimple("请选择词条工匠服务：\r\n#L0#查看装备词条#l\r\n#L1#重铸词条#l\r\n#L2#锁定或解锁词条#l\r\n#L3#分解装备#l\r\n#L4#高级美容服务#l\r\n#L5#收藏图鉴#l");
 }
 
 function actionAffixNpc(selection) {
@@ -275,6 +362,10 @@ function actionAffixNpc(selection) {
             beautyMode = -1;
             beautyPage = 0;
             cm.sendSimple("高级美容服务！提供最新发型和脸型，费用 " + beautyPrice + " 金币。\r\n#L0#选择发型#l\r\n#L1#选择脸型#l\r\n#L2#发型存档（试衣间）#l\r\n#L3#脸型存档（试衣间）#l\r\n#L4#购买美容槽位（" + beautySlotPrice + " 金币/个）#l");
+        } else if (selection == 5) {
+            // 收藏图鉴
+            collectionMode = 1;
+            collectionMenu();
         } else {
             cm.sendGetNumber("请输入装备栏位：", 1, 1, 96);
         }
@@ -595,6 +686,10 @@ function action(mode, type, selection) {
         }
         if (beautyMode >= 0) {
             actionBeauty(selection);
+            return;
+        }
+        if (collectionMode > 0) {
+            collectionAction(selection);
             return;
         }
         actionAffixNpc(selection);

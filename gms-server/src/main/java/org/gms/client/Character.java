@@ -6985,6 +6985,15 @@ public class Character extends AbstractCharacterObject {
         }, 4000, 4000);
     }
 
+    private boolean hasEquippedItem(int itemId) {
+        for (Item item : getInventory(InventoryType.EQUIPPED).list()) {
+            if (item.getItemId() == itemId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void recalcEquipStats() {
         if (equipchanged) {
             equipmaxhp = 0;
@@ -7041,6 +7050,19 @@ public class Character extends AbstractCharacterObject {
             localchairrate = -1;
 
             recalcEquipStats();
+
+            // 收藏家腰带：穿戴时按账号收藏进度加成（怪物卡图鉴 + 任务达人）
+            if (hasEquippedItem(CollectionService.COLLECTOR_BELT)) {
+                CollectionService.Bonus bonus = CollectionService.getInstance().getBonus(getAccountId());
+                localstr += bonus.str;
+                localdex += bonus.dex;
+                localint_ += bonus.int_;
+                localluk += bonus.luk;
+                localwatk += bonus.watk;
+                localmagic += bonus.matk;
+                localMaxHp += bonus.maxhp;
+                localMaxMp += bonus.maxmp;
+            }
 
             localmagic = Math.min(localmagic, 2000);
 

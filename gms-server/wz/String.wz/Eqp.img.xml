@@ -1882,7 +1882,35 @@
                 <string name="name" value="Pendant of the Spirit" />
         <string name="desc" value="EXP will increase as soon as this item is equipped, and the effects will only get stronger with time.\n #c1hr: 10% extra EXP \n 2hr: 20% extra EXP \n More than 2 hr: 30% extra EXP#" />
       </imgdir>
-            <imgdir name="1132000">
+            <imgdir name="1142991">
+        <string name="name" value="Collector Medal" />
+      </imgdir>
+      <imgdir name="1142992">
+        <string name="name" value="Card Rookie Medal" />
+      </imgdir>
+      <imgdir name="1142993">
+        <string name="name" value="Card Master Medal" />
+      </imgdir>
+      <imgdir name="1142994">
+        <string name="name" value="Card Collector Medal" />
+      </imgdir>
+      <imgdir name="1142995">
+        <string name="name" value="Quest Rookie Medal" />
+      </imgdir>
+      <imgdir name="1142996">
+        <string name="name" value="Quest Adept Medal" />
+      </imgdir>
+      <imgdir name="1142997">
+        <string name="name" value="Quest Master Medal" />
+      </imgdir>
+      <imgdir name="1142998">
+        <string name="name" value="Ultimate Collector Medal" />
+      </imgdir>
+      <imgdir name="1132991">
+        <string name="name" value="Collector Belt" />
+        <string name="desc" value="A belt of collection power: +1 all stats per 25 monster cards, +1 all stats/attack and +100 HP/MP per 50 quests completed (while equipped)." />
+      </imgdir>
+      <imgdir name="1132000">
                 <string name="name" value="White Belt" />
       </imgdir>
             <imgdir name="1132001">

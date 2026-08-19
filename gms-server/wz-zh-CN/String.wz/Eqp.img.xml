@@ -1038,6 +1038,34 @@
         <string name="name" value="纳瑞坎之印" />
         <string name="desc" value="纳瑞坎给予其中意的人的信物。你最好\n别把它弄丢了……" />
       </imgdir>
+      <imgdir name="1142991">
+        <string name="name" value="收藏家勋章" />
+      </imgdir>
+      <imgdir name="1142992">
+        <string name="name" value="卡牌新星勋章" />
+      </imgdir>
+      <imgdir name="1142993">
+        <string name="name" value="卡牌大师勋章" />
+      </imgdir>
+      <imgdir name="1142994">
+        <string name="name" value="卡牌收藏家勋章" />
+      </imgdir>
+      <imgdir name="1142995">
+        <string name="name" value="任务新秀勋章" />
+      </imgdir>
+      <imgdir name="1142996">
+        <string name="name" value="任务达人勋章" />
+      </imgdir>
+      <imgdir name="1142997">
+        <string name="name" value="任务大师勋章" />
+      </imgdir>
+      <imgdir name="1142998">
+        <string name="name" value="全能收藏家勋章" />
+      </imgdir>
+      <imgdir name="1132991">
+        <string name="name" value="收藏家腰带" />
+        <string name="desc" value="蕴含收藏之力的腰带：每收集25张怪物卡全属性+1，每完成50个任务全属性+1、攻+1、HP/MP+100（穿戴时生效）。" />
+      </imgdir>
       <imgdir name="1132000">
         <string name="name" value="白色腰带" />
       </imgdir>
