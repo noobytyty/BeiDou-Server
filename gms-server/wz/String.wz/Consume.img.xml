@@ -9215,7 +9215,7 @@
         <string name="name" value="BeiDou Satellite Manual"/>
         <string name="desc" value="The magical BeiDou Satellite Manual.\nThe legend is that it was passed down by the warriors Nap,\nWho depicted on the cover of the book.\nAfter collecting all 7 copies, something unexpected will happen. What could it be?"/>
     </imgdir>
-    <imgdir name="02438000">
+    <imgdir name="2438000">
         <string name="name" value="Random Beauty Coupon"/>
         <string name="desc" value="A mysterious coupon that randomly restyles your face and hair, including random colors."/>
     </imgdir>
