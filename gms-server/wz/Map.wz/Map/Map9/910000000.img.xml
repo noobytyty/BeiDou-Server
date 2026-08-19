@@ -134,41 +134,41 @@
     <imgdir name="4">
       <string name="type" value="n"/>
       <string name="id" value="9977777"/>
-      <int name="x" value="450"/>
-      <int name="y" value="-179"/>
+      <int name="x" value="1150"/>
+      <int name="y" value="-806"/>
       <int name="mobTime" value="0"/>
       <int name="f" value="0"/>
       <int name="hide" value="0"/>
-      <int name="fh" value="31"/>
-      <int name="cy" value="-176"/>
-      <int name="rx0" value="400"/>
-      <int name="rx1" value="500"/>
+      <int name="fh" value="43"/>
+      <int name="cy" value="-800"/>
+      <int name="rx0" value="1100"/>
+      <int name="rx1" value="1200"/>
     </imgdir>
     <imgdir name="5">
       <string name="type" value="n"/>
       <string name="id" value="9977778"/>
-      <int name="x" value="580"/>
-      <int name="y" value="-179"/>
+      <int name="x" value="1260"/>
+      <int name="y" value="-806"/>
       <int name="mobTime" value="0"/>
       <int name="f" value="0"/>
       <int name="hide" value="0"/>
-      <int name="fh" value="31"/>
-      <int name="cy" value="-176"/>
-      <int name="rx0" value="530"/>
-      <int name="rx1" value="630"/>
+      <int name="fh" value="43"/>
+      <int name="cy" value="-800"/>
+      <int name="rx0" value="1210"/>
+      <int name="rx1" value="1310"/>
     </imgdir>
     <imgdir name="6">
       <string name="type" value="n"/>
       <string name="id" value="9977779"/>
-      <int name="x" value="710"/>
-      <int name="y" value="-179"/>
+      <int name="x" value="1370"/>
+      <int name="y" value="-806"/>
       <int name="mobTime" value="0"/>
       <int name="f" value="0"/>
       <int name="hide" value="0"/>
-      <int name="fh" value="31"/>
-      <int name="cy" value="-176"/>
-      <int name="rx0" value="660"/>
-      <int name="rx1" value="760"/>
+      <int name="fh" value="43"/>
+      <int name="cy" value="-800"/>
+      <int name="rx0" value="1320"/>
+      <int name="rx1" value="1420"/>
     </imgdir>
   </imgdir>
   <imgdir name="0">
