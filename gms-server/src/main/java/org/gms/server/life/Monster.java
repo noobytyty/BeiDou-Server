@@ -56,6 +56,7 @@ import org.gms.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.gms.scripting.event.EventInstanceManager;
+import org.gms.server.BountyHunterService;
 import org.gms.server.StatEffect;
 import org.gms.server.TimerManager;
 import org.gms.server.life.LifeFactory.BanishInfo;
@@ -792,6 +793,7 @@ public class Monster extends AbstractLoadedLife {
     }
 
     public Character killBy(final Character killer) {
+        BountyHunterService.getInstance().onMonsterKilled(this, killer);
         distributeExperience(killer != null ? killer.getId() : 0);
 
         final Pair<Character, Boolean> lastController = aggroRemoveController();

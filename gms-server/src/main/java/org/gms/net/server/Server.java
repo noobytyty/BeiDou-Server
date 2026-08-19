@@ -55,6 +55,7 @@ import org.gms.net.server.guild.Guild;
 import org.gms.net.server.guild.GuildCharacter;
 import org.gms.net.server.task.*;
 import org.gms.net.server.world.World;
+import org.gms.server.BountyHunterService;
 import org.gms.server.CashShop.CashItemFactory;
 import org.gms.server.SkillbookInformationProvider;
 import org.gms.server.ThreadManager;
@@ -749,6 +750,9 @@ public class Server {
             log.error(I18nUtil.getLogMessage("Server.init.error3"), e); //For those who get errors
             System.exit(0);
         }
+
+        // 启动赏金猎人（定时通缉怪）
+        BountyHunterService.getInstance().init();
 
         loginServer = initLoginServer(serviceProperty.getLoginPort());
         log.info(I18nUtil.getLogMessage("Server.init.info6"), serviceProperty.getLoginPort());
