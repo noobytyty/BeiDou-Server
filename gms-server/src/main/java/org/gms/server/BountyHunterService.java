@@ -45,7 +45,7 @@ public class BountyHunterService {
     /** 刷怪间隔（毫秒）：30 分钟 */
     private static final long INTERVAL_MS = 30 * 60 * 1000L;
     /** 赏金金币 */
-    private static final int BOUNTY_MESO = 10_000_000;
+    private static final int BOUNTY_MESO = 2_000_000;
     /** 赏金道具：随机美容券 */
     private static final int BOUNTY_ITEM = 2438000;
 
