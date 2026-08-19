@@ -147,28 +147,28 @@
     <imgdir name="5">
       <string name="type" value="n"/>
       <string name="id" value="9977778"/>
-      <int name="x" value="490"/>
+      <int name="x" value="580"/>
       <int name="y" value="-179"/>
       <int name="mobTime" value="0"/>
       <int name="f" value="0"/>
       <int name="hide" value="0"/>
       <int name="fh" value="31"/>
       <int name="cy" value="-176"/>
-      <int name="rx0" value="440"/>
-      <int name="rx1" value="540"/>
+      <int name="rx0" value="530"/>
+      <int name="rx1" value="630"/>
     </imgdir>
     <imgdir name="6">
       <string name="type" value="n"/>
       <string name="id" value="9977779"/>
-      <int name="x" value="530"/>
+      <int name="x" value="710"/>
       <int name="y" value="-179"/>
       <int name="mobTime" value="0"/>
       <int name="f" value="0"/>
       <int name="hide" value="0"/>
       <int name="fh" value="31"/>
       <int name="cy" value="-176"/>
-      <int name="rx0" value="480"/>
-      <int name="rx1" value="580"/>
+      <int name="rx0" value="660"/>
+      <int name="rx1" value="760"/>
     </imgdir>
   </imgdir>
   <imgdir name="0">
