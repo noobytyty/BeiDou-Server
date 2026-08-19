@@ -36639,10 +36639,25 @@
         <string name="n1" value="我一定是做了某些疯狂的壮举才得到这张我的照片，完美！"/>
     </imgdir>
     <imgdir name="9977777">
+        <string name="name" value="词条工匠"/>
         <string name="d0" value="Oh, hey. I managed to get this nice statue of myself, cool huh?"/>
         <string name="func" value="HeavenMS Developer"/>
         <string name="n0" value="Hey, I am /name, head developer of HeavenMS. How&apos;re you faring?"/>
         <string name="n1" value="HeavenMS was developed in 3 years, based on Solaxia. Many features emerged since then, all gracefully presented to you in this server. Long live MapleStory!!"/>
+    </imgdir>
+    <imgdir name="9977778">
+        <string name="name" value="美容师"/>
+        <string name="d0" value="来，坐好，让我施展魔法吧！"/>
+        <string name="func" value="Beautician"/>
+        <string name="n0" value="欢迎光临！我可以帮你更换发型和脸型。"/>
+        <string name="n1" value="我还可以管理你的美容存档，并带你去试衣间体验！"/>
+    </imgdir>
+    <imgdir name="9977779">
+        <string name="name" value="收藏家"/>
+        <string name="d0" value="让我看看你的收藏吧！"/>
+        <string name="func" value="Collector"/>
+        <string name="n0" value="你好，收藏家。你有在收集怪物卡片吗？"/>
+        <string name="n1" value="集齐图鉴、完成任务，就能获得收藏家腰带！"/>
     </imgdir>
     <imgdir name="9999999">
         <string name="name" value="test"/>

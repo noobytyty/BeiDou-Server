@@ -36407,10 +36407,25 @@
     <string name="d0" value="Oh, hey. I managed to get this nice statue of myself, cool huh?"/>
   </imgdir>
   <imgdir name="9977777">
+    <string name="name" value="词条工匠"/>
     <string name="n0" value="Hey, I am /name, head developer of HeavenMS. How&apos;re you faring?"/>
     <string name="n1" value="HeavenMS was developed in 3 years, based on Solaxia. Many features emerged since then, all gracefully presented to you in this server. Long live MapleStory!!"/>
     <string name="d0" value="Oh, hey. I managed to get this nice statue of myself, cool huh?"/>
     <string name="func" value="HeavenMS Developer"/>
+  </imgdir>
+  <imgdir name="9977778">
+    <string name="name" value="美容师"/>
+    <string name="n0" value="Welcome! I can help you with your hairstyle and face."/>
+    <string name="n1" value="I also offer beauty slot management and a trial room!"/>
+    <string name="d0" value="Take a seat and let me work my magic!"/>
+    <string name="func" value="Beautician"/>
+  </imgdir>
+  <imgdir name="9977779">
+    <string name="name" value="收藏家"/>
+    <string name="n0" value="Greetings, collector. Have you been hunting monster cards?"/>
+    <string name="n1" value="Complete the monster book and quests to earn the Collector Belt!"/>
+    <string name="d0" value="Show me your collection!"/>
+    <string name="func" value="Collector"/>
   </imgdir>
   <imgdir name="2104">
       <string name="name" value="NapSleep"/>
