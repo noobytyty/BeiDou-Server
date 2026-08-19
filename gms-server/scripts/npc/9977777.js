@@ -49,11 +49,34 @@ var totalBFacePages = 3;
 
 var beautyStep = 0;
 
+// ===== 美容存档（试衣间） =====
+var slotMode = -1;        // 2=发型存档 3=脸型存档 4=购买槽位
+var slotType = -1;        // 0=发型 1=脸型
+var slotStep = 0;
+var slotSel = -1;
+var previewOrig = -1;     // 试衣间预览前的原造型
+var beautySlotPrice = 5000000;
+var slotSvc = Java.type("org.gms.server.BeautySlotService").getInstance();
+
 function actionBeauty(selection) {
+    if (beautyMode >= 2) {
+        // 存档/购买槽位流程
+        beautySlotsAction(selection);
+        return;
+    }
     if (beautyStep == 0) {
         // 主菜单或分页
         if (beautyMode == -1) {
             beautyMode = selection;
+            if (selection >= 2) {
+                // 存档相关：2=发型存档 3=脸型存档 4=购买槽位
+                slotMode = selection;
+                slotType = (selection == 2) ? 0 : (selection == 3 ? 1 : -1);
+                slotStep = 0;
+                slotSel = -1;
+                beautySlotsMenu();
+                return;
+            }
             beautyPage = 0;
             beautyShowPage();
             return;
@@ -98,6 +121,128 @@ function actionBeauty(selection) {
     }
 }
 
+// ===== 美容存档/试衣间功能 =====
+function beautySlotsMenu() {
+    var accId = cm.getPlayer().getAccountId();
+    if (slotMode == 4) {
+        var hairLimit = slotSvc.getSlotLimit(accId, 0);
+        var faceLimit = slotSvc.getSlotLimit(accId, 1);
+        cm.sendSimple("购买美容槽位（每个 " + beautySlotPrice + " 金币）：\r\n当前：发型槽位 " + hairLimit + " 个 / 脸型槽位 " + faceLimit + " 个\r\n#L0#购买发型槽位#l\r\n#L1#购买脸型槽位#l\r\n#L2#返回");
+        return;
+    }
+    var typeName = (slotType == 0) ? "发型" : "脸型";
+    var limit = slotSvc.getSlotLimit(accId, slotType);
+    cm.sendSimple(typeName + "存档管理（槽位 " + limit + " 个）：\r\n#L0#保存当前" + typeName + "到槽位#l\r\n#L1#从槽位应用（试衣间预览）#l\r\n#L2#查看槽位#l\r\n#L3#返回");
+}
+
+function beautySlotsAction(selection) {
+    var accId = cm.getPlayer().getAccountId();
+    if (slotMode == 4) {
+        // ===== 购买槽位 =====
+        if (slotStep == 0) {
+            if (selection == 2) { beautyMode = -1; slotMode = -1; startAffixNpc(); return; }
+            slotType = (selection == 0) ? 0 : 1;
+            slotStep = 1;
+            var typeName = (slotType == 0) ? "发型" : "脸型";
+            var cur = slotSvc.getSlotLimit(accId, slotType);
+            cm.sendYesNo("花费 " + beautySlotPrice + " 金币新增一个" + typeName + "槽位？\r\n当前：" + cur + " 个 → 购买后：" + (cur + 1) + " 个");
+        } else if (slotStep == 1) {
+            if (selection != 1) { slotStep = 0; beautySlotsMenu(); return; }
+            if (cm.getMeso() < beautySlotPrice) {
+                cm.sendOk("你没有足够的金币！需要 " + beautySlotPrice + " 金币。");
+                beautyMode = -1; slotMode = -1;
+                cm.dispose();
+                return;
+            }
+            cm.gainMeso(-beautySlotPrice);
+            var newLimit = slotSvc.purchaseSlot(accId, slotType);
+            cm.sendOk("购买成功！" + ((slotType == 0) ? "发型" : "脸型") + "槽位现在有 " + newLimit + " 个。");
+            beautyMode = -1; slotMode = -1;
+            cm.dispose();
+        }
+        return;
+    }
+
+    // ===== 存档管理（发型/脸型） =====
+    var typeName = (slotType == 0) ? "发型" : "脸型";
+    if (slotStep == 0) {
+        if (selection == 3) { beautyMode = -1; slotMode = -1; startAffixNpc(); return; }
+        if (selection == 0) {
+            // 保存：选槽位
+            slotStep = 1;
+            var limit = slotSvc.getSlotLimit(accId, slotType);
+            var list = "选择要保存到哪个槽位：\r\n";
+            for (var i = 0; i < limit; i++) {
+                var it = slotSvc.getSlot(accId, slotType, i);
+                list += "#L" + i + "#槽位 " + (i + 1) + "：" + (it > 0 ? "#t" + it + "#" : "（空）") + "#l\r\n";
+            }
+            list += "#L" + limit + "#返回";
+            cm.sendSimple(list);
+        } else if (selection == 1) {
+            // 应用：选已存档槽位
+            slotStep = 2;
+            var limit = slotSvc.getSlotLimit(accId, slotType);
+            var list = "选择要应用的槽位：\r\n";
+            var cnt = 0;
+            for (var i = 0; i < limit; i++) {
+                var it = slotSvc.getSlot(accId, slotType, i);
+                if (it > 0) { list += "#L" + i + "#槽位 " + (i + 1) + "：#t" + it + "# #l\r\n"; cnt++; }
+            }
+            if (cnt == 0) { cm.sendOk("还没有保存任何" + typeName + "。"); slotStep = 0; beautySlotsMenu(); return; }
+            list += "#L" + limit + "#返回";
+            cm.sendSimple(list);
+        } else if (selection == 2) {
+            // 查看
+            var limit = slotSvc.getSlotLimit(accId, slotType);
+            var msg = "已存档的" + typeName + "：\r\n";
+            var cnt = 0;
+            for (var i = 0; i < limit; i++) {
+                var it = slotSvc.getSlot(accId, slotType, i);
+                if (it > 0) { msg += "槽位 " + (i + 1) + "：#t" + it + "#\r\n"; cnt++; }
+            }
+            if (cnt == 0) msg += "（空）";
+            cm.sendOk(msg);
+            beautyMode = -1; slotMode = -1;
+            cm.dispose();
+        }
+        return;
+    }
+    if (slotStep == 1) {
+        // 保存：确认槽位
+        var limit = slotSvc.getSlotLimit(accId, slotType);
+        if (selection >= limit) { slotStep = 0; beautySlotsMenu(); return; }
+        var cur = (slotType == 0) ? cm.getPlayer().getHair() : cm.getPlayer().getFace();
+        slotSvc.saveSlot(accId, slotType, selection, cur);
+        cm.sendOk("已保存当前" + typeName + "到槽位 " + (selection + 1) + "：#t" + cur + "#");
+        beautyMode = -1; slotMode = -1;
+        cm.dispose();
+    } else if (slotStep == 2) {
+        // 应用：确认槽位 → 试衣间预览
+        var limit = slotSvc.getSlotLimit(accId, slotType);
+        if (selection >= limit) { slotStep = 0; beautySlotsMenu(); return; }
+        var itemId = slotSvc.getSlot(accId, slotType, selection);
+        if (itemId <= 0) { cm.sendOk("该槽位是空的。"); slotStep = 0; beautySlotsMenu(); return; }
+        slotSel = selection;
+        slotStep = 3;
+        previewOrig = (slotType == 0) ? cm.getPlayer().getHair() : cm.getPlayer().getFace();
+        if (slotType == 0) { cm.setHair(itemId); } else { cm.setFace(itemId); }
+        cm.sendYesNo("试衣间：已临时换上 #t" + itemId + "#\r\n满意这个造型吗？（确定保留 / 取消恢复原样）");
+    } else if (slotStep == 3) {
+        // 试衣间确认
+        var itemId = slotSvc.getSlot(accId, slotType, slotSel);
+        if (selection == 1) {
+            cm.sendOk("造型已保留！#t" + itemId + "#");
+        } else {
+            if (previewOrig > 0) {
+                if (slotType == 0) { cm.setHair(previewOrig); } else { cm.setFace(previewOrig); }
+            }
+            cm.sendOk("已恢复原来的造型。");
+        }
+        beautyMode = -1; slotMode = -1; previewOrig = -1;
+        cm.dispose();
+    }
+}
+
 // ===== 高级美容服务结束 =====
 
 var affixEquipSlot;
@@ -129,7 +274,7 @@ function actionAffixNpc(selection) {
             status = 0;
             beautyMode = -1;
             beautyPage = 0;
-            cm.sendSimple("高级美容服务！提供最新发型和脸型，费用 " + beautyPrice + " 金币。\r\n#L0#选择发型#l\r\n#L1#选择脸型#l");
+            cm.sendSimple("高级美容服务！提供最新发型和脸型，费用 " + beautyPrice + " 金币。\r\n#L0#选择发型#l\r\n#L1#选择脸型#l\r\n#L2#发型存档（试衣间）#l\r\n#L3#脸型存档（试衣间）#l\r\n#L4#购买美容槽位（" + beautySlotPrice + " 金币/个）#l");
         } else {
             cm.sendGetNumber("请输入装备栏位：", 1, 1, 96);
         }
