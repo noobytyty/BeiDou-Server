@@ -4794,4 +4794,19 @@
   <imgdir name="2100108">
     <string name="name" value="Meerkat"/>
   </imgdir>
+  <imgdir name="9900000">
+    <string name="name" value="Wanted Raging Bear" />
+  </imgdir>
+  <imgdir name="9900001">
+    <string name="name" value="Wanted Mech Assassin" />
+  </imgdir>
+  <imgdir name="9900002">
+    <string name="name" value="Wanted Abyss Fiend" />
+  </imgdir>
+  <imgdir name="9900003">
+    <string name="name" value="Wanted Toxic Frog King" />
+  </imgdir>
+  <imgdir name="9900004">
+    <string name="name" value="Wanted Shadow Dragon" />
+  </imgdir>
 </imgdir>

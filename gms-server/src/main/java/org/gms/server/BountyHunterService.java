@@ -29,12 +29,18 @@ public class BountyHunterService {
         return instance;
     }
 
-    /** 通缉怪池（现有怪物 id） */
-    private static final int[] BOUNTY_MOBS = {9300002, 9300003, 9300012, 9300048, 9300016};
-    /** 通缉地图池（热门狩猎/城镇地图） */
+    /** 通缉怪池（专属通缉犯：9900000-9900004） */
+    private static final int[] BOUNTY_MOBS = {9900000, 9900001, 9900002, 9900003, 9900004};
+    /** 通缉地图池（热门打怪地图，非主城） */
     private static final int[] BOUNTY_MAPS = {
-            100000000, 101000000, 102000000, 103000000, 104000000, 105000000,
-            211000000, 220000000, 230000000, 250000000, 260000000, 800000000
+            101020000, 101030000, 102030000, 103000200, 105030000, 105040000, 105040100,
+            110010000, 110030000, 211010000, 211020000, 211030000, 211040000,
+            220010000, 220020000, 220030000, 221020000, 222010000,
+            230010000, 230020000, 230030000, 230040000,
+            240010000, 240010100, 240020000, 240030000, 240040000,
+            250010000, 250010200, 250020000, 251010000,
+            260010000, 260010100, 260020000,
+            270010100, 800010000, 800020000, 800030000, 801010000
     };
     /** 刷怪间隔（毫秒）：30 分钟 */
     private static final long INTERVAL_MS = 30 * 60 * 1000L;
@@ -92,6 +98,7 @@ public class BountyHunterService {
             bountyActive = true;
             Server.getInstance().broadcastMessage(0, PacketCreator.serverNotice(6,
                     "[通缉令] 逃犯「" + m.getName() + "」现身于 " + map.getMapName() + "（频道 " + channel + "）！前往讨伐可获得赏金！"));
+            log.info("Bounty monster spawned: mob {} at map {} channel {}", mobId, mapId, channel);
         } catch (Exception e) {
             log.error("Error spawning bounty monster", e);
         }

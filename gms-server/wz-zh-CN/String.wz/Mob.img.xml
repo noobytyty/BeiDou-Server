@@ -5205,4 +5205,19 @@
     <imgdir name="9500395">
         <string name="name" value="大力士石鬼"/>
     </imgdir>
+    <imgdir name="9900000">
+      <string name="name" value="通缉犯·狂暴巨熊" />
+    </imgdir>
+    <imgdir name="9900001">
+      <string name="name" value="通缉犯·机械刺客" />
+    </imgdir>
+    <imgdir name="9900002">
+      <string name="name" value="通缉犯·深渊恶魔" />
+    </imgdir>
+    <imgdir name="9900003">
+      <string name="name" value="通缉犯·剧毒蛙王" />
+    </imgdir>
+    <imgdir name="9900004">
+      <string name="name" value="通缉犯·暗影之龙" />
+    </imgdir>
 </imgdir>
