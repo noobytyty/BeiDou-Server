@@ -47,7 +47,7 @@ public class BountyHunterService {
     /** 赏金金币 */
     private static final int BOUNTY_MESO = 2_000_000;
     /** 赏金道具：随机美容券 */
-    private static final int BOUNTY_ITEM = 2438000;
+    private static final int BOUNTY_ITEM = 2430029;
 
     private volatile Monster bountyMonster;
     private volatile boolean bountyActive = false;

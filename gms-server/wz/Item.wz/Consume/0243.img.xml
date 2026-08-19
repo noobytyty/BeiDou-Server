@@ -361,7 +361,7 @@
             <int name="tradeBlock" value="1"/>
         </imgdir>
         <imgdir name="spec">
-            <string name="script" value="yellowDayBox4"/>
+            <string name="script" value="RandomBeautyCoupon"/>
             <int name="npc" value="9010010"/>
         </imgdir>
     </imgdir>
