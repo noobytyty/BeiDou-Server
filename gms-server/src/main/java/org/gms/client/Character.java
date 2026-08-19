@@ -8409,7 +8409,7 @@ public class Character extends AbstractCharacterObject {
 
     public boolean canGainSlots(int type, int slots) {
         slots += inventory[type].getSlotLimit();
-        return slots <= 96;
+        return slots <= 127;    // 背包上限：96 -> 127（byte 上限内，配合改版客户端）
     }
 
     public boolean gainSlots(int type, int slots) {
