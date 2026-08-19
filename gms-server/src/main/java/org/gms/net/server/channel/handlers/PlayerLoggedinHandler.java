@@ -36,6 +36,7 @@ import org.gms.client.inventory.Inventory;
 import org.gms.client.inventory.InventoryType;
 import org.gms.client.inventory.Item;
 import org.gms.client.inventory.Pet;
+import org.gms.client.inventory.manipulator.InventoryManipulator;
 import org.gms.client.keybind.KeyBinding;
 import org.gms.config.GameConfig;
 import org.gms.constants.game.GameConstants;
@@ -55,6 +56,7 @@ import org.gms.net.server.guild.GuildPackets;
 import org.gms.net.server.world.PartyCharacter;
 import org.gms.net.server.world.PartyOperation;
 import org.gms.net.server.world.World;
+import org.gms.server.CollectionService;
 import org.gms.service.HpMpAlertService;
 import org.gms.util.I18nUtil;
 import org.gms.util.packets.WeddingPackets;
@@ -429,6 +431,13 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
 
             player.commitExcludedItems();
             showDueyNotification(c, player);
+
+            // 收藏家腰带：每个角色自动补发一份（收藏系统核心装备）
+            if (!player.haveItem(CollectionService.COLLECTOR_BELT)) {
+                if (InventoryManipulator.addById(c, CollectionService.COLLECTOR_BELT, (short) 1)) {
+                    player.dropMessage(5, I18nUtil.getMessage("PlayerLoggedinHandler.message.collectorBelt"));
+                }
+            }
 
             player.resetPlayerRates();
             if (GameConfig.getServerBoolean("use_add_rates_by_level")) {

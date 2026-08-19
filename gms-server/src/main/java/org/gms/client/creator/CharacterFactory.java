@@ -27,6 +27,7 @@ import org.gms.client.inventory.InventoryType;
 import org.gms.client.inventory.Item;
 import org.gms.config.GameConfig;
 import org.gms.net.server.Server;
+import org.gms.server.CollectionService;
 import org.gms.util.I18nUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,6 +88,12 @@ public abstract class CharacterFactory {
             Item eq_weapon = ii.getEquipById(weapon);
             eq_weapon.setPosition((byte) -11);
             equipped.addItemFromDB(eq_weapon.copy());
+        }
+
+        // 收藏家腰带：新角色自动放入背包（收藏系统核心装备，穿戴后按收藏进度获得属性加成）
+        Item starterBelt = ii.getEquipById(CollectionService.COLLECTOR_BELT);
+        if (starterBelt != null) {
+            newCharacter.getInventory(InventoryType.EQUIP).addItem(starterBelt);
         }
 
         if (!MakeCharInfoValidator.isNewCharacterValid(newCharacter)) {
