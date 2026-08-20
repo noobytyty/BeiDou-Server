@@ -26,6 +26,7 @@ import org.gms.client.inventory.Inventory;
 import org.gms.client.inventory.InventoryType;
 import org.gms.client.inventory.Item;
 import org.gms.config.GameConfig;
+import org.gms.constants.id.ItemId;
 import org.gms.net.server.Server;
 import org.gms.server.CollectionService;
 import org.gms.util.I18nUtil;
@@ -95,6 +96,12 @@ public abstract class CharacterFactory {
         if (starterBelt != null) {
             newCharacter.getInventory(InventoryType.EQUIP).addItem(starterBelt);
         }
+
+        // 虚拟背包入口道具：卷轴背包 + 矿石背包（新角色自动放入背包）
+        Item scrollSatchel = new Item(ItemId.VIRTUAL_SCROLL_SATCHEL, (short) 0, (short) 1);
+        newCharacter.getInventory(InventoryType.USE).addItem(scrollSatchel);
+        Item oreSatchel = new Item(ItemId.VIRTUAL_ORE_SATCHEL, (short) 0, (short) 1);
+        newCharacter.getInventory(InventoryType.ETC).addItem(oreSatchel);
 
         if (!MakeCharInfoValidator.isNewCharacterValid(newCharacter)) {
             log.warn("Owner from account {} tried to packet edit in character creation", c.getAccountName());

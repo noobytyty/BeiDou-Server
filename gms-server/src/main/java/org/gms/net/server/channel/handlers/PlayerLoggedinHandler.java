@@ -40,6 +40,7 @@ import org.gms.client.inventory.manipulator.InventoryManipulator;
 import org.gms.client.keybind.KeyBinding;
 import org.gms.config.GameConfig;
 import org.gms.constants.game.GameConstants;
+import org.gms.constants.id.ItemId;
 import org.gms.manager.ServerManager;
 import org.gms.net.AbstractPacketHandler;
 import org.gms.net.packet.InPacket;
@@ -436,6 +437,18 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
             if (!player.haveItem(CollectionService.COLLECTOR_BELT)) {
                 if (InventoryManipulator.addById(c, CollectionService.COLLECTOR_BELT, (short) 1)) {
                     player.dropMessage(5, I18nUtil.getMessage("PlayerLoggedinHandler.message.collectorBelt"));
+                }
+            }
+
+            // 虚拟背包入口道具：卷轴背包 + 矿石背包，每个角色自动补发
+            if (!player.haveItem(ItemId.VIRTUAL_SCROLL_SATCHEL)) {
+                if (InventoryManipulator.addById(c, ItemId.VIRTUAL_SCROLL_SATCHEL, (short) 1)) {
+                    player.dropMessage(5, I18nUtil.getMessage("PlayerLoggedinHandler.message.virtualScrollSatchel"));
+                }
+            }
+            if (!player.haveItem(ItemId.VIRTUAL_ORE_SATCHEL)) {
+                if (InventoryManipulator.addById(c, ItemId.VIRTUAL_ORE_SATCHEL, (short) 1)) {
+                    player.dropMessage(5, I18nUtil.getMessage("PlayerLoggedinHandler.message.virtualOreSatchel"));
                 }
             }
 

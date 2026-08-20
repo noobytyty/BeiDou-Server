@@ -246,9 +246,5 @@ function action(mode, type, selection) {
         cm.dispose();
         return;
     }
-    if (beautyMode >= 0) {
-        actionBeauty(selection);
-        return;
-    }
-    cm.dispose();
+    actionBeauty(selection);
 }
