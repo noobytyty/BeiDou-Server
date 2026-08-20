@@ -7548,12 +7548,12 @@
         <string name="desc" value="An artifact with an unknown date of origin.\n#cDouble-click# on it to find out its date of origin."/>
     </imgdir>
     <imgdir name="2430011">
-        <string name="name" value="Agent Summon"/>
-        <string name="desc" value="Summons Agents. (For GM Event Use)"/>
+        <string name="name" value="Scroll Satchel"/>
+        <string name="desc" value="Use it to view your virtual Scroll Satchel and withdraw stored scrolls."/>
     </imgdir>
     <imgdir name="2430012">
-        <string name="name" value="Agent Removal"/>
-        <string name="desc" value="Removes Agents. (For GM Event Use)"/>
+        <string name="name" value="Ore Satchel"/>
+        <string name="desc" value="Use it to view your virtual Ore Satchel and withdraw stored ores."/>
     </imgdir>
     <imgdir name="2022476">
         <string name="name" value="Chicken Kapitan"/>

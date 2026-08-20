@@ -2274,7 +2274,11 @@ public class MapleMap {
                 if (ItemConstants.getInventoryType(randomedId) != InventoryType.EQUIP) {
                     drop = new Item(randomedId, (short) 0, (short) (rnd.nextInt(copies) + minCopies));
                 } else {
-                    drop = EquipmentAffixGenerator.generate(ii.randomizeStats((Equip) ii.getEquipById(randomedId)));
+                    EquipmentDropSource source = getEventInstance() != null
+                            ? EquipmentDropSource.DUNGEON
+                            : EquipmentDropSource.NORMAL;
+                    drop = EquipmentAffixGenerator.generate(
+                            ii.randomizeStats((Equip) ii.getEquipById(randomedId)), source);
                 }
 
                 spawnItemDrop(dropper, owner, drop, calcDropPos(dropPos, pos), ffaDrop, playerDrop);

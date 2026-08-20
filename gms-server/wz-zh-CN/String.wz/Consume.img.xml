@@ -7548,12 +7548,12 @@
         <string name="desc" value="不知道年份的遗物。#c双击可以确\n认#年份。"/>
     </imgdir>
     <imgdir name="2430011">
-        <string name="name" value="召唤工作员"/>
-        <string name="desc" value="召唤工作员。运营员活动用"/>
+        <string name="name" value="卷轴背包"/>
+        <string name="desc" value="双击查看虚拟卷轴背包，并可取出其中存放的卷轴。"/>
     </imgdir>
     <imgdir name="2430012">
-        <string name="name" value="解散工作员"/>
-        <string name="desc" value="解散工作员。运营员活动用"/>
+        <string name="name" value="矿石背包"/>
+        <string name="desc" value="双击查看虚拟矿石背包，并可取出其中存放的矿石。"/>
     </imgdir>
     <imgdir name="2022476">
         <string name="name" value="甲必丹咖喱鸡"/>

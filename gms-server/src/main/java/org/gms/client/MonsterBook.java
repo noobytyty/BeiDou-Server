@@ -25,6 +25,7 @@ import org.gms.dao.entity.MonsterbookDO;
 import org.gms.manager.ServerManager;
 import org.gms.service.MonsterBookService;
 import org.gms.util.DatabaseConnection;
+import org.gms.util.I18nUtil;
 import org.gms.util.PacketCreator;
 
 import java.sql.Connection;
@@ -93,6 +94,8 @@ public final class MonsterBook {
         } else {
             c.sendPacket(PacketCreator.addCard(true, cardid, 5));
         }
+        c.getPlayer().dropMessage(5,
+                I18nUtil.getMessage("MonsterBook.addCard.progress", Math.min(qty + 1, 5)));
     }
 
     private void calculateLevel() {

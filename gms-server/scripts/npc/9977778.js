@@ -133,6 +133,13 @@ function beautySlotsAction(selection) {
             }
             cm.gainMeso(-beautySlotPrice);
             var newLimit = slotSvc.purchaseSlot(accId, slotType);
+            if (newLimit < 0) {
+                cm.gainMeso(beautySlotPrice);
+                cm.sendOk("购买失败，金币已退回，请稍后再试。");
+                beautyMode = -1; slotMode = -1;
+                cm.dispose();
+                return;
+            }
             cm.sendOk("购买成功！" + ((slotType == 0) ? "发型" : "脸型") + "槽位现在有 " + newLimit + " 个。");
             beautyMode = -1; slotMode = -1;
             cm.dispose();

@@ -105,12 +105,11 @@ public class BountyHunterService {
         scheduleNext(INTERVAL_MS);
     }
 
-    /** 怪物被击杀时调用：若为通缉怪则发放赏金（按 oid + 地图双重校验，oid 每地图独立分配） */
+    /** 怪物被击杀时调用：若为通缉怪则发放赏金（按 oid + 地图实例校验） */
     public void onMonsterKilled(Monster m, Character killer) {
         if (bountyActive && bountyMonster != null
                 && m.getObjectId() == bountyMonster.getObjectId()
-                && m.getMap() != null && bountyMonster.getMap() != null
-                && m.getMap().getId() == bountyMonster.getMap().getId()) {
+                && m.getMap() != null && m.getMap() == bountyMonster.getMap()) {
             bountyActive = false;
             bountyMonster = null;
             if (killer != null) {

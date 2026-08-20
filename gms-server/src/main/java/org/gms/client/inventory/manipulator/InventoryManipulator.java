@@ -30,6 +30,7 @@ import org.gms.client.inventory.InventoryType;
 import org.gms.client.inventory.Item;
 import org.gms.client.inventory.ModifyInventory;
 import org.gms.client.inventory.Pet;
+import org.gms.client.inventory.VirtualInventoryType;
 import org.gms.model.pojo.NewYearCardRecord;
 import org.gms.config.GameConfig;
 import org.gms.constants.id.ItemId;
@@ -55,23 +56,39 @@ public class InventoryManipulator {
     private static final Logger log = LoggerFactory.getLogger(InventoryManipulator.class);
 
     public static boolean addById(Client c, int itemId, short quantity) {
-        return addById(c, itemId, quantity, null, -1, -1);
+        return addById(c, itemId, quantity, null, -1, -1, false);
     }
 
     public static boolean addById(Client c, int itemId, short quantity, long expiration) {
-        return addById(c, itemId, quantity, null, -1, (byte) 0, expiration);
+        return addById(c, itemId, quantity, null, -1, (short) 0, expiration, false);
     }
 
     public static boolean addById(Client c, int itemId, short quantity, String owner, int petid) {
-        return addById(c, itemId, quantity, owner, petid, -1);
+        return addById(c, itemId, quantity, owner, petid, -1, false);
     }
 
     public static boolean addById(Client c, int itemId, short quantity, String owner, int petid, long expiration) {
-        return addById(c, itemId, quantity, owner, petid, (byte) 0, expiration);
+        return addById(c, itemId, quantity, owner, petid, (short) 0, expiration, false);
     }
 
     public static boolean addById(Client c, int itemId, short quantity, String owner, int petid, short flag, long expiration) {
+        return addById(c, itemId, quantity, owner, petid, flag, expiration, false);
+    }
+
+    public static boolean addByIdToInventory(Client c, int itemId, short quantity, String owner, int petid, short flag, long expiration) {
+        return addById(c, itemId, quantity, owner, petid, flag, expiration, true);
+    }
+
+    private static boolean addById(Client c, int itemId, short quantity, String owner, int petid, long expiration, boolean bypassVirtualInventory) {
+        return addById(c, itemId, quantity, owner, petid, (short) 0, expiration, bypassVirtualInventory);
+    }
+
+    private static boolean addById(Client c, int itemId, short quantity, String owner, int petid, short flag, long expiration, boolean bypassVirtualInventory) {
         Character chr = c.getPlayer();
+        VirtualInventoryType virtualType = bypassVirtualInventory ? null : resolveVirtualInventoryType(itemId, owner, flag, expiration);
+        if (virtualType != null) {
+            return addToVirtualInventory(c, chr, virtualType, itemId, quantity, false);
+        }
         InventoryType type = ItemConstants.getInventoryType(itemId);
 
         Inventory inv = chr.getInventory(type);
@@ -176,11 +193,19 @@ public class InventoryManipulator {
     }
 
     public static boolean addFromDrop(Client c, Item item, boolean show) {
-        return addFromDrop(c, item, show, item.getPetId());
+        return addFromDrop(c, item, show, item.getPetId(), false);
     }
 
     public static boolean addFromDrop(Client c, Item item, boolean show, int petId) {
+        return addFromDrop(c, item, show, petId, false);
+    }
+
+    private static boolean addFromDrop(Client c, Item item, boolean show, int petId, boolean bypassVirtualInventory) {
         Character chr = c.getPlayer();
+        VirtualInventoryType virtualType = bypassVirtualInventory ? null : resolveVirtualInventoryType(item.getItemId(), item.getOwner(), item.getFlag(), item.getExpiration());
+        if (virtualType != null) {
+            return addToVirtualInventory(c, chr, virtualType, item.getItemId(), item.getQuantity(), show);
+        }
         InventoryType type = item.getInventoryType();
 
         Inventory inv = chr.getInventory(type);
@@ -293,13 +318,30 @@ public class InventoryManipulator {
     }
 
     public static boolean checkSpace(Client c, int itemid, int quantity, String owner) {
+        return checkSpace(c, itemid, quantity, owner, false);
+    }
+
+    public static boolean checkSpaceIgnoringVirtual(Client c, int itemid, int quantity, String owner) {
+        return checkSpace(c, itemid, quantity, owner, true);
+    }
+
+    private static boolean checkSpace(Client c, int itemid, int quantity, String owner, boolean bypassVirtualInventory) {
         ItemInformationProvider ii = ItemInformationProvider.getInstance();
         InventoryType type = ItemConstants.getInventoryType(itemid);
         Character chr = c.getPlayer();
+        if (!bypassVirtualInventory) {
+            VirtualInventoryType virtualType = resolveVirtualInventoryType(itemid, owner, (short) 0, -1);
+            if (virtualType != null) {
+                if (ii.isPickupRestricted(itemid) && chr.haveItemWithId(itemid, true)) {
+                    return false;
+                }
+                return chr.canHoldVirtualItem(virtualType, itemid, quantity);
+            }
+        }
         Inventory inv = chr.getInventory(type);
 
         if (ii.isPickupRestricted(itemid)) {
-            if (haveItemWithId(inv, itemid)) {
+            if (chr.haveItemWithId(itemid, true) || haveItemWithId(inv, itemid)) {
                 return false;
             } else if (ItemConstants.isEquipment(itemid) && haveItemWithId(chr.getInventory(InventoryType.EQUIPPED), itemid)) {
                 return false;
@@ -349,12 +391,21 @@ public class InventoryManipulator {
         int returnValue;
 
         ItemInformationProvider ii = ItemInformationProvider.getInstance();
+        if (!useProofInv) {
+            VirtualInventoryType virtualType = resolveVirtualInventoryType(itemid, owner, (short) 0, -1);
+            if (virtualType != null) {
+                Character chr = c.getPlayer();
+                boolean hasSpace = !ii.isPickupRestricted(itemid) || !chr.haveItemWithId(itemid, true);
+                hasSpace = hasSpace && chr.canHoldVirtualItem(virtualType, itemid, quantity);
+                return hasSpace ? 1 : 0;
+            }
+        }
         InventoryType type = !useProofInv ? ItemConstants.getInventoryType(itemid) : InventoryType.CANHOLD;
         Character chr = c.getPlayer();
         Inventory inv = chr.getInventory(type);
 
         if (ii.isPickupRestricted(itemid)) {
-            if (haveItemWithId(inv, itemid)) {
+            if (chr.haveItemWithId(itemid, true) || haveItemWithId(inv, itemid)) {
                 return 0;
             } else if (ItemConstants.isEquipment(itemid) && haveItemWithId(chr.getInventory(InventoryType.EQUIPPED), itemid)) {
                 return 0;   // thanks Captain & Aika & Vcoc for pointing out inventory checkup on player trades missing out one-of-a-kind items.
@@ -475,9 +526,39 @@ public class InventoryManipulator {
                 }
             }
         }
+        VirtualInventoryType virtualType = VirtualInventoryType.fromItemId(itemId);
+        if (removeQuantity > 0 && type != InventoryType.CANHOLD && virtualType != null
+                && c.getPlayer().removeVirtualItem(virtualType, itemId, removeQuantity)) {
+            removeQuantity = 0;
+        }
         if (removeQuantity > 0 && type != InventoryType.CANHOLD) {
             throw new RuntimeException("[Hack] Not enough items available of Item:" + itemId + ", Quantity (After Quantity/Over Current Quantity): " + (quantity - removeQuantity) + "/" + quantity);
         }
+    }
+
+    public static boolean shouldUseVirtualInventory(int itemId, String owner, short flag, long expiration) {
+        return resolveVirtualInventoryType(itemId, owner, flag, expiration) != null;
+    }
+
+    private static VirtualInventoryType resolveVirtualInventoryType(int itemId, String owner, short flag, long expiration) {
+        if ((owner != null && !owner.isEmpty()) || flag != 0 || expiration > 0) {
+            return null;
+        }
+        return VirtualInventoryType.fromItemId(itemId);
+    }
+
+    private static boolean addToVirtualInventory(Client c, Character chr, VirtualInventoryType virtualType, int itemId, short quantity, boolean show) {
+        if (!chr.addVirtualItem(virtualType, itemId, quantity)) {
+            c.sendPacket(PacketCreator.getInventoryFull());
+            c.sendPacket(PacketCreator.getShowInventoryFull());
+            chr.dropMessage(1, I18nUtil.getMessage("VirtualInventory.full", virtualType.getDisplayName()));
+            return false;
+        }
+        if (show) {
+            c.sendPacket(PacketCreator.getShowItemGain(itemId, quantity));
+            chr.dropMessage(5, I18nUtil.getMessage("VirtualInventory.autoStored", quantity, ItemInformationProvider.getInstance().getName(itemId), virtualType.getDisplayName()));
+        }
+        return true;
     }
 
     private static boolean isSameOwner(Item source, Item target) {

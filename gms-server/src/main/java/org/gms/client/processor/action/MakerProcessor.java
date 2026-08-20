@@ -21,6 +21,8 @@ package org.gms.client.processor.action;
 
 import org.gms.client.Character;
 import org.gms.client.Client;
+import org.gms.client.inventory.EquipmentAffixGenerator;
+import org.gms.client.inventory.EquipmentDropSource;
 import org.gms.client.inventory.Equip;
 import org.gms.client.inventory.InventoryType;
 import org.gms.client.inventory.Item;
@@ -361,7 +363,7 @@ public class MakerProcessor {
     private static boolean hasItems(Client c, MakerItemCreateEntry recipe) {
         for (Pair<Integer, Integer> p : recipe.getReqItems()) {
             int itemId = p.getLeft();
-            if (c.getPlayer().getInventory(ItemConstants.getInventoryType(itemId)).countById(itemId) < p.getRight()) {
+            if (c.getPlayer().countItem(itemId) < p.getRight()) {
                 return false;
             }
         }
@@ -447,6 +449,7 @@ public class MakerProcessor {
             eqp = ii.randomizeUpgradeStats(eqp);
         }
 
+        item = EquipmentAffixGenerator.generate(eqp, EquipmentDropSource.NORMAL);
         InventoryManipulator.addFromDrop(c, item, false, -1);
         return true;
     }

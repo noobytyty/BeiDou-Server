@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 收藏系统服务：怪物卡图鉴 + 任务达人。
  * 每 25 张怪物卡：全属性 +1；每 50 个任务：全属性 +1、物攻/魔攻 +1、HP/MP +100。
+ * 同一种怪物卡最多计入 5 张。
  * 加成在穿戴「收藏家勋章」(1142991) 时，由角色属性计算入口按账号进度动态结算。
  */
 public class CollectionService {
@@ -64,7 +65,7 @@ public class CollectionService {
         int quests = 0;
         try (Connection con = DatabaseConnection.getConnection()) {
             try (PreparedStatement ps = con.prepareStatement(
-                    "SELECT COUNT(DISTINCT cardid) FROM monsterbook " +
+                    "SELECT COALESCE(SUM(LEAST(level, 5)), 0) FROM monsterbook " +
                             "WHERE charid IN (SELECT id FROM characters WHERE accountid = ?)")) {
                 ps.setInt(1, accountId);
                 try (ResultSet rs = ps.executeQuery()) {

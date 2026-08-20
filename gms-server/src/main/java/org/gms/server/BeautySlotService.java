@@ -66,9 +66,12 @@ public class BeautySlotService {
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement("UPDATE accounts SET " + col + " = " + col + " + 1 WHERE id = ?")) {
             ps.setInt(1, accountId);
-            ps.executeUpdate();
+            if (ps.executeUpdate() != 1) {
+                return -1;
+            }
         } catch (SQLException e) {
             log.error("Error purchasing beauty slot for account {}", accountId, e);
+            return -1;
         }
         return getSlotLimit(accountId, slotType);
     }

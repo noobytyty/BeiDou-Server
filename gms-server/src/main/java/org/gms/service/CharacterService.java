@@ -26,6 +26,7 @@ import org.gms.net.server.world.Party;
 import org.gms.net.server.world.PartyCharacter;
 import org.gms.net.server.world.World;
 import org.gms.server.Storage;
+import org.gms.server.VirtualInventoryService;
 import org.gms.server.life.MobSkill;
 import org.gms.server.life.MobSkillFactory;
 import org.gms.server.life.MobSkillType;
@@ -108,6 +109,7 @@ public class CharacterService {
     private final HwidaccountsMapper hwidaccountsMapper;
     private final IpbansMapper ipbansMapper;
     private final MacbansMapper macbansMapper;
+    private final VirtualInventoryService virtualInventoryService;
 
     public CharactersDO findById(int id) {
         return charactersMapper.selectOneById(id);
@@ -297,6 +299,7 @@ public class CharacterService {
         famelogMapper.deleteByQuery(QueryWrapper.create().where(FAMELOG_D_O.CHARACTERID_TO.eq(cid).or(FAMELOG_D_O.CHARACTERID.eq(cid))));
         // 删除背包库存
         inventoryService.deleteInventoryByCharacterId(cid);
+        virtualInventoryService.deleteByCharacterId(cid);
         // 删除任务进度
         questService.deleteQuestProgressByCharacter(cid);
         // 删除fredstorage

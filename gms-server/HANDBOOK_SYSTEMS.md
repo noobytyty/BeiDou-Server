@@ -145,4 +145,23 @@
 - **数据库更新**：服务端启动时由 Flyway 自动执行未完成迁移；T5–T8 区间由 [`V1.11.13__add_affix_tier_5_to_8.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.13__add_affix_tier_5_to_8.sql) 补齐。
 - **掉落来源概率**：[`V1.11.14__add_equipment_drop_source_weights.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.14__add_equipment_drop_source_weights.sql) 增加普通掉落、Boss 掉落、副本掉落和百宝箱四套品质权重；普通怪物沿用原概率，Boss 与副本概率已按需求对调，百宝箱装备使用独立的 GACHAPON 权重。生成入口由 [`EquipmentDropSource`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/java/org/gms/client/inventory/EquipmentDropSource.java) 标识。
 - **百宝箱装备**：[`GachaponService`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/java/org/gms/service/GachaponService.java) 抽到装备时会先随机基础属性，再生成品质和词条后放入背包；非装备奖励仍沿用原有百宝箱奖池流程。
+- **收藏卡片统计**：收藏家腰带按账号下所有角色的怪物卡数量累计，每种卡最多计入 5 张；每 25 张累计卡片提供一次全属性加成，不要求先完成整套图鉴。
+- **虚拟背包客户端同步**：卷轴背包 `2430011` 和矿石背包 `2430012` 当前复用 NPC `9010000` 的图标资源，并在服务端 WZ 中配置名称、描述和物品脚本；发布时需同步客户端对应的 `Consume.wz` 资源，确认客户端显示正确。
+- **锻造与虚拟背包**：Maker 制作材料统计现在包含虚拟背包中的卷轴/矿石，扣除材料仍复用现有库存操作；锻造装备在催化剂、强化宝石和随机属性最终确定后，会按普通来源生成装备品质与词条。
+- **候选装备等级重分层（2026-08-20）**：针对首批非现金、非套装候选装备，已将不适合当前 v83 进度的 `225/265/275` 级要求调整为四档：普通四王帽为 `100` 级，Ravana Helmet 为 `120` 级（当前仅有装备资源，尚未接入 Ravana Boss），混沌四王帽为 `140` 级，Highness 与 Eagle Eye 系列为 `160` 级；Chaos Zakum Helmet 原本为 `100` 级，保持不变。实际装备数据已同步修改到 `Character.wz`，客户端发布时需同步对应 WZ。
+- **候选装备获取方式（2026-08-20）**：[`V1.11.20__add_candidate_equipment_maker_recipes.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.20__add_candidate_equipment_maker_recipes.sql) 将 Chaos Zakum、普通/混沌四王帽、Highness 与 Eagle Eye 系列接入 Maker；Chaos Zakum Helmet 制作需要 `1002357 Zakum Helmet`；Ravana Helmet 通过 [`V1.11.22__add_ravana_helmet_maker_recipe.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.22__add_ravana_helmet_maker_recipe.sql) 接入 Maker，不依赖不存在的 Ravana Boss。当前 v83 Maker 技能最高为 3 级，新增配方统一要求 Maker 3，通过玩家等级、底材、材料和金币消耗区分装备档次。
+- **候选装备材料门槛（2026-08-20）**：新增配方额外需要现有 Boss 证明材料：`4001083 Zakum Certificate`、`4001084 Papulatus Certificate` 和 `4001085 Pianus Certificate`。普通四王帽需要少量证明材料，混沌四王帽、Highness 与 Eagle Eye 按档次递增，避免只依赖普通矿石和怪物结晶即可制作。
+- **Boss 证明材料数量调整（2026-08-20）**：按每次 Boss 通常只获得 1 枚证明材料重新下调配方数量；强化 Chaos Zakum Helmet 现在需要 Zakum `4`、Papulatus `2`、Pianus `2` 枚，其他装备也按普通、混沌和高阶三个阶段递增，避免单件装备需要数十次重复 Boss。
+- **通用 Boss 锻造代币（2026-08-20）**：复用已有 `4001083 Zakum Certificate` 作为通用锻造代币，不新增客户端物品资源；Papulatus、Pianus、Zakum 和 Horntail 终阶段 Boss 会固定掉落 1–4 枚，现有配方中对 `4001083` 的需求因此可以由多个中高等级 Boss 提供。另已纠正旧配置：当前 `8510000` 是 Pianus，仓库没有 Ravana Boss 数据，移除错误的 Ravana Helmet 掉落配置。
+- **首件强化装备（2026-08-20）**：新增服务端装备 `1003113 Reinforced Chaos Zakum Helmet`，由 `1003112 Chaos Zakum Helmet`、Boss 证明材料、高级怪物结晶和 Rock of Time 锻造；装备 WZ 资源复制自现有 Chaos Zakum Helmet 并调整为全属性 `+30`、物防/魔防 `+240`、等级要求 `120`、升级次数 `8`，避免生成缺少图标或属性的空白装备。客户端发布时仍需将该资源转换并补丁到对应 `.img`。
 - **暂缓事项**：装备词条系统暂不继续扩展新词条。后续如重新开发，优先处理重铸/分解事务与并发保护、交易和商店状态校验、NPC 服务层抽取，以及基于实战数据的 T5–T8 数值平衡。
+
+### 待排查：自由市场 NPC 坐标重叠（2026-08-20）
+
+- 现象：自由市场 `910000000` 中新增的 `9977777`、`9977778`、`9977779` 三个 NPC 实际显示时挤在一起；客户端小地图显示它们应位于右上方并分开站立。
+- 已定位的配置：WZ 地图文件 [`910000000.img.xml`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/wz/Map.wz/Map/Map9/910000000.img.xml) 中三者坐标分别为 `x=450/490/530`、`y=-179`，且共用 `fh=31`。
+- 重点怀疑项：
+  1. `MapFactory` 会先从 WZ 的 `life` 节点加载 NPC，再从数据库 `plife` 表加载同地图、同世界的 NPC；数据库记录可能覆盖或额外生成了错误坐标。
+  2. 服务端读取的是当前生效的 `wz/` 数据；若只修改了语言覆盖目录、客户端 WZ/IMG 或未重启地图缓存，服务端与小地图显示可能来自不同版本的数据。
+  3. 地图实例缓存会保留已加载的 NPC 对象，修改 WZ 或 `plife` 后需要重启服务端（至少重建该频道地图实例）才能验证。
+- 待处理：查询 `plife` 中 `map=910000000` 且 `life IN (9977777,9977778,9977779)` 的记录，确认是否存在重复/错误坐标；再核对服务端实际加载目录与客户端小地图数据，最后重启后复测。

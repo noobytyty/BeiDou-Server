@@ -10552,6 +10552,10 @@
             <imgdir name="1003112">
                 <string name="name" value="Chaos Zakum Helmet" />
             </imgdir>
+            <imgdir name="1003113">
+                <string name="name" value="Reinforced Chaos Zakum Helmet" />
+                <string name="desc" value="A reinforced helmet forged from a Zakum Helmet and rare boss materials." />
+            </imgdir>
             <imgdir name="1003120">
                 <string name="name" value="Oz Magic Hat" />
             </imgdir>

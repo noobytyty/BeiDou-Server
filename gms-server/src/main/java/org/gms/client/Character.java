@@ -356,6 +356,7 @@ public class Character extends AbstractCharacterObject {
     private final Map<Integer, Integer> activeCoupons = new LinkedHashMap<>();
     private final Map<Integer, Integer> activeCouponRates = new LinkedHashMap<>();
     private final EnumMap<BuffStat, BuffStatValueHolder> effects = new EnumMap<>(BuffStat.class);
+    private final EnumMap<VirtualInventoryType, LinkedHashMap<Integer, Integer>> virtualInventories = new EnumMap<>(VirtualInventoryType.class);
     private final Map<BuffStat, Byte> buffEffectsCount = new LinkedHashMap<>();
     private final Map<Disease, Long> diseaseExpires = new LinkedHashMap<>();
     private final Map<Integer, Map<BuffStat, BuffStatValueHolder>> buffEffects = new LinkedHashMap<>(); // non-overriding buffs thanks to Ronan
@@ -390,6 +391,7 @@ public class Character extends AbstractCharacterObject {
     private final Lock chrLock = new ReentrantLock(true);
     private final Lock evtLock = new ReentrantLock(true);
     private final Lock petLock = new ReentrantLock(true);
+    private final Lock virtualInventoryLock = new ReentrantLock(true);
     private final Lock prtLock = new ReentrantLock();
     private final Lock cpnLock = new ReentrantLock();
     private final Map<Integer, Set<Integer>> excluded = new LinkedHashMap<>();
@@ -503,6 +505,7 @@ public class Character extends AbstractCharacterObject {
     private static final AccountService accountService = ServerManager.getApplicationContext().getBean(AccountService.class);
     private static final HpMpAlertService hpMpAlertService = ServerManager.getApplicationContext().getBean(HpMpAlertService.class);
     private static final InventoryService inventoryService = ServerManager.getApplicationContext().getBean(InventoryService.class);
+    private static final VirtualInventoryService virtualInventoryService = ServerManager.getApplicationContext().getBean(VirtualInventoryService.class);
 
     /** 各技能原始时间戳，仅被 >= MIN_INTERVAL 的正常包更新，暴发包透明通过 */
     private final ConcurrentHashMap<Integer, Long> normalAttackTimes = new ConcurrentHashMap<>();
@@ -544,6 +547,9 @@ public class Character extends AbstractCharacterObject {
             inventory[type.ordinal()] = new Inventory(this, type, b);
         }
         inventory[InventoryType.CANHOLD.ordinal()] = new InventoryProof(this);
+        for (VirtualInventoryType type : VirtualInventoryType.values()) {
+            virtualInventories.put(type, new LinkedHashMap<>());
+        }
 
         for (int i = 0; i < SavedLocationType.values().length; i++) {
             savedLocations[i] = null;
@@ -2161,8 +2167,146 @@ public class Character extends AbstractCharacterObject {
         }
     }
 
+    public boolean canHoldVirtualItem(int itemId, int quantity) {
+        return canHoldVirtualItem(VirtualInventoryType.fromItemId(itemId), itemId, quantity);
+    }
+
+    public boolean canHoldVirtualItem(VirtualInventoryType type, int itemId, int quantity) {
+        if (type == null || quantity < 0) {
+            return false;
+        }
+        virtualInventoryLock.lock();
+        try {
+            Map<Integer, Integer> inventory = virtualInventories.get(type);
+            return inventory.containsKey(itemId) || inventory.size() < VirtualInventoryService.MAX_ITEM_TYPES;
+        } finally {
+            virtualInventoryLock.unlock();
+        }
+    }
+
+    public boolean addVirtualItem(int itemId, int quantity) {
+        return addVirtualItem(VirtualInventoryType.fromItemId(itemId), itemId, quantity);
+    }
+
+    public boolean addVirtualItem(VirtualInventoryType type, int itemId, int quantity) {
+        if (type == null || quantity <= 0) {
+            return false;
+        }
+        virtualInventoryLock.lock();
+        try {
+            Map<Integer, Integer> inventory = virtualInventories.get(type);
+            Integer current = inventory.get(itemId);
+            if (current == null && inventory.size() >= VirtualInventoryService.MAX_ITEM_TYPES) {
+                return false;
+            }
+            int nextQuantity;
+            try {
+                nextQuantity = Math.addExact(current == null ? 0 : current, quantity);
+            } catch (ArithmeticException e) {
+                return false;
+            }
+            inventory.put(itemId, nextQuantity);
+            return true;
+        } finally {
+            virtualInventoryLock.unlock();
+        }
+    }
+
+    public boolean removeVirtualItem(int itemId, int quantity) {
+        return removeVirtualItem(VirtualInventoryType.fromItemId(itemId), itemId, quantity);
+    }
+
+    public boolean removeVirtualItem(VirtualInventoryType type, int itemId, int quantity) {
+        if (type == null || quantity <= 0) {
+            return false;
+        }
+        virtualInventoryLock.lock();
+        try {
+            Map<Integer, Integer> inventory = virtualInventories.get(type);
+            Integer current = inventory.get(itemId);
+            if (current == null || current < quantity) {
+                return false;
+            }
+            int remain = current - quantity;
+            if (remain == 0) {
+                inventory.remove(itemId);
+            } else {
+                inventory.put(itemId, remain);
+            }
+            return true;
+        } finally {
+            virtualInventoryLock.unlock();
+        }
+    }
+
+    public int getVirtualItemQuantity(int itemId) {
+        VirtualInventoryType type = VirtualInventoryType.fromItemId(itemId);
+        if (type == null) {
+            return 0;
+        }
+        virtualInventoryLock.lock();
+        try {
+            return virtualInventories.get(type).getOrDefault(itemId, 0);
+        } finally {
+            virtualInventoryLock.unlock();
+        }
+    }
+
+    public List<Pair<Integer, Integer>> listVirtualInventory(VirtualInventoryType type) {
+        virtualInventoryLock.lock();
+        try {
+            List<Pair<Integer, Integer>> items = new ArrayList<>();
+            virtualInventories.get(type).entrySet().stream()
+                    .sorted(Map.Entry.comparingByKey())
+                    .forEach(entry -> items.add(new Pair<>(entry.getKey(), entry.getValue())));
+            return items;
+        } finally {
+            virtualInventoryLock.unlock();
+        }
+    }
+
+    public boolean hasVirtualInventoryEntries(VirtualInventoryType type) {
+        virtualInventoryLock.lock();
+        try {
+            return !virtualInventories.get(type).isEmpty();
+        } finally {
+            virtualInventoryLock.unlock();
+        }
+    }
+
+    public Map<VirtualInventoryType, LinkedHashMap<Integer, Integer>> snapshotVirtualInventories() {
+        virtualInventoryLock.lock();
+        try {
+            EnumMap<VirtualInventoryType, LinkedHashMap<Integer, Integer>> snapshot = new EnumMap<>(VirtualInventoryType.class);
+            for (VirtualInventoryType type : VirtualInventoryType.values()) {
+                snapshot.put(type, new LinkedHashMap<>(virtualInventories.get(type)));
+            }
+            return snapshot;
+        } finally {
+            virtualInventoryLock.unlock();
+        }
+    }
+
+    public void loadVirtualInventories(Map<VirtualInventoryType, ? extends Map<Integer, Integer>> inventories) {
+        virtualInventoryLock.lock();
+        try {
+            for (VirtualInventoryType type : VirtualInventoryType.values()) {
+                LinkedHashMap<Integer, Integer> inventory = virtualInventories.get(type);
+                inventory.clear();
+                Map<Integer, Integer> loaded = inventories.get(type);
+                if (loaded != null) {
+                    loaded.entrySet().stream()
+                            .sorted(Map.Entry.comparingByKey())
+                            .forEach(entry -> inventory.put(entry.getKey(), entry.getValue()));
+                }
+            }
+        } finally {
+            virtualInventoryLock.unlock();
+        }
+    }
+
     public int countItem(int itemid) {
-        return inventory[ItemConstants.getInventoryType(itemid).ordinal()].countById(itemid);
+        return inventory[ItemConstants.getInventoryType(itemid).ordinal()].countById(itemid) + getVirtualItemQuantity(itemid);
     }
 
     public boolean canHold(int itemid) {
@@ -4893,6 +5037,7 @@ public class Character extends AbstractCharacterObject {
 
     public boolean haveItemWithId(int itemid, boolean checkEquipped) {
         return (inventory[ItemConstants.getInventoryType(itemid).ordinal()].findById(itemid) != null)
+                || getVirtualItemQuantity(itemid) > 0
                 || (checkEquipped && inventory[InventoryType.EQUIPPED.ordinal()].findById(itemid) != null);
     }
 
@@ -4913,7 +5058,7 @@ public class Character extends AbstractCharacterObject {
     }
 
     public int getItemQuantity(int itemid, boolean checkEquipped) {
-        int count = inventory[ItemConstants.getInventoryType(itemid).ordinal()].countById(itemid);
+        int count = inventory[ItemConstants.getInventoryType(itemid).ordinal()].countById(itemid) + getVirtualItemQuantity(itemid);
         if (checkEquipped) {
             count += inventory[InventoryType.EQUIPPED.ordinal()].countById(itemid);
         }
@@ -4921,7 +5066,7 @@ public class Character extends AbstractCharacterObject {
     }
 
     public int getCleanItemQuantity(int itemid, boolean checkEquipped) {
-        int count = inventory[ItemConstants.getInventoryType(itemid).ordinal()].countNotOwnedById(itemid);
+        int count = inventory[ItemConstants.getInventoryType(itemid).ordinal()].countNotOwnedById(itemid) + getVirtualItemQuantity(itemid);
         if (checkEquipped) {
             count += inventory[InventoryType.EQUIPPED.ordinal()].countNotOwnedById(itemid);
         }
@@ -6570,6 +6715,7 @@ public class Character extends AbstractCharacterObject {
                 }
             }
         }
+        chr.loadVirtualInventories(virtualInventoryService.loadByCharacterId(charactersDO.getId()));
         chr.commitExcludedItems();
         if ((sandboxCheck & ItemConstants.SANDBOX) == ItemConstants.SANDBOX) {
             chr.setHasSandboxItem();
@@ -7857,6 +8003,7 @@ public class Character extends AbstractCharacterObject {
 
                 // Items
                 ItemFactory.INVENTORY.saveItems(itemsWithType, id, con);
+                virtualInventoryService.save(con, id, snapshotVirtualInventories());
 
                 // Skills
                 try (PreparedStatement psSkill = con.prepareStatement("REPLACE INTO skills (characterid, skillid, skilllevel, masterlevel, expiration) VALUES (?, ?, ?, ?, ?)")) {
