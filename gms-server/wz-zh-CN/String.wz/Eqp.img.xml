@@ -5194,6 +5194,9 @@
       <imgdir name="1003057">
         <string name="name" value="华丽皇冠" />
       </imgdir>
+      <imgdir name="1003068">
+        <string name="name" value="拉瓦纳头盔" />
+      </imgdir>
       <imgdir name="1003073">
         <string name="name" value="考古学家帽子" />
         <string name="desc" value="作为遗物大会参与奖奖品的考古学家帽\n子" />
@@ -5391,6 +5394,9 @@
       <imgdir name="1003111">
         <string name="name" value="白色枫叶头巾" />
       </imgdir>
+      <imgdir name="1003113">
+        <string name="name" value="强化混沌扎昆头盔" />
+      </imgdir>
       <imgdir name="1003120">
         <string name="name" value="奥兹魔法帽" />
       </imgdir>
@@ -5436,6 +5442,30 @@
       <imgdir name="1003714">
         <string name="name" value="万圣节豹耳" />
       </imgdir>
+      <imgdir name="1003715">
+        <string name="name" value="皮埃尔帽子" />
+      </imgdir>
+      <imgdir name="1003716">
+        <string name="name" value="凡邦头盔" />
+      </imgdir>
+      <imgdir name="1003717">
+        <string name="name" value="皇后头冠" />
+      </imgdir>
+      <imgdir name="1003718">
+        <string name="name" value="韦伦头盔" />
+      </imgdir>
+      <imgdir name="1003719">
+        <string name="name" value="混沌皮埃尔帽子" />
+      </imgdir>
+      <imgdir name="1003720">
+        <string name="name" value="混沌凡邦头盔" />
+      </imgdir>
+      <imgdir name="1003721">
+        <string name="name" value="混沌皇后头冠" />
+      </imgdir>
+      <imgdir name="1003722">
+        <string name="name" value="混沌韦伦头盔" />
+      </imgdir>
       <imgdir name="1003727">
         <string name="name" value="红色皮埃尔帽" />
       </imgdir>
@@ -5444,6 +5474,21 @@
       </imgdir>
       <imgdir name="1003776">
         <string name="name" value="竖琴海豹面具" />
+      </imgdir>
+      <imgdir name="1003797">
+        <string name="name" value="高贵战士头盔" />
+      </imgdir>
+      <imgdir name="1003798">
+        <string name="name" value="高贵法师帽" />
+      </imgdir>
+      <imgdir name="1003799">
+        <string name="name" value="高贵游侠贝雷帽" />
+      </imgdir>
+      <imgdir name="1003800">
+        <string name="name" value="高贵刺客帽" />
+      </imgdir>
+      <imgdir name="1003801">
+        <string name="name" value="高贵流浪者帽" />
       </imgdir>
       <imgdir name="1003803">
         <string name="name" value="紫色恐龙帽" />
@@ -13649,6 +13694,21 @@
       </imgdir>
       <imgdir name="1042187">
         <string name="name" value="粉红绒绒衫" />
+      </imgdir>
+      <imgdir name="1042254">
+        <string name="name" value="鹰眼战士铠甲" />
+      </imgdir>
+      <imgdir name="1042255">
+        <string name="name" value="鹰眼法师长袍" />
+      </imgdir>
+      <imgdir name="1042256">
+        <string name="name" value="鹰眼游侠兜帽" />
+      </imgdir>
+      <imgdir name="1042257">
+        <string name="name" value="鹰眼刺客上衣" />
+      </imgdir>
+      <imgdir name="1042258">
+        <string name="name" value="鹰眼流浪者外套" />
       </imgdir>
       <imgdir name="1048000">
         <string name="name" value="情侣T恤" />

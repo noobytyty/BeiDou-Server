@@ -3047,6 +3047,51 @@
             </imgdir>
         </imgdir>
         <imgdir name="Cap">
+      <imgdir name="1003068">
+        <string name="name" value="Ravana Helmet" />
+      </imgdir>
+      <imgdir name="1003113">
+        <string name="name" value="Reinforced Chaos Zakum Helmet" />
+      </imgdir>
+      <imgdir name="1003715">
+        <string name="name" value="Pierre Hat" />
+      </imgdir>
+      <imgdir name="1003716">
+        <string name="name" value="Von Bon Helm" />
+      </imgdir>
+      <imgdir name="1003717">
+        <string name="name" value="Queen Tiara" />
+      </imgdir>
+      <imgdir name="1003718">
+        <string name="name" value="Vellum Helm" />
+      </imgdir>
+      <imgdir name="1003719">
+        <string name="name" value="Chaos Pierre Hat" />
+      </imgdir>
+      <imgdir name="1003720">
+        <string name="name" value="Chaos Von Bon Helm" />
+      </imgdir>
+      <imgdir name="1003721">
+        <string name="name" value="Chaos Queen Tiara" />
+      </imgdir>
+      <imgdir name="1003722">
+        <string name="name" value="Chaos Vellum Helm" />
+      </imgdir>
+      <imgdir name="1003797">
+        <string name="name" value="Highness Warrior Helm" />
+      </imgdir>
+      <imgdir name="1003798">
+        <string name="name" value="Highness Dunwitch Hat" />
+      </imgdir>
+      <imgdir name="1003799">
+        <string name="name" value="Highness Ranger Beret" />
+      </imgdir>
+      <imgdir name="1003800">
+        <string name="name" value="Highness Assassin Bonnet" />
+      </imgdir>
+      <imgdir name="1003801">
+        <string name="name" value="Highness Wanderer Hat" />
+      </imgdir>
             <imgdir name="1006253">
                 <string name="name" value="Spring Camping Hat" />
             </imgdir>
@@ -14028,6 +14073,21 @@
             <imgdir name="1041202">
                 <string name="name" value="Chic Chrome T-Shirt" />
             </imgdir>
+      <imgdir name="1042254">
+        <string name="name" value="Eagle Eye Warrior Armor" />
+      </imgdir>
+      <imgdir name="1042255">
+        <string name="name" value="Eagle Eye Dunwitch Robe" />
+      </imgdir>
+      <imgdir name="1042256">
+        <string name="name" value="Eagle Eye Ranger Hood" />
+      </imgdir>
+      <imgdir name="1042257">
+        <string name="name" value="Eagle Eye Assassin Shirt" />
+      </imgdir>
+      <imgdir name="1042258">
+        <string name="name" value="Eagle Eye Wanderer Coat" />
+      </imgdir>
             <imgdir name="1042404">
                 <string name="name" value="Peach Sweater" />
             </imgdir>
