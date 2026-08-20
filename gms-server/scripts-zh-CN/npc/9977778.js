@@ -35,6 +35,31 @@ var previewOrig = -1;     // 试衣间预览前的原造型
 var beautySlotPrice = 5000000;
 var slotSvc = Java.type("org.gms.server.BeautySlotService").getInstance();
 
+// ===== 发型/脸型选择分页 =====
+function beautyCurrentList() {
+    if (beautyMode == 0) {
+        var arr = eval("B_HAIR_" + beautyPage);
+        return arr || [];
+    } else {
+        var arr = eval("B_FACE_" + beautyPage);
+        return arr || [];
+    }
+}
+
+function beautyShowPage() {
+    var list = beautyCurrentList();
+    var pages = (beautyMode == 0) ? totalBHairPages : totalBFacePages;
+    var typeName = (beautyMode == 0) ? "发型" : "脸型";
+    var msg = "请选择" + typeName + "（第 " + (beautyPage + 1) + "/" + pages + " 页）：\r\n";
+    for (var i = 0; i < list.length; i++) {
+        msg += "#L" + i + "#" + list[i][1] + "#l\r\n";
+    }
+    if (beautyPage > 0) msg += "#L997#← 上一页#l\r\n";
+    if (beautyPage < pages - 1) msg += "#L998#下一页 →#l\r\n";
+    msg += "#L999#返回主菜单#l";
+    cm.sendSimple(msg);
+}
+
 function actionBeauty(selection) {
     if (beautyMode >= 2) {
         // 存档/购买槽位流程
