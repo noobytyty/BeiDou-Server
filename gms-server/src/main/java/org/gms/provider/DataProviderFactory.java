@@ -42,4 +42,12 @@ public class DataProviderFactory {
         // 中文 WZ 只维护被本地化过的文件，缺失的文件继续回退到原始 WZ。
         return new LocalizedDataProvider(getWZ(languagePath), baseProvider);
     }
+
+    /**
+     * 获取语言无关的原始 WZ 数据提供者（英文基础包）。
+     * 当语言覆盖层文件不完整（如只维护了部分条目）时，调用方可自行合并两个数据源。
+     */
+    public static DataProvider getBaseDataProvider(WZFiles in) {
+        return getWZ(in.getBaseFile());
+    }
 }

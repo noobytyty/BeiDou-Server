@@ -136,6 +136,30 @@ public class CashShop {
             DataProvider etc = DataProviderFactory.getDataProvider(WZFiles.ETC);
 
             Map<Integer, ModifiedCashItemDO> loadedItems = new HashMap<>();
+            // 语言覆盖层（如 wz-zh-CN）可能只维护了部分商品条目，直接用覆盖层会丢失
+            // 英文基础包里的其余商品（如新增的商城外观道具），导致客户端可见却无法购买。
+            // 因此先加载英文基础包，再按 SN 用语言覆盖层覆盖，两边商品都进入同一份映射。
+            loadCommodityItems(loadedItems, DataProviderFactory.getBaseDataProvider(WZFiles.ETC));
+            loadCommodityItems(loadedItems, etc);
+            CashItemFactory.items = loadedItems;
+
+            Map<Integer, List<Integer>> loadedPackages = new HashMap<>();
+            for (Data cashPackage : etc.getData("CashPackage.img").getChildren()) {
+                List<Integer> cPackage = new ArrayList<>();
+
+                for (Data item : cashPackage.getChildByPath("SN").getChildren()) {
+                    cPackage.add(Integer.parseInt(item.getData().toString()));
+                }
+
+                loadedPackages.put(Integer.parseInt(cashPackage.getName()), cPackage);
+            }
+            CashItemFactory.packages = loadedPackages;
+
+            loadCashCategories();
+            loadAllModifiedCashItems();
+        }
+
+        private static void loadCommodityItems(Map<Integer, ModifiedCashItemDO> loadedItems, DataProvider etc) {
             for (Data item : etc.getData("Commodity.img").getChildren()) {
                 int sn = DataTool.getIntConvert("SN", item);
                 int itemId = DataTool.getIntConvert("ItemId", item);
@@ -178,22 +202,6 @@ public class CashShop {
                         .packageSn(packageSN)
                         .build());
             }
-            CashItemFactory.items = loadedItems;
-
-            Map<Integer, List<Integer>> loadedPackages = new HashMap<>();
-            for (Data cashPackage : etc.getData("CashPackage.img").getChildren()) {
-                List<Integer> cPackage = new ArrayList<>();
-
-                for (Data item : cashPackage.getChildByPath("SN").getChildren()) {
-                    cPackage.add(Integer.parseInt(item.getData().toString()));
-                }
-
-                loadedPackages.put(Integer.parseInt(cashPackage.getName()), cPackage);
-            }
-            CashItemFactory.packages = loadedPackages;
-
-            loadCashCategories();
-            loadAllModifiedCashItems();
         }
 
         public static void loadAllModifiedCashItems() {
