@@ -27,6 +27,7 @@ import org.gms.client.inventory.Item;
 import org.gms.client.inventory.VirtualInventoryType;
 import org.gms.client.inventory.manipulator.InventoryManipulator;
 import org.gms.scripting.AbstractPlayerInteraction;
+import org.gms.scripting.npc.NPCConversationManager;
 import org.gms.server.VirtualInventoryService;
 import org.gms.util.I18nUtil;
 import org.gms.util.Pair;
@@ -38,9 +39,9 @@ import java.util.Set;
 /**
  * @author kevintjuh93
  */
-public class ItemScriptMethods extends AbstractPlayerInteraction {
+public class ItemScriptMethods extends NPCConversationManager {
     public ItemScriptMethods(Client c) {
-        super(c);
+        super(c, 9010000, -1, null, true);
     }
 
     public void prepareVirtualInventory(int inventoryType) {

@@ -29,6 +29,7 @@ import org.gms.net.server.world.PartyCharacter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.gms.scripting.AbstractScriptManager;
+import org.gms.scripting.item.ItemScriptMethods;
 import org.gms.server.ItemInformationProvider.ScriptedItem;
 import org.gms.util.PacketCreator;
 
@@ -143,7 +144,13 @@ public class NPCScriptManager extends AbstractScriptManager {
                     dispose(c);
                     return false;
                 }
-                engine.put(engineName, cm);
+                if (itemScript) {
+                    // 道具脚本：im 绑定 ItemScriptMethods（含虚拟背包等道具脚本专属方法），cm 仅用于会话管理
+                    engine.put(engineName, new ItemScriptMethods(c));
+                    cms.put(c, cm);
+                } else {
+                    engine.put(engineName, cm);
+                }
 
                 Invocable iv = (Invocable) engine;
                 scripts.put(c, iv);
