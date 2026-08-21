@@ -94,7 +94,7 @@
     "node": ">=14.0.0"
   },
   "resolutions": {
-    "bin-wrapper": "npm:bin-wrapper-china",
+    "bin-wrapper": "npm:bin-wrapper-china@0.1.0",
     "rollup": "^2.56.3",
     "gifsicle": "5.2.0"
   }
