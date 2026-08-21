@@ -12,7 +12,7 @@ SET `weight` = CASE
          AND `affix_code` IN ('BOSS_DAMAGE_REDUCTION', 'HP_MP', 'WDEF_MDEF') THEN 45
     WHEN `equip_type` IN ('TOP', 'BOTTOM', 'OVERALL')
          AND `affix_code` IN ('STR', 'DEX', 'INT', 'LUK') THEN 25
-    WHEN `equip_type IN ('TOP', 'BOTTOM', 'OVERALL') THEN 12
+    WHEN `equip_type` IN ('TOP', 'BOTTOM', 'OVERALL') THEN 12
     WHEN `equip_type` = 'SHOES'
          AND `affix_code` IN ('SPEED', 'JUMP', 'SPEED_JUMP', 'DEX_SPEED', 'DEX_JUMP') THEN 90
     WHEN `equip_type` = 'SHOES'
