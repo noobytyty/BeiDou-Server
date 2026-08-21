@@ -639,6 +639,10 @@ public class AbstractPlayerInteraction {
                         }
                         item = ItemInformationProvider.getInstance().scrollEquipWithId(item, ItemId.CHAOS_SCROll_60, true, ItemId.CHAOS_SCROll_60, c.getPlayer().isGM());
                     }
+                    EquipmentDropSource source = getPlayer().getMap().getEventInstance() != null
+                            ? EquipmentDropSource.DUNGEON
+                            : EquipmentDropSource.NORMAL;
+                    item = EquipmentAffixGenerator.generate((Equip) item, source);
                 }
             } else {
                 item = new Item(id, (short) 0, quantity, petId);

@@ -7,6 +7,7 @@ public record EquipmentAffixConfig(
         List<Definition> definitions,
         List<Range> ranges,
         List<PoolEntry> poolEntries,
+        List<LevelPoolEntry> levelPoolEntries,
         List<Name> names
 ) {
     public record Rarity(
@@ -18,8 +19,9 @@ public record EquipmentAffixConfig(
             int dungeonDropWeight,
             int gachaponDropWeight,
             byte affixCount,
-            int valueMultiplier,
-            byte maxAffixTier
+            byte mainAffixCount,
+            byte secondaryAffixCount,
+            int valueMultiplier
     ) {
     }
 
@@ -45,6 +47,17 @@ public record EquipmentAffixConfig(
     public record PoolEntry(
             String equipType,
             String affixCode,
+            String affixGroup,
+            int weight
+    ) {
+    }
+
+    public record LevelPoolEntry(
+            String equipType,
+            String affixCode,
+            String affixGroup,
+            int minReqLevel,
+            int maxReqLevel,
             int weight
     ) {
     }

@@ -27,6 +27,7 @@ import lombok.Setter;
 import org.gms.client.autoban.AutobanManager;
 import org.gms.client.creator.CharacterFactoryRecipe;
 import org.gms.client.inventory.*;
+import org.gms.server.life.Element;
 import org.gms.client.inventory.Equip.StatUpgrade;
 import org.gms.client.inventory.manipulator.InventoryManipulator;
 import org.gms.client.keybind.KeyBinding;
@@ -4794,7 +4795,7 @@ public class Character extends AbstractCharacterObject {
                 continue;
             }
             for (EquipmentAffix affix : equip.getAffixes()) {
-                if ("BOSS_DAMAGE_REDUCTION".equals(affix.getAffixCode())) {
+                if (affixContributesTo(affix.getAffixCode(), "BOSS_DAMAGE_REDUCTION")) {
                     remaining *= 1 - (affix.getValue() / 100.0);
                 }
             }
@@ -4808,17 +4809,79 @@ public class Character extends AbstractCharacterObject {
             if (!(item instanceof Equip equip)) {
                 continue;
             }
+
+            for (EquipmentAffix affix : equip.getAffixes()) {
+                if (affixContributesTo(affix.getAffixCode(), affixCode)) {
+                    percent += functionalContributionValue(affix.getAffixCode(), affixCode, affix.getValue());
+                }
+            }
+        }
+        return Math.min(percent, equipmentPercentCap(affixCode));
+    }
+
+    public int getElementalDamagePercent(Element element) {
+        String affixCode = switch (element) {
+            case FIRE -> "FIRE_DAMAGE";
+            case ICE -> "ICE_DAMAGE";
+            case LIGHTING -> "LIGHTNING_DAMAGE";
+            case HOLY -> "HOLY_DAMAGE";
+            default -> null;
+        };
+        if (affixCode == null) {
+            return 0;
+        }
+        int percent = 0;
+        for (Item item : getInventory(InventoryType.EQUIPPED).list()) {
+            if (!(item instanceof Equip equip)
+                    || !ElementalWeaponRegistry.isWandOrStaff(equip.getItemId())) {
+                continue;
+            }
             for (EquipmentAffix affix : equip.getAffixes()) {
                 if (affixCode.equals(affix.getAffixCode())) {
                     percent += affix.getValue();
                 }
             }
         }
-        return percent;
+        return Math.min(percent, 25);
+    }
+
+    private static boolean affixContributesTo(String affixCode, String targetCode) {
+        if (affixCode.equals(targetCode)) {
+            return true;
+        }
+        return switch (affixCode) {
+            case "BOSS_DAMAGE_IGNORE_DEFENSE" ->
+                    "BOSS_DAMAGE".equals(targetCode) || "IGNORE_DEFENSE".equals(targetCode);
+            case "DROP_EXP" -> "DROP_RATE".equals(targetCode) || "EXP_RATE".equals(targetCode);
+            case "EXP_MESO" -> "EXP_RATE".equals(targetCode) || "MESO_RATE".equals(targetCode);
+            case "DROP_MESO" -> "DROP_RATE".equals(targetCode) || "MESO_RATE".equals(targetCode);
+            default -> false;
+        };
     }
 
     public int getEquipmentIgnoreDefensePercent() {
-        return Math.min(getEquipmentPercent("IGNORE_DEFENSE"), 80);
+        return Math.min(getEquipmentPercent("IGNORE_DEFENSE"), 60);
+    }
+
+    private static int functionalContributionValue(String affixCode, String targetCode, int value) {
+        String secondaryCode = switch (affixCode) {
+            case "BOSS_DAMAGE_IGNORE_DEFENSE" -> "IGNORE_DEFENSE";
+            case "DROP_EXP" -> "EXP_RATE";
+            case "EXP_MESO" -> "MESO_RATE";
+            case "DROP_MESO" -> "MESO_RATE";
+            default -> "";
+        };
+        return secondaryCode.equals(targetCode) ? Math.max(1, Math.round(value * 0.50f)) : value;
+    }
+
+    private static int equipmentPercentCap(String affixCode) {
+        return switch (affixCode) {
+            case "BOSS_DAMAGE" -> 70;
+            case "IGNORE_DEFENSE" -> 60;
+            case "DROP_RATE", "EXP_RATE", "MESO_RATE" -> 60;
+            case "BOSS_DAMAGE_REDUCTION" -> 70;
+            default -> 100;
+        };
     }
 
     public float getLevelExpRate() {
@@ -5020,17 +5083,7 @@ public class Character extends AbstractCharacterObject {
         if (damage <= 0) {
             return damage;
         }
-        double multiplier = 1.0;
-        for (Item item : getInventory(InventoryType.EQUIPPED).list()) {
-            if (!(item instanceof Equip equip)) {
-                continue;
-            }
-            for (EquipmentAffix affix : equip.getAffixes()) {
-                if ("BOSS_DAMAGE".equals(affix.getAffixCode())) {
-                    multiplier *= 1.0 + (affix.getValue() / 100.0);
-                }
-            }
-        }
+        double multiplier = 1.0 + getEquipmentPercent("BOSS_DAMAGE") / 100.0;
         long adjustedDamage = Math.round(damage * multiplier);
         return (int) Math.min(adjustedDamage, Integer.MAX_VALUE);
     }

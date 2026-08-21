@@ -4,6 +4,8 @@
 *.iml
 /target
 .github/*
+!.github/skills/
+!.github/skills/**
 !.github/ISSUE_TEMPLATE/
 !.github/workflows/
 .vscode

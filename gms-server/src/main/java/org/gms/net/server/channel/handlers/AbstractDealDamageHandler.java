@@ -919,6 +919,7 @@ public abstract class AbstractDealDamageHandler extends AbstractPacketHandler {
             if (ret.skill != 0) {
                 Skill skill = SkillFactory.getSkill(ret.skill);
                 if (skill.getElement() != Element.NEUTRAL && chr.getBuffedValue(BuffStat.ELEMENTAL_RESET) == null) {
+                    calcDmgMax *= 1 + chr.getElementalDamagePercent(skill.getElement()) / 100.0;
                     // The skill has an element effect, so we need to factor that in.
                     if (monster != null) {
                         ElementalEffectiveness eff = monster.getElementalEffectiveness(skill.getElement());

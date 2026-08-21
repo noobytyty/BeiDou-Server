@@ -238,7 +238,13 @@ public class Equip extends Item {
         this.affixContributions = new HashMap<>();
         for (EquipmentAffix affix : this.affixes) {
             if (isFlatAffix(affix.getAffixCode())) {
-                this.affixContributions.merge(affix.getAffixCode(), affix.getValue(), Integer::sum);
+                for (String contributionCode : contributionCodes(affix.getAffixCode())) {
+                    this.affixContributions.merge(
+                            contributionCode,
+                            contributionValue(affix.getAffixCode(), contributionCode, affix.getValue()),
+                            Integer::sum
+                    );
+                }
             }
         }
     }
@@ -327,11 +333,15 @@ public class Equip extends Item {
     }
 
     private short withAffix(String code, short baseValue) {
-        return clampShort(baseValue + affixContributions.getOrDefault(code, 0));
+        return clampShort(baseValue
+                + affixContributions.getOrDefault(code, 0)
+                + (isAttributeAffix(code) ? affixContributions.getOrDefault("ALL_STAT", 0) : 0));
     }
 
     private short withoutAffix(String code, short displayedValue) {
-        return clampShort(displayedValue - affixContributions.getOrDefault(code, 0));
+        return clampShort(displayedValue
+                - affixContributions.getOrDefault(code, 0)
+                - (isAttributeAffix(code) ? affixContributions.getOrDefault("ALL_STAT", 0) : 0));
     }
 
     private static short clampShort(int value) {
@@ -341,7 +351,119 @@ public class Equip extends Item {
     private static boolean isFlatAffix(String affixCode) {
         return switch (affixCode) {
             case "STR", "DEX", "INT", "LUK", "HP", "MP", "WATK", "MATK",
-                    "WDEF", "MDEF", "ACC", "AVOID", "SPEED", "JUMP" -> true;
+                    "WDEF", "MDEF", "ACC", "AVOID", "SPEED", "JUMP", "ALL_STAT",
+                    "STR_DEX", "INT_LUK", "WATK_MATK", "STR_WATK", "DEX_WATK", "LUK_WATK",
+                    "INT_MATK", "HP_MP", "ACC_AVOID", "SPEED_JUMP", "STR_INT", "DEX_LUK",
+                    "WDEF_MDEF", "STR_ACC", "DEX_SPEED", "INT_MP", "LUK_AVOID",
+                    "WATK_ACC", "MATK_MP", "STR_HP", "DEX_JUMP", "INT_MDEF",
+                    "LUK_SPEED", "WATK_SPEED", "MATK_MDEF", "STR_MP", "DEX_HP",
+                    "INT_HP", "LUK_MP", "HP_MDEF", "MP_MDEF", "HP_ACC", "MP_ACC" -> true;
+            default -> false;
+        };
+    }
+
+    private static List<String> contributionCodes(String affixCode) {
+        return switch (affixCode) {
+            case "STR_DEX" -> List.of("STR", "DEX");
+            case "INT_LUK" -> List.of("INT", "LUK");
+            case "WATK_MATK" -> List.of("WATK", "MATK");
+            case "STR_WATK" -> List.of("STR", "WATK");
+            case "DEX_WATK" -> List.of("DEX", "WATK");
+            case "LUK_WATK" -> List.of("LUK", "WATK");
+            case "INT_MATK" -> List.of("INT", "MATK");
+            case "HP_MP" -> List.of("HP", "MP");
+            case "ACC_AVOID" -> List.of("ACC", "AVOID");
+            case "SPEED_JUMP" -> List.of("SPEED", "JUMP");
+            case "STR_INT" -> List.of("STR", "INT");
+            case "DEX_LUK" -> List.of("DEX", "LUK");
+            case "WDEF_MDEF" -> List.of("WDEF", "MDEF");
+            case "BOSS_DAMAGE_IGNORE_DEFENSE" -> List.of("BOSS_DAMAGE", "IGNORE_DEFENSE");
+            case "DROP_EXP" -> List.of("DROP_RATE", "EXP_RATE");
+            case "EXP_MESO" -> List.of("EXP_RATE", "MESO_RATE");
+            case "DROP_MESO" -> List.of("DROP_RATE", "MESO_RATE");
+            case "STR_ACC" -> List.of("STR", "ACC");
+            case "DEX_SPEED" -> List.of("DEX", "SPEED");
+            case "INT_MP" -> List.of("INT", "MP");
+            case "LUK_AVOID" -> List.of("LUK", "AVOID");
+            case "WATK_ACC" -> List.of("WATK", "ACC");
+            case "MATK_MP" -> List.of("MATK", "MP");
+            case "STR_HP" -> List.of("STR", "HP");
+            case "DEX_JUMP" -> List.of("DEX", "JUMP");
+            case "INT_MDEF" -> List.of("INT", "MDEF");
+            case "LUK_SPEED" -> List.of("LUK", "SPEED");
+            case "WATK_SPEED" -> List.of("WATK", "SPEED");
+            case "MATK_MDEF" -> List.of("MATK", "MDEF");
+            case "STR_MP" -> List.of("STR", "MP");
+            case "DEX_HP" -> List.of("DEX", "HP");
+            case "INT_HP" -> List.of("INT", "HP");
+            case "LUK_MP" -> List.of("LUK", "MP");
+            case "HP_MDEF" -> List.of("HP", "MDEF");
+            case "MP_MDEF" -> List.of("MP", "MDEF");
+            case "HP_ACC" -> List.of("HP", "ACC");
+            case "MP_ACC" -> List.of("MP", "ACC");
+            case "ALL_STAT" -> List.of("ALL_STAT");
+            default -> List.of(affixCode);
+        };
+    }
+
+    private static int contributionValue(String affixCode, String contributionCode, int value) {
+        if ("INT_MATK".equals(affixCode) && "MATK".equals(contributionCode)) {
+            return value * 2;
+        }
+        if (switch (affixCode) {
+            case "STR_ACC", "DEX_SPEED", "INT_MP", "LUK_AVOID", "WATK_ACC", "MATK_MP",
+                    "STR_HP", "DEX_JUMP", "INT_MDEF", "LUK_SPEED", "WATK_SPEED", "MATK_MDEF",
+                    "STR_MP", "DEX_HP", "INT_HP", "LUK_MP", "HP_MDEF", "MP_MDEF", "HP_ACC", "MP_ACC" -> true;
+            default -> false;
+        } && !contributionCode.equals(switch (affixCode) {
+            case "STR_ACC" -> "STR";
+            case "DEX_SPEED" -> "DEX";
+            case "INT_MP" -> "INT";
+            case "LUK_AVOID" -> "LUK";
+            case "WATK_ACC" -> "WATK";
+            case "MATK_MP" -> "MATK";
+            case "STR_HP" -> "STR";
+            case "DEX_JUMP" -> "DEX";
+            case "INT_MDEF" -> "INT";
+            case "LUK_SPEED" -> "LUK";
+            case "WATK_SPEED" -> "WATK";
+            case "MATK_MDEF" -> "MATK";
+            case "STR_MP" -> "STR";
+            case "DEX_HP" -> "DEX";
+            case "INT_HP" -> "INT";
+            case "LUK_MP" -> "LUK";
+            case "HP_MDEF" -> "HP";
+            case "MP_MDEF" -> "MP";
+            case "HP_ACC" -> "HP";
+            case "MP_ACC" -> "MP";
+            default -> contributionCode;
+        })) {
+            return Math.max(1, Math.round(value * secondaryContributionMultiplier(affixCode)));
+        }
+        return value;
+    }
+
+    private static float secondaryContributionMultiplier(String affixCode) {
+        String secondaryCode = switch (affixCode) {
+            case "STR_ACC", "WATK_ACC", "HP_ACC", "MP_ACC" -> "ACC";
+            case "DEX_SPEED", "LUK_SPEED", "WATK_SPEED" -> "SPEED";
+            case "INT_MP", "MATK_MP", "STR_MP", "LUK_MP" -> "MP";
+            case "STR_HP", "DEX_HP", "INT_HP" -> "HP";
+            case "DEX_JUMP" -> "JUMP";
+            case "INT_MDEF", "MATK_MDEF", "HP_MDEF", "MP_MDEF" -> "MDEF";
+            default -> "";
+        };
+        return switch (secondaryCode) {
+            case "HP", "MP" -> 0.65f;
+            case "ACC" -> 0.60f;
+            case "SPEED", "JUMP", "MDEF" -> 0.50f;
+            default -> 0.50f;
+        };
+    }
+
+    private static boolean isAttributeAffix(String affixCode) {
+        return switch (affixCode) {
+            case "STR", "DEX", "INT", "LUK" -> true;
             default -> false;
         };
     }

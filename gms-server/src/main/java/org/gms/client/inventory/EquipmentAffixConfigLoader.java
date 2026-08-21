@@ -20,6 +20,7 @@ public final class EquipmentAffixConfigLoader {
                     loadDefinitions(connection),
                     loadRanges(connection),
                     loadPoolEntries(connection),
+                    loadLevelPoolEntries(connection),
                     loadNames(connection)
             );
         }
@@ -30,7 +31,8 @@ public final class EquipmentAffixConfigLoader {
         try (PreparedStatement statement = connection.prepareStatement("""
                 SELECT rarity, code, name_key, drop_weight, boss_drop_weight, dungeon_drop_weight,
                        gachapon_drop_weight,
-                       affix_count, value_multiplier, max_affix_tier
+                       affix_count, main_affix_count, secondary_affix_count,
+                       value_multiplier
                 FROM equipment_rarity_config
                 WHERE enabled = 1
                 ORDER BY rarity
@@ -46,8 +48,9 @@ public final class EquipmentAffixConfigLoader {
                         resultSet.getInt("dungeon_drop_weight"),
                         resultSet.getInt("gachapon_drop_weight"),
                         resultSet.getByte("affix_count"),
-                        resultSet.getInt("value_multiplier"),
-                        resultSet.getByte("max_affix_tier")
+                        resultSet.getByte("main_affix_count"),
+                        resultSet.getByte("secondary_affix_count"),
+                        resultSet.getInt("value_multiplier")
                 ));
             }
         }
@@ -102,7 +105,7 @@ public final class EquipmentAffixConfigLoader {
     private static List<EquipmentAffixConfig.PoolEntry> loadPoolEntries(Connection connection) throws SQLException {
         List<EquipmentAffixConfig.PoolEntry> poolEntries = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement("""
-                SELECT equip_type, affix_code, weight
+                SELECT equip_type, affix_code, affix_group, weight
                 FROM equipment_affix_pool
                 WHERE enabled = 1
                 ORDER BY equip_type, affix_code
@@ -112,6 +115,31 @@ public final class EquipmentAffixConfigLoader {
                 poolEntries.add(new EquipmentAffixConfig.PoolEntry(
                         resultSet.getString("equip_type"),
                         resultSet.getString("affix_code"),
+                        resultSet.getString("affix_group"),
+                        resultSet.getInt("weight")
+                ));
+            }
+        }
+        return poolEntries;
+    }
+
+    private static List<EquipmentAffixConfig.LevelPoolEntry> loadLevelPoolEntries(Connection connection)
+            throws SQLException {
+        List<EquipmentAffixConfig.LevelPoolEntry> poolEntries = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement("""
+                SELECT equip_type, affix_code, affix_group, min_req_level, max_req_level, weight
+                FROM equipment_affix_level_pool
+                WHERE enabled = 1
+                ORDER BY min_req_level, equip_type, affix_code
+                """);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                poolEntries.add(new EquipmentAffixConfig.LevelPoolEntry(
+                        resultSet.getString("equip_type"),
+                        resultSet.getString("affix_code"),
+                        resultSet.getString("affix_group"),
+                        resultSet.getInt("min_req_level"),
+                        resultSet.getInt("max_req_level"),
                         resultSet.getInt("weight")
                 ));
             }

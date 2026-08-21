@@ -1,0 +1,66 @@
+-- Rebalance mixed affixes against their corresponding single-stat ranges.
+-- Dual-stat affixes use approximately 75% per component; ALL_STAT uses 40%.
+UPDATE `equipment_affix_range`
+SET `min_value` = CASE `affix_tier`
+        WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3 WHEN 4 THEN 5
+        WHEN 5 THEN 9 WHEN 6 THEN 14 WHEN 7 THEN 21 WHEN 8 THEN 30
+        WHEN 9 THEN 33 WHEN 10 THEN 36 WHEN 11 THEN 38 WHEN 12 THEN 42
+    END,
+    `max_value` = CASE `affix_tier`
+        WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 3 THEN 6 WHEN 4 THEN 9
+        WHEN 5 THEN 15 WHEN 6 THEN 21 WHEN 7 THEN 30 WHEN 8 THEN 42
+        WHEN 9 THEN 46 WHEN 10 THEN 50 WHEN 11 THEN 54 WHEN 12 THEN 58
+    END
+WHERE `affix_code` IN ('STR_DEX', 'INT_LUK', 'ACC_AVOID');
+
+UPDATE `equipment_affix_range`
+SET `min_value` = CASE `affix_tier`
+        WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3 WHEN 4 THEN 5
+        WHEN 5 THEN 7 WHEN 6 THEN 10 WHEN 7 THEN 10 WHEN 8 THEN 14
+        WHEN 9 THEN 15 WHEN 10 THEN 16 WHEN 11 THEN 17 WHEN 12 THEN 19
+    END,
+    `max_value` = CASE `affix_tier`
+        WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3 WHEN 4 THEN 5
+        WHEN 5 THEN 7 WHEN 6 THEN 10 WHEN 7 THEN 14 WHEN 8 THEN 19
+        WHEN 9 THEN 21 WHEN 10 THEN 23 WHEN 11 THEN 24 WHEN 12 THEN 27
+    END
+WHERE `affix_code` = 'WATK_MATK';
+
+UPDATE `equipment_affix_range`
+SET `min_value` = CASE `affix_tier`
+        WHEN 1 THEN 12 WHEN 2 THEN 27 WHEN 3 THEN 60 WHEN 4 THEN 120
+        WHEN 5 THEN 225 WHEN 6 THEN 390 WHEN 7 THEN 630 WHEN 8 THEN 975
+        WHEN 9 THEN 1053 WHEN 10 THEN 1137 WHEN 11 THEN 1228 WHEN 12 THEN 1326
+    END,
+    `max_value` = CASE `affix_tier`
+        WHEN 1 THEN 27 WHEN 2 THEN 60 WHEN 3 THEN 120 WHEN 4 THEN 225
+        WHEN 5 THEN 390 WHEN 6 THEN 630 WHEN 7 THEN 975 WHEN 8 THEN 1425
+        WHEN 9 THEN 1539 WHEN 10 THEN 1663 WHEN 11 THEN 1796 WHEN 12 THEN 1939
+    END
+WHERE `affix_code` = 'HP_MP';
+
+UPDATE `equipment_affix_range`
+SET `min_value` = CASE `affix_tier`
+        WHEN 1 THEN 1 WHEN 2 THEN 1 WHEN 3 THEN 1 WHEN 4 THEN 2
+        WHEN 5 THEN 4 WHEN 6 THEN 7 WHEN 7 THEN 11 WHEN 8 THEN 16
+        WHEN 9 THEN 17 WHEN 10 THEN 18 WHEN 11 THEN 20 WHEN 12 THEN 22
+    END,
+    `max_value` = CASE `affix_tier`
+        WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3 WHEN 4 THEN 5
+        WHEN 5 THEN 8 WHEN 6 THEN 12 WHEN 7 THEN 16 WHEN 8 THEN 23
+        WHEN 9 THEN 25 WHEN 10 THEN 27 WHEN 11 THEN 29 WHEN 12 THEN 31
+    END
+WHERE `affix_code` = 'ALL_STAT';
+
+UPDATE `equipment_affix_range`
+SET `min_value` = CASE `affix_tier`
+        WHEN 1 THEN 1 WHEN 2 THEN 1 WHEN 3 THEN 2 WHEN 4 THEN 2
+        WHEN 5 THEN 3 WHEN 6 THEN 3 WHEN 7 THEN 3 WHEN 8 THEN 5
+        WHEN 9 THEN 5 WHEN 10 THEN 5 WHEN 11 THEN 6 WHEN 12 THEN 6
+    END,
+    `max_value` = CASE `affix_tier`
+        WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 2 WHEN 4 THEN 3
+        WHEN 5 THEN 3 WHEN 6 THEN 4 WHEN 7 THEN 5 WHEN 8 THEN 5
+        WHEN 9 THEN 6 WHEN 10 THEN 6 WHEN 11 THEN 6 WHEN 12 THEN 7
+    END
+WHERE `affix_code` = 'SPEED_JUMP';

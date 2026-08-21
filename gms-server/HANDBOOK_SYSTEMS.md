@@ -125,10 +125,10 @@
 
 词条系统现在区分：
 
-- 装备品质：保存在 `inventoryequipment.rarity`，决定词条数量和允许的最高词条品质。
+- 装备品质：保存在 `inventoryequipment.rarity`，只决定主/副词条数量。
 - 词条类型：保存在 `inventory_equipment_affix.affix_code`，表示属性或特殊效果。
 - 词条品质：保存在 `inventory_equipment_affix.affix_tier`，独立决定该条词条的数值区间。
-- T5–T8 数值区间由 [`V1.11.13__add_affix_tier_5_to_8.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.13__add_affix_tier_5_to_8.sql) 补齐；品质允许的最高 T 等阶仍由 `equipment_rarity_config.max_affix_tier` 控制。
+- T5–T8 数值区间由 [`V1.11.13__add_affix_tier_5_to_8.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.13__add_affix_tier_5_to_8.sql) 补齐；词条 T 阶由装备需求等级均值和钟形波动决定。
 - 对应迁移：[`V1.11.7__split_affix_tier.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.7__split_affix_tier.sql)
 - 词条命名：[`V1.11.8__create_affix_names.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.8__create_affix_names.sql)，按词条类型和 T1–T8 分别配置名称键。
 - 玩家查看：装备拾取成功后会通过聊天提示显示词条；普通玩家可使用 `@inspect` 列出装备栏，使用 `@inspect <装备栏位>` 查看完整词条，也可使用 `@affix` 别名。命令由 [`V1.11.9__add_inspect_command.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.9__add_inspect_command.sql) 和 [`V1.11.10__add_affix_command_alias.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.10__add_affix_command_alias.sql) 注册。
@@ -174,6 +174,25 @@
 - 客户端没有源码，只有转换后的 `.img`；新增装备 `1003113` 必须写入客户端 `Character/Cap` 和 `String/Eqp`，已有装备等级修改应使用 MODIFY，不要重复 ADD。
 - 数据库迁移需先检查 `flyway_schema_history`；若 `V1.11.20` 已执行，不要修改旧迁移，后续修正使用新版本迁移。
 - **120–155 级职业装备扩展（2026-08-21）**：新增 [`V1.11.23__add_level_120_to_155_equipment_maker_recipes.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.23__add_level_120_to_155_equipment_maker_recipes.sql)，接入 WZ 中已有资源但原 Maker 数据未覆盖的 VIP 战士/法师/弓手盾牌、VIP 项链/腰带/戒指、两件 120 级披风，以及三件 130 级 Elemental Wand。所有新增产物均已核对 `Character.wz` 的 `info` 节点和 `reqLevel`，没有创建空白装备；材料使用现有怪物结晶、时间之石和 Boss 证明/通用代币。
+- **等级词条池与全属性词条（2026-08-21）**：新增 [`V1.11.24__add_level_based_affix_pools.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.24__add_level_based_affix_pools.sql)，按装备需求等级每 10 级建立独立词条池，低等级装备屏蔽 Boss/掉落/经验等特殊词条，高等级装备提高攻击、魔攻和特殊词条权重；100 级以上装备新增 `ALL_STAT` 全属性词条，运行时会分别贡献到 STR/DEX/INT/LUK，不会写入装备本体。新装备生成和已有装备重铸共用该等级池。
+- **混合词缀扩展（2026-08-21）**：新增 [`V1.11.25__add_mixed_affixes.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.25__add_mixed_affixes.sql)，加入 `STR_DEX`、`INT_LUK`、`WATK_MATK`、`HP_MP`、`ACC_AVOID`、`SPEED_JUMP` 六类混合词缀。混合词缀仍以一个实例词缀保存和展示，但运行时拆分贡献到对应的两个基础属性；按等级段和装备类型限制出现范围，避免低等级装备直接抽到高阶混合效果。
+- **词缀阶数扩展（2026-08-21）**：新增 [`V1.11.26__extend_affix_tiers_to_12.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.26__extend_affix_tiers_to_12.sql)，将词缀阶数从 T1–T8 扩展到 T1–T12。T9–T12 基于各词缀 T8 区间按倍率递增生成，品质最高阶同步调整为：精良 T2、稀有 T4、史诗 T6、传奇 T8、远古 T10、神话 T12；同时按装备需求等级限制最高阶数（100 级开放 T9、120 级开放 T10、140 级开放 T11、160 级开放 T12），显示层增加 T9–T12 的中英文降级名称。
+- **魔法攻击词缀平衡（2026-08-21）**：新增 [`V1.11.27__double_matk_affix_ranges.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.27__double_matk_affix_ranges.sql)，将独立 `MATK` 词缀各阶数值调整为对应 `WATK` 范围的 2 倍；`WATK_MATK` 混合词缀仍使用共享值，同时贡献给两种属性。
+- **高阶词缀区分度调整（2026-08-21）**：新增 [`V1.11.28__rebalance_affix_tier_9_to_12.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.28__rebalance_affix_tier_9_to_12.sql)，将 T9–T12 统一调整为对应 T8 区间的 1.15、1.40、1.75、2.20 倍，在控制数值膨胀的同时拉开高阶词缀区分度。
+- **恢复保守高阶词缀倍率（2026-08-21）**：新增 [`V1.11.29__restore_conservative_affix_tier_progression.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.29__restore_conservative_affix_tier_progression.sql)，将 T9–T12 恢复为 T8 的 1.15、1.35、1.60、1.90 倍；该版本的独立 `MATK` 倍率随后由 `V1.11.30` 的最终克制区间覆盖。
+- **克制词缀数值方案（2026-08-21）**：新增 [`V1.11.30__apply_conservative_affix_ranges.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.30__apply_conservative_affix_ranges.sql)，将固定属性压缩至原配置约 20%，百分比效果压缩至约 15%，并将独立 `MATK` 与 `WATK` 统一纳入克制区间；混合词缀同步降低，所有最小值不低于 1。
+- **混合词缀再平衡（2026-08-21）**：新增 [`V1.11.31__rebalance_mixed_affix_ranges.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.31__rebalance_mixed_affix_ranges.sql)，双属性混合词缀的每个属性按对应单属性约 75% 配置，`ALL_STAT` 每项按基础属性约 40% 配置，并修正 `ACC_AVOID`、`SPEED_JUMP` 的独立区间。
+- **职业定向攻击词缀（2026-08-21）**：新增 [`V1.11.32__replace_watk_matk_hybrid_affix.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.32__replace_watk_matk_hybrid_affix.sql)，停止新装备生成 `WATK_MATK`，改为 `STR_WATK`、`DEX_WATK`、`LUK_WATK`、`INT_MATK` 四类定向词缀；历史 `WATK_MATK` 实例仍可加载和生效。
+- **主副词缀分组（2026-08-21）**：新增 [`V1.11.33__split_primary_secondary_affix_pools.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.33__split_primary_secondary_affix_pools.sql)，按品质分配最多 3 个主词缀和 3 个副词缀。主词缀组内、副词缀组内分别禁止重复，两个组使用独立重复集合；主池包含基础战斗属性，副池包含命中/移动/倍率等功能效果。
+- **副池核心词缀低权重混入（2026-08-21）**：新增 [`V1.11.34__add_core_affixes_to_secondary_pool.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.34__add_core_affixes_to_secondary_pool.sql)，将 `STR`、`DEX`、`INT`、`LUK`、`WATK`、`MATK` 以约 10% 的主池权重复制到副池；同一核心词缀可以同时出现在主、副词缀组，形成低概率极品双词条。
+- **词缀等级平滑成长（2026-08-21）**：装备需求等级每提升 10 级，最高可抽取词缀等级提升 1 阶：1–9 级为 T1，10–19 级为 T2，依次递进，110 级及以上封顶 T12；最终仍受装备品质最高阶限制。
+- **词缀阶级钟形抽取（2026-08-21）**：词缀等级以装备阶段对应阶级为均值；80 级前在均值 ±3 阶内抽取，80–119 级扩大到 ±4 阶，120 级以上扩大到 ±5 阶。品质只决定词缀数量和主/副词缀分配，不再限制词缀阶级；高等级距离均值较远的词条仍使用较低权重。
+- **百分比词缀收益上限（2026-08-21）**：装备提供的 Boss 伤害、掉落率、经验率和金币率分别按总和封顶 100%；无视防御继续封顶 80%，Boss 减伤继续封顶 70%，避免多件装备叠加后失控。
+- **装备类型候选池补齐（2026-08-21）**：新增 [`V1.11.35__fill_affix_pool_slot_candidates.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.35__fill_affix_pool_slot_candidates.sql)，为鞋子和手套补充合理的基础属性主词缀，为防具补充低权重 HP/MP/防御副词缀，避免高品质装备因候选不足而无法填满已配置槽位。
+- **魔攻物攻价值校准（2026-08-21）**：新增 [`V1.11.36__normalize_matk_affix_ranges.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.36__normalize_matk_affix_ranges.sql)，将独立 `MATK` 区间调整为对应 `WATK` 的 2 倍；`INT_MATK` 混合词缀运行时按 `INT + 2×MATK` 贡献。
+- **低等级高阶词缀软折扣（2026-08-21）**：80 级以下抽到高于装备均值的词缀时，每高出 1 阶将最终数值乘以 85%，最低保留 1，保留稀有高阶结果但避免低级装备数值跳跃过大。
+- **移除废弃品质阶级上限（2026-08-21）**：新增 [`V1.11.37__remove_unused_rarity_tier_cap.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.37__remove_unused_rarity_tier_cap.sql)，删除不再参与抽取的 `equipment_rarity_config.max_affix_tier` 字段，避免品质配置与运行时规则产生歧义。
+- **部位词缀池多样化（2026-08-21）**：新增 [`V1.11.38__diversify_equipment_affix_pools.sql`](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.38__diversify_equipment_affix_pools.sql)，为上衣/裤子和项链增加低权重基础属性主词缀，保留帽子生存副词缀，并将戒指的功能定位为掉落/经验/金币、其他饰品定位为 Boss/无视防御。
 
 ## 项目改动总览（截至 2026-08-21）
 
