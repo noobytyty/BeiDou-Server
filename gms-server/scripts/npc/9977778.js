@@ -2,7 +2,7 @@
 
 美容师 9977778
 
-高级美容服务：最新发型/脸型选择（试衣间预览）、存档、购买槽位。
+高级美容服务：发型/脸型存档、试衣间预览、购买槽位。
 */
 var beautyMode = -1;
 var beautyPage = 0;
@@ -60,10 +60,10 @@ function beautyShowPage() {
     cm.sendSimple(msg);
 }
 
-function actionBeauty(selection) {
+function actionBeauty(selection, mode) {
     if (beautyMode >= 2) {
         // 存档/购买槽位流程
-        beautySlotsAction(selection);
+        beautySlotsAction(selection, mode);
         return;
     }
     if (beautyStep == 0) {
@@ -137,7 +137,7 @@ function beautySlotsMenu() {
     cm.sendSimple(typeName + "存档管理（槽位 " + limit + " 个）：\r\n#L0#保存当前" + typeName + "到槽位#l\r\n#L1#从槽位应用（试衣间预览）#l\r\n#L2#查看槽位#l\r\n#L3#返回");
 }
 
-function beautySlotsAction(selection) {
+function beautySlotsAction(selection, mode) {
     var accId = cm.getPlayer().getAccountId();
     if (slotMode == 4) {
         // ===== 购买槽位 =====
@@ -149,7 +149,7 @@ function beautySlotsAction(selection) {
             var cur = slotSvc.getSlotLimit(accId, slotType);
             cm.sendYesNo("花费 " + beautySlotPrice + " 金币新增一个" + typeName + "槽位？\r\n当前：" + cur + " 个 → 购买后：" + (cur + 1) + " 个");
         } else if (slotStep == 1) {
-            if (selection != 1) { slotStep = 0; beautySlotsMenu(); return; }
+            if (mode != 1) { slotStep = 0; beautySlotsMenu(); return; }
             if (cm.getMeso() < beautySlotPrice) {
                 cm.sendOk("你没有足够的金币！需要 " + beautySlotPrice + " 金币。");
                 beautyMode = -1; slotMode = -1;
@@ -239,7 +239,7 @@ function beautySlotsAction(selection) {
     } else if (slotStep == 3) {
         // 试衣间确认
         var itemId = slotSvc.getSlot(accId, slotType, slotSel);
-        if (selection == 1) {
+        if (mode == 1) {
             cm.sendOk("造型已保留！#t" + itemId + "#");
         } else {
             if (previewOrig > 0) {
@@ -259,7 +259,7 @@ function beautyMainMenu() {
     beautyPage = 0;
     beautyStep = 0;
     slotMode = -1;
-    cm.sendSimple("高级美容服务！提供最新发型和脸型，费用 " + beautyPrice + " 金币。\r\n#L0#选择发型#l\r\n#L1#选择脸型#l\r\n#L2#发型存档（试衣间）#l\r\n#L3#脸型存档（试衣间）#l\r\n#L4#购买美容槽位（" + beautySlotPrice + " 金币/个）#l");
+    cm.sendSimple("高级美容服务！这里只提供发型和脸型存档。\r\n#L2#发型存档（试衣间）#l\r\n#L3#脸型存档（试衣间）#l\r\n#L4#购买美容槽位（" + beautySlotPrice + " 金币/个）#l");
 }
 
 function start() {
@@ -271,5 +271,5 @@ function action(mode, type, selection) {
         cm.dispose();
         return;
     }
-    actionBeauty(selection);
+    actionBeauty(selection, mode);
 }

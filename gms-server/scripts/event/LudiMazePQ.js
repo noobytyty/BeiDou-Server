@@ -24,7 +24,7 @@
  */
 
 var isPq = true;
-var minPlayers = 3, maxPlayers = 6;
+var minPlayers = 1, maxPlayers = 6;
 var minLevel = 51, maxLevel = 70;
 var entryMap = 809050000;
 var exitMap = 809050017;
@@ -37,6 +37,18 @@ var maxMapId = 809050016;
 var eventTime = 15;     // 15 minutes
 
 const maxLobbies = 1;
+// Solo/duo keeps party gates tied to the players actually present; no placeholder players are created.
+function updatePartyMode(eim, joiningPlayer) {
+    var participants = eim.getPlayers().size() + (joiningPlayer == null ? 0 : 1);
+    eim.setProperty("soloMode", participants <= 1 ? "true" : "false");
+    eim.setProperty("duoMode", participants <= 2 ? "true" : "false");
+}
+
+function requiredPlayers(eim, normalRequired) {
+    var participants = Math.max(1, eim.getPlayers().size());
+    return eim.getProperty("duoMode") == "true" ? Math.min(normalRequired, participants) : normalRequired;
+}
+
 
 function init() {
     setEventRequirements();
@@ -113,6 +125,7 @@ function getEligibleParty(party) {      //selects, from the given party, the tea
 
 function setup(level, lobbyid) {
     var eim = em.newInstance("LudiMaze" + lobbyid);
+    updatePartyMode(eim);
     eim.setProperty("level", level);
 
     for (var i = 809050000; i <= 809050016; i++) {
@@ -132,6 +145,7 @@ function afterSetup(eim) {}
 function respawnStages(eim) {}
 
 function playerEntry(eim, player) {
+    updatePartyMode(eim, player);
     var rand = Math.floor(Math.random() * 15);
 
     var map = eim.getMapInstance(entryMap + rand);
@@ -157,7 +171,7 @@ function playerLeft(eim, player) {
 
 function changedMap(eim, player, mapid) {
     if (mapid < minMapId || mapid > maxMapId) {
-        if (eim.isEventTeamLackingNow(true, minPlayers, player)) {
+        if (eim.isEventTeamLackingNow(true, requiredPlayers(eim, minPlayers), player)) {
             eim.unregisterPlayer(player);
             end(eim);
         } else {
@@ -176,7 +190,7 @@ function changedLeader(eim, leader) {
 function playerDead(eim, player) {}
 
 function playerRevive(eim, player) { // player presses ok on the death pop up.
-    if (eim.isEventTeamLackingNow(true, minPlayers, player)) {
+    if (eim.isEventTeamLackingNow(true, requiredPlayers(eim, minPlayers), player)) {
         eim.unregisterPlayer(player);
         end(eim);
     } else {
@@ -185,7 +199,7 @@ function playerRevive(eim, player) { // player presses ok on the death pop up.
 }
 
 function playerDisconnected(eim, player) {
-    if (eim.isEventTeamLackingNow(true, minPlayers, player)) {
+    if (eim.isEventTeamLackingNow(true, requiredPlayers(eim, minPlayers), player)) {
         eim.unregisterPlayer(player);
         end(eim);
     } else {
@@ -194,7 +208,7 @@ function playerDisconnected(eim, player) {
 }
 
 function leftParty(eim, player) {
-    if (eim.isEventTeamLackingNow(false, minPlayers, player)) {
+    if (eim.isEventTeamLackingNow(false, requiredPlayers(eim, minPlayers), player)) {
         end(eim);
     } else {
         playerLeft(eim, player);

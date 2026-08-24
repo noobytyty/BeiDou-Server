@@ -95,6 +95,13 @@ function action(mode, type, selection) {
             cm.sendNext("快点，去下一个阶段，传送门已经打开了！");
         } else {
             if (eim.isEventLeader(cm.getPlayer())) {
+                if (eim.getPlayerCount() <= 2) {
+                    eim.setProperty("statusStg" + stage, 1);
+                    clearStage(stage, eim, curMap);
+                    cm.sendNext("队伍人数不足以完成五箱站位组合，因此本阶段已自动通过。");
+                    cm.dispose();
+                    return;
+                }
                 var state = eim.getIntProperty("statusStg" + stage);
 
                 if (state == -1) {           // preamble

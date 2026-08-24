@@ -22,8 +22,10 @@ package org.gms.client.processor.action;
 import org.gms.client.Character;
 import org.gms.client.Client;
 import org.gms.client.inventory.EquipmentAffixGenerator;
+import org.gms.client.inventory.EquipmentAffixPowder;
 import org.gms.client.inventory.EquipmentDropSource;
 import org.gms.client.inventory.Equip;
+import org.gms.client.inventory.EquipmentAffix;
 import org.gms.client.inventory.InventoryType;
 import org.gms.client.inventory.Item;
 import org.gms.client.inventory.manipulator.InventoryManipulator;
@@ -82,7 +84,7 @@ public class MakerProcessor {
                     if (it != null && it.getItemId() == toCreate) {
                         toDisassemble = toCreate;
 
-                        Pair<Integer, List<Pair<Integer, Integer>>> pair = generateDisassemblyInfo(toDisassemble);
+                        Pair<Integer, List<Pair<Integer, Integer>>> pair = generateDisassemblyInfo((Equip) it);
                         if (pair != null) {
                             recipe = MakerItemFactory.generateDisassemblyCrystalEntry(toDisassemble, pair.getLeft(), pair.getRight());
                         } else {
@@ -301,16 +303,23 @@ public class MakerProcessor {
         }
     }
 
-    private static Pair<Integer, List<Pair<Integer, Integer>>> generateDisassemblyInfo(int itemId) {
+    private static Pair<Integer, List<Pair<Integer, Integer>>> generateDisassemblyInfo(Equip equip) {
+        int itemId = equip.getItemId();
         int recvFee = ii.getMakerDisassembledFee(itemId);
         if (recvFee > -1) {
-            List<Pair<Integer, Integer>> gains = ii.getMakerDisassembledItems(itemId);
+            List<Pair<Integer, Integer>> gains = new LinkedList<>(ii.getMakerDisassembledItems(itemId));
+            addAffixPowderGains(equip, gains);
             if (!gains.isEmpty()) {
                 return new Pair<>(recvFee, gains);
             }
         }
 
         return null;
+    }
+
+    private static void addAffixPowderGains(Equip equip, List<Pair<Integer, Integer>> gains) {
+        EquipmentAffixPowder.gainsFor(equip)
+                .forEach((powderId, quantity) -> gains.add(new Pair<>(powderId, quantity)));
     }
 
     public static int getMakerSkillLevel(Character chr) {

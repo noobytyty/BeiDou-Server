@@ -22,6 +22,10 @@
 var status;
 var affixOperation = -1;
 var affixEquipSlot = -1;
+var InventoryType = Java.type("org.gms.client.inventory.InventoryType");
+var Equip = Java.type("org.gms.client.inventory.Equip");
+var RerollAffixCommand = Java.type("org.gms.client.command.commands.gm0.RerollAffixCommand");
+var SalvageEquipmentCommand = Java.type("org.gms.client.command.commands.gm0.SalvageEquipmentCommand");
 
 function isAffixNpcMap() {
     return cm.getPlayer().getMapId() == 910000000;
@@ -30,6 +34,27 @@ function isAffixNpcMap() {
 function runAffixCommand(commandClass, params) {
     var command = new (Java.type(commandClass))();
     command.execute(cm.getClient(), params);
+}
+
+function sendEquipSelection(prompt) {
+    var inventory = cm.getPlayer().getInventory(InventoryType.EQUIP);
+    var iterator = inventory.iterator();
+    var text = prompt + "\r\n";
+    var hasEquipment = false;
+    while (iterator.hasNext()) {
+        var item = iterator.next();
+        if (item instanceof Equip) {
+            hasEquipment = true;
+            text += "#L" + item.getPosition() + "##v" + item.getItemId() + "# #z" + item.getItemId()
+                + "#（词条 " + item.getAffixes().size() + " 条）#l\r\n";
+        }
+    }
+    if (!hasEquipment) {
+        cm.sendOk("装备背包中没有可操作的装备。");
+        cm.dispose();
+        return;
+    }
+    cm.sendSimple(text);
 }
 
 function start() {
@@ -48,23 +73,31 @@ function action(mode, type, selection) {
         affixOperation = selection;
         status = 1;
         if (selection == 0) {
-            runAffixCommand("org.gms.client.command.commands.gm0.InspectCommand", []);
-            cm.dispose();
+            sendEquipSelection("请选择要查看词条的装备：");
         } else {
-            cm.sendGetNumber("请输入装备栏位（1-96）：", 1, 1, 96);
+            sendEquipSelection("请选择要操作的装备：");
         }
     } else if (status == 1) {
         if (selection > 0 && selection < 97) {
-            if (affixOperation == 1) {
-                runAffixCommand("org.gms.client.command.commands.gm0.RerollAffixCommand", [String(selection)]);
+            if (affixOperation == 0) {
+                runAffixCommand("org.gms.client.command.commands.gm0.InspectCommand", [String(selection)]);
                 cm.dispose();
+            } else if (affixOperation == 1) {
+                affixEquipSlot = selection;
+                status = 2;
+                var rerollEquip = cm.getPlayer().getInventory(InventoryType.EQUIP).getItem(selection);
+                cm.sendYesNo(RerollAffixCommand.preview(rerollEquip)
+                    + "\r\n锁定词条会保留，确定继续吗？");
             } else if (affixOperation == 2) {
                 affixEquipSlot = selection;
                 status = 2;
                 cm.sendGetNumber("请输入词条序号（从0开始）：", 0, 0, 7);
             } else if (affixOperation == 3) {
-                runAffixCommand("org.gms.client.command.commands.gm0.SalvageEquipmentCommand", [String(selection)]);
-                cm.dispose();
+                affixEquipSlot = selection;
+                status = 2;
+                var salvageEquip = cm.getPlayer().getInventory(InventoryType.EQUIP).getItem(selection);
+                cm.sendYesNo(SalvageEquipmentCommand.preview(salvageEquip)
+                    + "\r\n装备将被删除，确定继续吗？");
             }
         }
     } else if (status == 2 && affixOperation == 2) {
@@ -72,6 +105,21 @@ function action(mode, type, selection) {
             String(affixEquipSlot),
             String(selection)
         ]);
+        cm.dispose();
+    } else if (status == 2 && (affixOperation == 1 || affixOperation == 3)) {
+        if (mode != 1) {
+            cm.dispose();
+            return;
+        }
+        if (affixOperation == 1) {
+            runAffixCommand("org.gms.client.command.commands.gm0.RerollAffixCommand", [
+                String(affixEquipSlot)
+            ]);
+        } else {
+            runAffixCommand("org.gms.client.command.commands.gm0.SalvageEquipmentCommand", [
+                String(affixEquipSlot)
+            ]);
+        }
         cm.dispose();
     }
 }

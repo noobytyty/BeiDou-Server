@@ -28,7 +28,9 @@ Save location to return.
 */
 
 function enter(pi) {
-    if (pi.getPlayer().getLevel() <= 30) {
+    var eim = pi.getPlayer().getEventInstance();
+    var smallParty = eim != null && eim.getProperty("duoMode") === "true";
+    if (pi.getPlayer().getLevel() <= 30 || smallParty) {
         pi.playPortalSound();
         pi.warp(990000640, 1);
         return true;

@@ -90,7 +90,7 @@ public final class EquipmentAffixGenerator {
         int maxAffixTier = Math.min(12, meanAffixTier + tierRadius);
         List<EquipmentAffixConfig.PoolEntry> candidates = levelCandidates(loadedConfig, equipType, reqLevel);
         candidates = candidates.stream()
-                .filter(entry -> isAffixCompatibleWithJob(entry.affixCode(),
+                .filter(entry -> isAffixCompatibleWithJob(entry.affixCode(), equip.getItemId(),
                         ItemInformationProvider.getInstance().getEquipStats(equip.getItemId()).getOrDefault("reqJob", 0)))
                 .filter(entry -> isElementalAffixCompatible(entry.affixCode(), equip.getItemId()))
                 .toList();
@@ -128,10 +128,18 @@ public final class EquipmentAffixGenerator {
         return equip.getItemId() / 10000 == 105;
     }
 
-    private static boolean isAffixCompatibleWithJob(String affixCode, int reqJob) {
+    private static boolean isAffixCompatibleWithJob(String affixCode, int itemId, int reqJob) {
+        Integer weaponJob = weaponJob(itemId);
+        if (weaponJob != null) {
+            return isWeaponAffixCompatible(affixCode, weaponJob);
+        }
         if (reqJob == 0) {
             return true;
         }
+        return isAffixCompatibleWithJob(affixCode, reqJob);
+    }
+
+    private static boolean isAffixCompatibleWithJob(String affixCode, int reqJob) {
         return switch (reqJob) {
             case 2 -> !containsAny(affixCode, "INT", "MATK", "LUK", "DEX");
             case 4 -> !containsAny(affixCode, "STR", "WATK", "LUK", "DEX");
@@ -139,6 +147,43 @@ public final class EquipmentAffixGenerator {
             case 16 -> !containsAny(affixCode, "STR", "INT", "MATK", "DEX");
             case 32 -> !containsAny(affixCode, "INT", "MATK", "LUK");
             default -> true;
+        };
+    }
+
+    private static boolean isWeaponAffixCompatible(String affixCode, int weaponJob) {
+        if (containsAny(affixCode, "WATK", "MATK")) {
+            return switch (weaponJob) {
+                case 2, 8 -> Set.of("WATK", "STR_WATK", "DEX_WATK").contains(affixCode);
+                case 4 -> Set.of("MATK", "INT_MATK").contains(affixCode);
+                case 16 -> Set.of("WATK", "LUK_WATK", "DEX_WATK").contains(affixCode);
+                case 32 -> Set.of("WATK", "STR_WATK", "DEX_WATK").contains(affixCode);
+                default -> true;
+            };
+        }
+        if (!containsAny(affixCode, "STR", "DEX", "INT", "LUK", "ALL_STAT")) {
+            return true;
+        }
+        return switch (weaponJob) {
+            case 2 -> Set.of("STR", "DEX", "STR_DEX").contains(affixCode);
+            case 4 -> Set.of("INT", "LUK", "INT_LUK").contains(affixCode);
+            case 8 -> Set.of("DEX", "STR", "STR_DEX").contains(affixCode);
+            case 16 -> Set.of("LUK", "DEX", "DEX_LUK").contains(affixCode);
+            case 32 -> Set.of("STR", "DEX", "STR_DEX").contains(affixCode);
+            default -> true;
+        };
+    }
+
+    private static Integer weaponJob(int itemId) {
+        if (!ItemConstants.isWeapon(itemId)) {
+            return null;
+        }
+        return switch (itemId / 10000) {
+            case 130, 131, 132, 140, 141, 142, 143, 144 -> 2;
+            case 137, 138 -> 4;
+            case 145, 146 -> 8;
+            case 133, 147 -> 16;
+            case 148, 149 -> 32;
+            default -> null;
         };
     }
 

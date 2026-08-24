@@ -108,14 +108,12 @@ function action(mode, type, selection) {
                 cm.dispose();
             } else {
                 var reqStr = "";
-                reqStr += "\r\n\r\n    Team requirements:\r\n\r\n";
-                reqStr += "     - 1 team member #rbelow or equal level 30#k.\r\n";
-                reqStr += "     - 1 team member who is a #rThief with Dark Sight#k skill and #rmaxed Haste#k.\r\n";
-                reqStr += "     - 1 team member who is a Magician with #rmaxed Teleport#k.\r\n";
-                reqStr += "     - 1 team member who is a #rlong ranged attacker#k like Bowman, Assassin, or Gunslinger.\r\n";
-                reqStr += "     - 1 team member with #rgood jumping skills#k like Assassin with maxed Flash Jump or Gunslinger with Wings.\r\n";
+                reqStr += "\r\n\r\n    参与方式：\r\n\r\n";
+                reqStr += "     - 允许单人或双人公会队伍参加。\r\n";
+                reqStr += "     - 三人以上保留原本的六人要求和职业检查。\r\n";
+                reqStr += "     - 单人/双人仅跳过必须多人配合的职业和等级门槛；战斗、道具收集、谜题、Boss、计时和奖励保持不变。\r\n";
 
-                cm.sendOk("#e#b<公会任务：沙连尼安遗迹>#k#n\r\n与你的公会成员一起合作，试图从骷髅的掌控中夺回鲁比安，通过团队合作克服沙连尼安墓穴内等待的许多谜题和挑战。完成任务实例后可以获得丰厚的奖励，并为你的公会积累公会点数。");
+                cm.sendOk("#e#b<公会任务：沙连尼安遗迹>#k#n\r\n与你的公会成员一起合作，试图从骷髅的掌控中夺回鲁比安，通过团队合作克服沙连尼安墓穴内等待的许多谜题和挑战。完成任务实例后可以获得丰厚的奖励，并为你的公会积累公会点数。" + reqStr);
                 cm.dispose();
             }
         } else if (status == 2) {

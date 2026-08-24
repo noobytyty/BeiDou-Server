@@ -108,12 +108,10 @@ function action(mode, type, selection) {
                 cm.dispose();
             } else {
                 var reqStr = "";
-                reqStr += "\r\n\r\n    Team requirements:\r\n\r\n";
-                reqStr += "     - 1 team member #rbelow or equal level 30#k.\r\n";
-                reqStr += "     - 1 team member who is a #rThief with Dark Sight#k skill and #rmaxed Haste#k.\r\n";
-                reqStr += "     - 1 team member who is a Magician with #rmaxed Teleport#k.\r\n";
-                reqStr += "     - 1 team member who is a #rlong ranged attacker#k like Bowman, Assassin, or Gunslinger.\r\n";
-                reqStr += "     - 1 team member with #rgood jumping skills#k like Assassin with maxed Flash Jump or Gunslinger with Wings.\r\n";
+                reqStr += "\r\n\r\n    Participation:\r\n\r\n";
+                reqStr += "     - Solo and duo guild parties are allowed.\r\n";
+                reqStr += "     - Groups of 3+ retain the original six-player requirement and class check.\r\n";
+                reqStr += "     - In solo/duo mode, only multiplayer-only class and level gates are skipped; combat, item collection, puzzles, the boss, timer and rewards remain.\r\n";
 
                 cm.sendOk("#e#b<Guild Quest: Sharenian Ruins>#k#n\r\n Team up with your guild members in an auspicious attempt to recover the Rubian from the skeleton's grasp, with teamwork overcoming many puzzles and challenges awaiting inside the Sharenian tombs. Great rewards can be obtained upon the instance completion, and Guild Points can be racked up for your Guild." + reqStr);
                 cm.dispose();

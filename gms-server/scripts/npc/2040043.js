@@ -95,6 +95,13 @@ function action(mode, type, selection) {
             cm.sendNext("Hurry, goto the next stage, the portal is open!");
         } else {
             if (eim.isEventLeader(cm.getPlayer())) {
+                if (eim.getPlayerCount() <= 2) {
+                    eim.setProperty("statusStg" + stage, 1);
+                    clearStage(stage, eim, curMap);
+                    cm.sendNext("The party is too small to complete this stage's five-box formation, so the stage has been cleared.");
+                    cm.dispose();
+                    return;
+                }
                 var state = eim.getIntProperty("statusStg" + stage);
 
                 if (state == -1) {           // preamble

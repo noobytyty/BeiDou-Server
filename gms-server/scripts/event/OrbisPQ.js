@@ -24,7 +24,7 @@
  */
 
 var isPq = true;
-var minPlayers = 5, maxPlayers = 6;
+var minPlayers = 1, maxPlayers = 6;
 var minLevel = 51, maxLevel = 70;
 var entryMap = 920010000;
 var exitMap = 920011200;
@@ -37,6 +37,18 @@ var maxMapId = 920011300;
 var eventTime = 45;     // 45 minutes
 
 const maxLobbies = 1;
+// Solo/duo keeps party gates tied to the players actually present; no placeholder players are created.
+function updatePartyMode(eim, joiningPlayer) {
+    var participants = eim.getPlayers().size() + (joiningPlayer == null ? 0 : 1);
+    eim.setProperty("soloMode", participants <= 1 ? "true" : "false");
+    eim.setProperty("duoMode", participants <= 2 ? "true" : "false");
+}
+
+function requiredPlayers(eim, normalRequired) {
+    var participants = Math.max(1, eim.getPlayers().size());
+    return eim.getProperty("duoMode") == "true" ? Math.min(normalRequired, participants) : normalRequired;
+}
+
 
 function init() {
     setEventRequirements();
@@ -113,6 +125,7 @@ function getEligibleParty(party) {      //selects, from the given party, the tea
 
 function setup(level, lobbyid) {
     var eim = em.newInstance("Orbis" + lobbyid);
+    updatePartyMode(eim);
     eim.setProperty("level", level);
 
     eim.setProperty("statusStg0", -1);
@@ -170,6 +183,10 @@ function setup(level, lobbyid) {
 }
 
 function isTeamAllJobs(eim) {
+    // The original all-job buff is optional when one or two players are present.
+    if (eim.getProperty("duoMode") == "true") {
+        return true;
+    }
     var eventJobs = eim.getEventPlayersJobs();
     var rangeJobs = parseInt('111110', 2);
 
@@ -186,6 +203,7 @@ function afterSetup(eim) {
 function respawnStages(eim) {}
 
 function playerEntry(eim, player) {
+    updatePartyMode(eim, player);
     var map = eim.getMapInstance(entryMap);
     player.changeMap(map, map.getPortal(0));
 
@@ -221,7 +239,7 @@ function playerLeft(eim, player) {
 
 function changedMap(eim, player, mapid) {
     if (mapid < minMapId || mapid > maxMapId) {
-        if (eim.isEventTeamLackingNow(true, minPlayers, player)) {
+        if (eim.isEventTeamLackingNow(true, requiredPlayers(eim, minPlayers), player)) {
             eim.unregisterPlayer(player);
             end(eim);
         } else {
@@ -240,7 +258,7 @@ function changedLeader(eim, leader) {
 function playerDead(eim, player) {}
 
 function playerRevive(eim, player) { // player presses ok on the death pop up.
-    if (eim.isEventTeamLackingNow(true, minPlayers, player)) {
+    if (eim.isEventTeamLackingNow(true, requiredPlayers(eim, minPlayers), player)) {
         eim.unregisterPlayer(player);
         end(eim);
     } else {
@@ -249,7 +267,7 @@ function playerRevive(eim, player) { // player presses ok on the death pop up.
 }
 
 function playerDisconnected(eim, player) {
-    if (eim.isEventTeamLackingNow(true, minPlayers, player)) {
+    if (eim.isEventTeamLackingNow(true, requiredPlayers(eim, minPlayers), player)) {
         eim.unregisterPlayer(player);
         end(eim);
     } else {
@@ -258,7 +276,7 @@ function playerDisconnected(eim, player) {
 }
 
 function leftParty(eim, player) {
-    if (eim.isEventTeamLackingNow(false, minPlayers, player)) {
+    if (eim.isEventTeamLackingNow(false, requiredPlayers(eim, minPlayers), player)) {
         end(eim);
     } else {
         playerLeft(eim, player);

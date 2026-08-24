@@ -5,10 +5,18 @@ import org.gms.client.command.Command;
 import org.gms.client.inventory.Equip;
 import org.gms.client.inventory.EquipmentAffix;
 import org.gms.client.inventory.EquipmentAffixGenerator;
+import org.gms.client.inventory.EquipmentAffixPowder;
 import org.gms.client.inventory.InventoryType;
+import org.gms.client.inventory.manipulator.InventoryManipulator;
+import org.gms.server.ItemInformationProvider;
 import org.gms.util.I18nUtil;
 
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class RerollAffixCommand extends Command {
+    private static final ItemInformationProvider ITEM_INFORMATION_PROVIDER = ItemInformationProvider.getInstance();
+
     {
         setDescription(I18nUtil.getMessage("RerollAffixCommand.message1"));
     }
@@ -26,14 +34,26 @@ public class RerollAffixCommand extends Command {
                 return;
             }
             int cost = calculateRerollCost(equip);
+            Map<Integer, Integer> powderCost = EquipmentAffixPowder.rerollCostFor(equip);
             if (client.getPlayer().getMeso() < cost) {
                 client.getPlayer().dropMessage(5, I18nUtil.getMessage("RerollAffixCommand.message4", cost));
                 return;
             }
+            for (Map.Entry<Integer, Integer> entry : powderCost.entrySet()) {
+                if (client.getPlayer().countItem(entry.getKey()) < entry.getValue()) {
+                    client.getPlayer().dropMessage(5, I18nUtil.getMessage(
+                            "RerollAffixCommand.message6",
+                            ITEM_INFORMATION_PROVIDER.getName(entry.getKey()), entry.getValue()));
+                    return;
+                }
+            }
             client.getPlayer().gainMeso(-cost, true, false, true);
+            powderCost.forEach((itemId, quantity) -> InventoryManipulator.removeById(
+                    client, InventoryType.ETC, itemId, quantity, false, false));
             EquipmentAffixGenerator.reroll(equip, true);
             client.getPlayer().forceUpdateItem(equip);
-            client.getPlayer().dropMessage(5, I18nUtil.getMessage("RerollAffixCommand.message5", cost));
+            client.getPlayer().dropMessage(5, I18nUtil.getMessage(
+                    "RerollAffixCommand.message5", cost, powderCost.values().stream().mapToInt(Integer::intValue).sum()));
         } catch (NumberFormatException exception) {
             client.getPlayer().dropMessage(5, I18nUtil.getMessage("RerollAffixCommand.message2"));
         }
@@ -45,5 +65,14 @@ public class RerollAffixCommand extends Command {
         double lockMultiplier = Math.pow(1.6, lockedCount);
         double multiplier = rarityMultiplier * lockMultiplier;
         return (int) (Math.round(10_000 * multiplier / 1_000) * 1_000);
+    }
+
+    public static String preview(Equip equip) {
+        Map<Integer, Integer> powderCost = EquipmentAffixPowder.rerollCostFor(equip);
+        String powders = powderCost.entrySet().stream()
+                .map(entry -> ITEM_INFORMATION_PROVIDER.getName(entry.getKey()) + " x" + entry.getValue())
+                .collect(Collectors.joining("、"));
+        return I18nUtil.getMessage("RerollAffixCommand.preview",
+                new RerollAffixCommand().calculateRerollCost(equip), powders);
     }
 }

@@ -63,7 +63,7 @@ function action(mode, type, selection) {
             } else if (status == 1) {
                 if (selection == 0) {
                     if (cm.getParty() == null) {
-                        cm.sendOk("嗨！我是达尔利。这个地方笼罩着满月的神秘气息，任何人都不能独自进入这里。");
+                        cm.sendOk("嗨！我是达尔利。这个地方笼罩着满月的神秘气息，请先组建队伍再进入。");
                         cm.dispose();
                     } else if (!cm.isLeader()) {
                         cm.sendOk("如果你想进入这里，你的队伍队长必须和我交谈。和你的队长说一下这件事。");

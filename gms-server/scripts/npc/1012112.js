@@ -63,7 +63,7 @@ function action(mode, type, selection) {
             } else if (status == 1) {
                 if (selection == 0) {
                     if (cm.getParty() == null) {
-                        cm.sendOk("Hi there! I'm Tory. This place is covered with mysterious aura of the full moon, and no one person can enter here by him/herself.");
+                        cm.sendOk("Hi there! I'm Tory. This place is covered with mysterious aura of the full moon. Please form a party before entering.");
                         cm.dispose();
                     } else if (!cm.isLeader()) {
                         cm.sendOk("If you'd like to enter here, the leader of your party will have to talk to me. Talk to your party leader about this.");
