@@ -99,6 +99,7 @@
         <imgdir name="20">
           <string name="hs" value="h20"/>
           <int name="speed" value="30"/>
+          <int name="jump" value="10"/>
         </imgdir>
       </imgdir>
     </imgdir>
@@ -234,7 +235,7 @@
           <string name="hs" value="h20"/>
           <int name="mpCon" value="32"/>
           <int name="time" value="60"/>
-          <int name="x" value="6000"/>
+          <int name="x" value="20000"/>
         </imgdir>
       </imgdir>
       <imgdir name="action">
@@ -674,7 +675,7 @@
         <imgdir name="30">
           <string name="hs" value="h30"/>
           <int name="mpCon" value="30"/>
-          <int name="damage" value="150"/>
+          <int name="damage" value="180"/>
           <int name="time" value="10"/>
           <vector name="lt" x="-150" y="-100"/>
           <vector name="rb" x="150" y="100"/>
@@ -1695,7 +1696,7 @@
         <imgdir name="6">
           <string name="hs" value="h6"/>
           <int name="prop" value="48"/>
-          <int name="damage" value="160"/>
+          <int name="damage" value="190"/>
           <int name="x" value="29"/>
           <int name="y" value="3"/>
         </imgdir>

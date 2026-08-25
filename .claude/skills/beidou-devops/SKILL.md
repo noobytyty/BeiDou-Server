@@ -19,10 +19,12 @@
 | WZ 补丁工具 | `.tools\orange-wz-cli\target\xml-img-patcher.jar`（fat jar，免 exe；360 会删 exe，jar 稳） |
 | MySQL | `F:\mysql-8.0.39-winx64\NapMysqlTool\mysql-8.0.39-winx64\bin\mysql.exe -uroot -proot beidou` |
 | 脚本解析 | Node（`node --check` 可验证 .js 语法） |
+| 本机 Python 环境 | 执行 Python 相关命令前运行 `source ~/venv/bin/activate` |
 
 ## 关键架构事实（决定改动方式）
 
 - **伤害由客户端计算**：服务端只做上限校验（`calcDmgMax`）。改伤害/熟练度/命中要改**客户端 Skill.wz**（`Data/Skill/*.img`），服务端 `wz/Skill.wz/*.img.xml` 同步保持一致。
+- **技能说明必须同步**：凡修改技能伤害、属性、概率、目标数、射程、持续时间或消耗，必须同时更新服务端 `wz/String.wz/Skill.img.xml` 和 `wz-zh-CN/String.wz/Skill.img.xml` 的英文/中文名称说明及各等级文本；只改 Skill.wz 不算完成。
 - **NPC 渲染位置 = 服务端 spawn 封包**（`SPAWN_NPC` 发 x/cy/fh/rx0/rx1），客户端用 **fh（foothold 全局段编号）找地面吸附 NPC**。小地图用 x 原始值、渲染用 fh → 两者会不一致。
 - **NPC 外观数据只在客户端**：服务端 `wz/Npc.wz/*.img.xml` 只是占位（无 PNG），客户端 `Data/Npc/*.img` 才是真实外观。服务端只读 `String.wz/Npc.img` 里的名字。
 - **服务端启动读外部 wz 目录**（不是 jar 内）：改 `gms-server/wz/` 下 XML 后重启服务端即生效，无需重新打包（但改了 Java 代码必须重打包）。

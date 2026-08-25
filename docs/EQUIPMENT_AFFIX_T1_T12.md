@@ -4,7 +4,7 @@
 
 本文记录当前装备词缀系统的实际效果、数值范围、等级限制和抽取规则。
 
-> 说明：本文中的数值和抽取规则对应当前服务端代码及 `V1.11.24`–`V1.11.50` 迁移。词缀展示名称由服务端 i18n 提供，阶级前缀按 `affix_code + affix_tier` 独立配置。
+> 说明：本文中的数值和抽取规则对应当前服务端代码及 `V1.11.24`–`V1.11.52` 迁移。词缀展示名称由服务端 i18n 提供，阶级前缀按 `affix_code + affix_tier` 独立配置。
 
 ## 1. 词缀效果
 
@@ -822,25 +822,25 @@ equipment.prefix.str_watk.t12
 
 ## 8. 配置和代码入口
 
-- 等级词缀池：[V1.11.24__add_level_based_affix_pools.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.24__add_level_based_affix_pools.sql)
-- 混合词缀：[V1.11.25__add_mixed_affixes.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.25__add_mixed_affixes.sql)
-- 扩展混合词缀：[V1.11.40__add_extended_mixed_affixes.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.40__add_extended_mixed_affixes.sql)
-- 职业适配调整：[V1.11.41__disable_cross_class_primary_affixes.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.41__disable_cross_class_primary_affixes.sql)
-- 功能混合词缀：[V1.11.42__add_functional_mixed_affixes.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.42__add_functional_mixed_affixes.sql)
-- 职业功能组合：[V1.11.43__add_class_utility_mixed_affixes.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.43__add_class_utility_mixed_affixes.sql)
-- 跨维度组合：[V1.11.44__add_cross_dimension_mixed_affixes.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.44__add_cross_dimension_mixed_affixes.sql)
-- 资源与防御组合：[V1.11.45__add_resource_defense_mixed_affixes.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.45__add_resource_defense_mixed_affixes.sql)
-- T9–T12 区间：[V1.11.26__extend_affix_tiers_to_12.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.26__extend_affix_tiers_to_12.sql)
-- 抽取逻辑：[EquipmentAffixGenerator.java](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/java/org/gms/client/inventory/EquipmentAffixGenerator.java)
-- 运行时属性贡献：[Equip.java](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/java/org/gms/client/inventory/Equip.java)
-- 配置加载：[EquipmentAffixConfigLoader.java](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/java/org/gms/client/inventory/EquipmentAffixConfigLoader.java)
-- 职业限制与权重：[V1.11.46__rebalance_mixed_affix_weights.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.46__rebalance_mixed_affix_weights.sql)
-- 耳环经济定位：[V1.11.47__rebalance_earring_economy_affixes.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.47__rebalance_earring_economy_affixes.sql)
-- 全身装备词缀池：[V1.11.48__add_overall_affix_pool.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.48__add_overall_affix_pool.sql)
-- 部位权重与属性折算：[V1.11.49__rebalance_slot_specific_affix_weights.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.49__rebalance_slot_specific_affix_weights.sql)
-- 元素伤害词缀：[V1.11.50__add_elemental_damage_affixes.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.50__add_elemental_damage_affixes.sql)
-- 词缀池收敛与百分比上限：[V1.11.51__compress_affix_pools_and_cap_percentages.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.51__compress_affix_pools_and_cap_percentages.sql)
-- 低价值混合词缀降权：[V1.11.52__lower_low_value_mixed_affix_weights.sql](/home/qtf8184/ms/BeiDou-Server.worktrees/check-compile/gms-server/src/main/resources/db/migration/V1.11.52__lower_low_value_mixed_affix_weights.sql)
+- 等级词缀池：[V1.11.24__add_level_based_affix_pools.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.24__add_level_based_affix_pools.sql)
+- 混合词缀：[V1.11.25__add_mixed_affixes.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.25__add_mixed_affixes.sql)
+- 扩展混合词缀：[V1.11.40__add_extended_mixed_affixes.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.40__add_extended_mixed_affixes.sql)
+- 职业适配调整：[V1.11.41__disable_cross_class_primary_affixes.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.41__disable_cross_class_primary_affixes.sql)
+- 功能混合词缀：[V1.11.42__add_functional_mixed_affixes.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.42__add_functional_mixed_affixes.sql)
+- 职业功能组合：[V1.11.43__add_class_utility_mixed_affixes.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.43__add_class_utility_mixed_affixes.sql)
+- 跨维度组合：[V1.11.44__add_cross_dimension_mixed_affixes.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.44__add_cross_dimension_mixed_affixes.sql)
+- 资源与防御组合：[V1.11.45__add_resource_defense_mixed_affixes.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.45__add_resource_defense_mixed_affixes.sql)
+- T9–T12 区间：[V1.11.26__extend_affix_tiers_to_12.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.26__extend_affix_tiers_to_12.sql)
+- 抽取逻辑：[EquipmentAffixGenerator.java](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/java/org/gms/client/inventory/EquipmentAffixGenerator.java)
+- 运行时属性贡献：[Equip.java](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/java/org/gms/client/inventory/Equip.java)
+- 配置加载：[EquipmentAffixConfigLoader.java](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/java/org/gms/client/inventory/EquipmentAffixConfigLoader.java)
+- 职业限制与权重：[V1.11.46__rebalance_mixed_affix_weights.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.46__rebalance_mixed_affix_weights.sql)
+- 耳环经济定位：[V1.11.47__rebalance_earring_economy_affixes.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.47__rebalance_earring_economy_affixes.sql)
+- 全身装备词缀池：[V1.11.48__add_overall_affix_pool.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.48__add_overall_affix_pool.sql)
+- 部位权重与属性折算：[V1.11.49__rebalance_slot_specific_affix_weights.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.49__rebalance_slot_specific_affix_weights.sql)
+- 元素伤害词缀：[V1.11.50__add_elemental_damage_affixes.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.50__add_elemental_damage_affixes.sql)
+- 词缀池收敛与百分比上限：[V1.11.51__compress_affix_pools_and_cap_percentages.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.51__compress_affix_pools_and_cap_percentages.sql)
+- 低价值混合词缀降权：[V1.11.52__lower_low_value_mixed_affix_weights.sql](/home/qtf8184/ms/BeiDou-Server/gms-server/src/main/resources/db/migration/V1.11.52__lower_low_value_mixed_affix_weights.sql)
 
 有职业要求的装备会按 `reqJob` 过滤职业不匹配的主属性、攻击属性及其混合词缀；无职业要求的装备不做该限制。单属性和职业定向攻击组合权重高于跨维度辅助组合，保证后者用于丰富词条而不是取代核心词条。
 

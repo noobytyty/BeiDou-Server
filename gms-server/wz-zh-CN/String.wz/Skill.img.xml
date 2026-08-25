@@ -4352,7 +4352,7 @@
         <string name="h5" value="投射武器的射程距离增加125"/>
         <string name="h6" value="投射武器的射程距离增加150"/>
         <string name="h7" value="投射武器的射程距离增加175"/>
-        <string name="h8" value="投射武器的射程距离增加200"/>
+        <string name="h8" value="投射武器的射程距离增加250"/>
         <string name="desc" value="[最高等级：8]\n增加拳套系武器的射程距离。\n必需技能 : #c集中术等级3以上#"/>
     </imgdir>
     <imgdir name="14001002">
@@ -8408,7 +8408,7 @@
         <string name="h13" value="命中率 +13"/>
         <string name="h14" value="命中率 +14"/>
         <string name="h15" value="命中率 +15"/>
-        <string name="h16" value="命中率 +16"/>
+        <string name="h16" value="回避率 +20"/>
         <string name="h2" value="命中率 +2"/>
         <string name="h3" value="命中率 +3"/>
         <string name="h4" value="命中率 +4"/>
@@ -8417,7 +8417,7 @@
         <string name="h7" value="命中率 +7"/>
         <string name="h8" value="命中率 +8"/>
         <string name="h9" value="命中率 +9"/>
-        <string name="desc" value="[最高等级 : 16]\n提高命中率。"/>
+        <string name="desc" value="[最高等级 : 16]\n提高回避率。"/>
     </imgdir>
     <imgdir name="3000001">
         <string name="name" value="强力箭"/>
@@ -8433,7 +8433,7 @@
         <string name="h18" value="暴击率 38%，暴击伤害 190%"/>
         <string name="h19" value="暴击率 39%，暴击伤害 195%"/>
         <string name="h2" value="暴击率 14%，暴击伤害 110%"/>
-        <string name="h20" value="暴击率 40%，暴击伤害 200%"/>
+        <string name="h20" value="暴击率 70%，暴击伤害 210%"/>
         <string name="h3" value="暴击率 16%，暴击伤害 115%"/>
         <string name="h4" value="暴击率 18%，暴击伤害 120%"/>
         <string name="h5" value="暴击率 20%，暴击伤害 125%"/>
@@ -8452,32 +8452,32 @@
         <string name="h5" value="弓与弩的射程距离增加75"/>
         <string name="h6" value="弓与弩的射程距离增加90"/>
         <string name="h7" value="弓与弩的射程距离增加105"/>
-        <string name="h8" value="弓与弩的射程距离增加120"/>
+        <string name="h8" value="弓与弩的射程距离增加150"/>
         <string name="desc" value="[最高等级 : 8]\n增加弓和弩的攻击距离。\n需要技能 : #c祝福之羽 3级以上#"/>
     </imgdir>
     <imgdir name="3001003">
         <string name="name" value="集中术"/>
-        <string name="h1" value="消耗MP 8，命中率 +1，回避率 +1，持续 70秒"/>
-        <string name="h10" value="消耗MP 10，命中率 +10，回避率 +10，持续 170秒"/>
-        <string name="h11" value="消耗MP 13，命中率 +11，回避率 +11，持续 195秒"/>
-        <string name="h12" value="消耗MP 13，命中率 +12，回避率 +12，持续 205秒"/>
-        <string name="h13" value="消耗MP 13，命中率 +13，回避率 +13，持续 215秒"/>
-        <string name="h14" value="消耗MP 13，命中率 +14，回避率 +14，持续 225秒"/>
-        <string name="h15" value="消耗MP 13，命中率 +15，回避率 +15，持续 235秒"/>
-        <string name="h16" value="消耗MP 16，命中率 +16，回避率 +16，持续 260秒"/>
-        <string name="h17" value="消耗MP 16，命中率 +17，回避率 +17，持续 270秒"/>
-        <string name="h18" value="消耗MP 16，命中率 +18，回避率 +18，持续 280秒"/>
-        <string name="h19" value="消耗MP 16，命中率 +19，回避率 +19，持续 290秒"/>
-        <string name="h2" value="消耗MP 8，命中率 +2，回避率 +2，持续 80秒"/>
-        <string name="h20" value="消耗MP 16，命中率 +20，回避率 +20，持续 300秒"/>
-        <string name="h3" value="消耗MP 8，命中率 +3，回避率 +3，持续 90秒"/>
-        <string name="h4" value="消耗MP 8，命中率 +4，回避率 +4，持续 100秒"/>
-        <string name="h5" value="消耗MP 8，命中率 +5，回避率 +5，持续 110秒"/>
-        <string name="h6" value="消耗MP 10，命中率 +6，回避率 +6，持续 130秒"/>
-        <string name="h7" value="消耗MP 10，命中率 +7，回避率 +7，持续 140秒"/>
-        <string name="h8" value="消耗MP 10，命中率 +8，回避率 +8，持续 150秒"/>
-        <string name="h9" value="消耗MP 10，命中率 +9，回避率 +9，持续 160秒"/>
-        <string name="desc" value="[最高等级 : 20]\n在一定时间内提高命中率和回避率。\n需要技能 : #c祝福之羽 3级以上#"/>
+        <string name="h1" value="消耗MP 8，回避率 +2，持续 70秒"/>
+        <string name="h10" value="消耗MP 10，回避率 +20，持续 170秒"/>
+        <string name="h11" value="消耗MP 13，回避率 +22，持续 195秒"/>
+        <string name="h12" value="消耗MP 13，回避率 +24，持续 205秒"/>
+        <string name="h13" value="消耗MP 13，回避率 +26，持续 215秒"/>
+        <string name="h14" value="消耗MP 13，回避率 +28，持续 225秒"/>
+        <string name="h15" value="消耗MP 13，回避率 +30，持续 235秒"/>
+        <string name="h16" value="消耗MP 16，回避率 +32，持续 260秒"/>
+        <string name="h17" value="消耗MP 16，回避率 +34，持续 270秒"/>
+        <string name="h18" value="消耗MP 16，回避率 +36，持续 280秒"/>
+        <string name="h19" value="消耗MP 16，回避率 +38，持续 290秒"/>
+        <string name="h2" value="消耗MP 8，回避率 +4，持续 80秒"/>
+        <string name="h20" value="消耗MP 16，回避率 +40，持续 300秒"/>
+        <string name="h3" value="消耗MP 8，回避率 +6，持续 90秒"/>
+        <string name="h4" value="消耗MP 8，回避率 +8，持续 100秒"/>
+        <string name="h5" value="消耗MP 8，回避率 +10，持续 110秒"/>
+        <string name="h6" value="消耗MP 10，回避率 +12，持续 130秒"/>
+        <string name="h7" value="消耗MP 10，回避率 +14，持续 140秒"/>
+        <string name="h8" value="消耗MP 10，回避率 +16，持续 150秒"/>
+        <string name="h9" value="消耗MP 10，回避率 +18，持续 160秒"/>
+        <string name="desc" value="[最高等级 : 20]\n在一定时间内提高回避率。\n需要技能 : #c祝福之羽 3级以上#"/>
     </imgdir>
     <imgdir name="3001004">
         <string name="name" value="断魂箭"/>
@@ -8493,7 +8493,7 @@
         <string name="h18" value="消耗MP 13，伤害 248%"/>
         <string name="h19" value="消耗MP 13，伤害 253%"/>
         <string name="h2" value="消耗MP 8，伤害 193%"/>
-        <string name="h20" value="消耗MP 14，伤害 260%"/>
+        <string name="h20" value="消耗MP 14，伤害 275%"/>
         <string name="h3" value="消耗MP 8，伤害 196%"/>
         <string name="h4" value="消耗MP 8，伤害 200%"/>
         <string name="h5" value="消耗MP 9，伤害 203%"/>
@@ -8517,7 +8517,7 @@
         <string name="h18" value="消耗MP 15，每支箭伤害 126%，攻击 2次"/>
         <string name="h19" value="消耗MP 15，每支箭伤害 128%，攻击 2次"/>
         <string name="h2" value="消耗MP 10，每支箭伤害 94%，攻击 2次"/>
-        <string name="h20" value="消耗MP 16，每支箭伤害 130%，攻击 2次"/>
+        <string name="h20" value="消耗MP 16，每支箭伤害 140%，攻击 2次"/>
         <string name="h3" value="消耗MP 10，每支箭伤害 96%，攻击 2次"/>
         <string name="h4" value="消耗MP 10，每支箭伤害 98%，攻击 2次"/>
         <string name="h5" value="消耗MP 11，每支箭伤害 100%，攻击 2次"/>
@@ -8591,7 +8591,7 @@
     <imgdir name="3101002">
         <string name="name" value="快速箭"/>
         <string name="h1" value="消耗HP 29，消耗MP 29，弓攻击速度提升2级，持续 10秒"/>
-        <string name="h10" value="消耗HP 20，消耗MP 20，弓攻击速度提升2级，持续 100秒"/>
+        <string name="h10" value="消耗HP 10，消耗MP 10，弓攻击速度提升2级，持续 200秒"/>
         <string name="h11" value="消耗HP 19，消耗MP 19，弓攻击速度提升2级，持续 110秒"/>
         <string name="h12" value="消耗HP 18，消耗MP 18，弓攻击速度提升2级，持续 120秒"/>
         <string name="h13" value="消耗HP 17，消耗MP 17，弓攻击速度提升2级，持续 130秒"/>
@@ -8601,19 +8601,19 @@
         <string name="h17" value="消耗HP 13，消耗MP 13，弓攻击速度提升2级，持续 170秒"/>
         <string name="h18" value="消耗HP 12，消耗MP 12，弓攻击速度提升2级，持续 180秒"/>
         <string name="h19" value="消耗HP 11，消耗MP 11，弓攻击速度提升2级，持续 190秒"/>
-        <string name="h2" value="消耗HP 28，消耗MP 28，弓攻击速度提升2级，持续 20秒"/>
+        <string name="h2" value="消耗HP 27，消耗MP 27，弓攻击速度提升2级，持续 30秒"/>
         <string name="h20" value="消耗HP 10，消耗MP 10，弓攻击速度提升2级，持续 200秒"/>
-        <string name="h3" value="消耗HP 27，消耗MP 27，弓攻击速度提升2级，持续 30秒"/>
-        <string name="h4" value="消耗HP 26，消耗MP 26，弓攻击速度提升2级，持续 40秒"/>
-        <string name="h5" value="消耗HP 25，消耗MP 25，弓攻击速度提升2级，持续 50秒"/>
-        <string name="h6" value="消耗HP 24，消耗MP 24，弓攻击速度提升2级，持续 60秒"/>
-        <string name="h7" value="消耗HP 23，消耗MP 23，弓攻击速度提升2级，持续 70秒"/>
-        <string name="h8" value="消耗HP 22，消耗MP 22，弓攻击速度提升2级，持续 80秒"/>
-        <string name="h9" value="消耗HP 21，消耗MP 21，弓攻击速度提升2级，持续 90秒"/>
-        <string name="desc" value="[最高等级 : 20]\n消耗HP和MP，在一定时间内提升弓的攻击速度2级。\n必须装备弓。\n需要技能 : #c精准弓 5级以上#"/>
+        <string name="h3" value="消耗HP 25，消耗MP 25，弓攻击速度提升2级，持续 50秒"/>
+        <string name="h4" value="消耗HP 23，消耗MP 23，弓攻击速度提升2级，持续 70秒"/>
+        <string name="h5" value="消耗HP 21，消耗MP 21，弓攻击速度提升2级，持续 90秒"/>
+        <string name="h6" value="消耗HP 19，消耗MP 19，弓攻击速度提升2级，持续 110秒"/>
+        <string name="h7" value="消耗HP 17，消耗MP 17，弓攻击速度提升2级，持续 130秒"/>
+        <string name="h8" value="消耗HP 15，消耗MP 15，弓攻击速度提升2级，持续 150秒"/>
+        <string name="h9" value="消耗HP 13，消耗MP 13，弓攻击速度提升2级，持续 170秒"/>
+        <string name="desc" value="[最高等级 : 10]\n消耗HP和MP，在一定时间内提升弓的攻击速度2级。\n必须装备弓。\n需要技能 : #c精准弓 5级以上#"/>
     </imgdir>
     <imgdir name="3101003">
-        <string name="name" value="强弓"/>
+        <string name="name" value="强力击退"/>
         <string name="h1" value="消耗MP 8，13%几率发动，伤害 105%，最多攻击 2个敌人"/>
         <string name="h10" value="消耗MP 8，40%几率发动，伤害 150%，最多攻击 3个敌人"/>
         <string name="h11" value="消耗MP 15，43%几率发动，伤害 155%，最多攻击 4个敌人"/>
@@ -8626,7 +8626,7 @@
         <string name="h18" value="消耗MP 15，64%几率发动，伤害 190%，最多攻击 5个敌人"/>
         <string name="h19" value="消耗MP 15，67%几率发动，伤害 195%，最多攻击 5个敌人"/>
         <string name="h2" value="消耗MP 8，16%几率发动，伤害 110%，最多攻击 2个敌人"/>
-        <string name="h20" value="消耗MP 15，70%几率发动，伤害 200%，最多攻击 6个敌人"/>
+        <string name="h20" value="消耗MP 15，90%几率发动，伤害 200%，最多攻击 6个敌人"/>
         <string name="h3" value="消耗MP 8，19%几率发动，伤害 115%，最多攻击 2个敌人"/>
         <string name="h4" value="消耗MP 8，22%几率发动，伤害 120%，最多攻击 2个敌人"/>
         <string name="h5" value="消耗MP 8，25%几率发动，伤害 125%，最多攻击 2个敌人"/>
@@ -8650,7 +8650,7 @@
         <string name="h18" value="消耗MP 20，540秒内攻击不消耗箭矢"/>
         <string name="h19" value="消耗MP 20，570秒内攻击不消耗箭矢"/>
         <string name="h2" value="消耗MP 15，60秒内攻击不消耗箭矢"/>
-        <string name="h20" value="消耗MP 20，600秒内攻击不消耗箭矢"/>
+        <string name="h20" value="消耗MP 20，900秒内攻击不消耗箭矢"/>
         <string name="h3" value="消耗MP 15，90秒内攻击不消耗箭矢"/>
         <string name="h4" value="消耗MP 15，120秒内攻击不消耗箭矢"/>
         <string name="h5" value="消耗MP 15，150秒内攻击不消耗箭矢"/>
@@ -8685,7 +8685,7 @@
         <string name="h28" value="消耗MP 28，伤害 126%，最多攻击 6个敌人，58%几率眩晕 6秒"/>
         <string name="h29" value="消耗MP 28，伤害 128%，最多攻击 6个敌人，59%几率眩晕 6秒"/>
         <string name="h3" value="消耗MP 14，伤害 76%，最多攻击 6个敌人，33%几率眩晕 2秒"/>
-        <string name="h30" value="消耗MP 28，伤害 130%，最多攻击 6个敌人，60%几率眩晕 6秒"/>
+        <string name="h30" value="消耗MP 28，伤害 150%，最多攻击 6个敌人，60%几率眩晕 6秒"/>
         <string name="h4" value="消耗MP 14，伤害 78%，最多攻击 6个敌人，34%几率眩晕 2秒"/>
         <string name="h5" value="消耗MP 14，伤害 80%，最多攻击 6个敌人，35%几率眩晕 2秒"/>
         <string name="h6" value="消耗MP 14，伤害 82%，最多攻击 6个敌人，36%几率眩晕 2秒"/>
@@ -8711,7 +8711,7 @@
 		<string name="h18" value="移动速度 +28"/>
 		<string name="h19" value="移动速度 +29"/>
 		<string name="h2" value="移动速度 +4"/>
-		<string name="h20" value="移动速度 +30"/>
+		<string name="h20" value="移动速度 +30，跳跃力 +10"/>
 		<string name="h3" value="移动速度 +6"/>
 		<string name="h4" value="移动速度 +8"/>
 		<string name="h5" value="移动速度 +10"/>
@@ -8759,7 +8759,7 @@
         <string name="h18" value="消耗MP 32，召唤HP 5000的替身，持续 60秒"/>
         <string name="h19" value="消耗MP 32，召唤HP 5500的替身，持续 60秒"/>
         <string name="h2" value="消耗MP 23，召唤HP 600的替身，持续 5秒"/>
-        <string name="h20" value="消耗MP 32，召唤HP 6000的替身，持续 60秒"/>
+        <string name="h20" value="消耗MP 32，召唤HP 20000的替身，持续 60秒"/>
         <string name="h3" value="消耗MP 23，召唤HP 700的替身，持续 10秒"/>
         <string name="h4" value="消耗MP 23，召唤HP 800的替身，持续 10秒"/>
         <string name="h5" value="消耗MP 23，召唤HP 900的替身，持续 10秒"/>
@@ -8794,7 +8794,7 @@
         <string name="h28" value="消耗MP 30，伤害 148%，最多攻击 6个敌人"/>
         <string name="h29" value="消耗MP 30，伤害 149%，最多攻击 6个敌人"/>
         <string name="h3" value="消耗MP 20，伤害 60%，最多攻击 6个敌人"/>
-        <string name="h30" value="消耗MP 30，伤害 150%，最多攻击 6个敌人"/>
+        <string name="h30" value="消耗MP 30，伤害 180%，最多攻击 6个敌人"/>
         <string name="h4" value="消耗MP 20，伤害 65%，最多攻击 6个敌人"/>
         <string name="h5" value="消耗MP 20，伤害 70%，最多攻击 6个敌人"/>
         <string name="h6" value="消耗MP 20，伤害 75%，最多攻击 6个敌人"/>
@@ -8828,7 +8828,7 @@
         <string name="h28" value="消耗MP 28，伤害 158%，最多攻击 6个敌人"/>
         <string name="h29" value="消耗MP 28，伤害 159%，最多攻击 6个敌人"/>
         <string name="h3" value="消耗MP 18，伤害 70%，最多攻击 6个敌人"/>
-        <string name="h30" value="消耗MP 28，伤害 160%，最多攻击 6个敌人"/>
+        <string name="h30" value="消耗MP 28，伤害 190%，最多攻击 6个敌人"/>
         <string name="h4" value="消耗MP 18，伤害 75%，最多攻击 6个敌人"/>
         <string name="h5" value="消耗MP 18，伤害 80%，最多攻击 6个敌人"/>
         <string name="h6" value="消耗MP 18，伤害 85%，最多攻击 6个敌人"/>
@@ -8938,7 +8938,7 @@
         <string name="h27" value="弓系武器的熟练度 90%, 物理 攻击力 9 上升"/>
         <string name="h28" value="弓系武器的熟练度 90%, 物理 攻击力 9 上升"/>
         <string name="h29" value="弓系武器的熟练度 90%, 物理 攻击力 9 上升"/>
-        <string name="h30" value="弓系武器的熟练度 90%, 物理 攻击力 10 上升"/>
+        <string name="h30" value="弓系武器的熟练度 90%, 物理 攻击力 20 上升"/>
         <string name="desc" value="进一步提高弓的熟练度和攻击力。\n必须装备弓。\n需要技能 : #c精准弓 20级#"/>
     </imgdir>
     <imgdir name="3121000">
@@ -9000,7 +9000,7 @@
         <string name="h28" value="消耗MP 42，暴击率 +14%，暴击伤害 +38%，持续 280秒"/>
         <string name="h29" value="消耗MP 41，暴击率 +15%，暴击伤害 +39%，持续 290秒"/>
         <string name="h3" value="消耗MP 29，暴击率 +2%，暴击伤害 +13%，持续 30秒"/>
-        <string name="h30" value="消耗MP 40，暴击率 +15%，暴击伤害 +40%，持续 300秒"/>
+        <string name="h30" value="消耗MP 40，暴击率 +30%，暴击伤害 +40%，持续 300秒"/>
         <string name="h4" value="消耗MP 29，暴击率 +2%，暴击伤害 +14%，持续 40秒"/>
         <string name="h5" value="消耗MP 29，暴击率 +3%，暴击伤害 +15%，持续 50秒"/>
         <string name="h6" value="消耗MP 29，暴击率 +3%，暴击伤害 +16%，持续 60秒"/>
@@ -9252,7 +9252,7 @@
     <imgdir name="3201002">
         <string name="name" value="快速弩"/>
         <string name="h1" value="消耗HP 29，消耗MP 29，弩攻击速度提升2级，持续 10秒"/>
-        <string name="h10" value="消耗HP 20，消耗MP 20，弩攻击速度提升2级，持续 100秒"/>
+        <string name="h10" value="消耗HP 10，消耗MP 10，弩攻击速度提升2级，持续 200秒"/>
         <string name="h11" value="消耗HP 19，消耗MP 19，弩攻击速度提升2级，持续 110秒"/>
         <string name="h12" value="消耗HP 18，消耗MP 18，弩攻击速度提升2级，持续 120秒"/>
         <string name="h13" value="消耗HP 17，消耗MP 17，弩攻击速度提升2级，持续 130秒"/>
@@ -9262,19 +9262,19 @@
         <string name="h17" value="消耗HP 13，消耗MP 13，弩攻击速度提升2级，持续 170秒"/>
         <string name="h18" value="消耗HP 12，消耗MP 12，弩攻击速度提升2级，持续 180秒"/>
         <string name="h19" value="消耗HP 11，消耗MP 11，弩攻击速度提升2级，持续 190秒"/>
-        <string name="h2" value="消耗HP 28，消耗MP 28，弩攻击速度提升2级，持续 20秒"/>
+        <string name="h2" value="消耗HP 27，消耗MP 27，弩攻击速度提升2级，持续 30秒"/>
         <string name="h20" value="消耗HP 10，消耗MP 10，弩攻击速度提升2级，持续 200秒"/>
-        <string name="h3" value="消耗HP 27，消耗MP 27，弩攻击速度提升2级，持续 30秒"/>
-        <string name="h4" value="消耗HP 26，消耗MP 26，弩攻击速度提升2级，持续 40秒"/>
-        <string name="h5" value="消耗HP 25，消耗MP 25，弩攻击速度提升2级，持续 50秒"/>
-        <string name="h6" value="消耗HP 24，消耗MP 24，弩攻击速度提升2级，持续 60秒"/>
-        <string name="h7" value="消耗HP 23，消耗MP 23，弩攻击速度提升2级，持续 70秒"/>
-        <string name="h8" value="消耗HP 22，消耗MP 22，弩攻击速度提升2级，持续 80秒"/>
-        <string name="h9" value="消耗HP 21，消耗MP 21，弩攻击速度提升2级，持续 90秒"/>
-        <string name="desc" value="[最高等级 : 20]\n消耗HP和MP，在一定时间内提升弩的攻击速度2级。\n必须装备弩。\n需要技能 : #c精准弩 5级以上#"/>
+        <string name="h3" value="消耗HP 25，消耗MP 25，弩攻击速度提升2级，持续 50秒"/>
+        <string name="h4" value="消耗HP 23，消耗MP 23，弩攻击速度提升2级，持续 70秒"/>
+        <string name="h5" value="消耗HP 21，消耗MP 21，弩攻击速度提升2级，持续 90秒"/>
+        <string name="h6" value="消耗HP 19，消耗MP 19，弩攻击速度提升2级，持续 110秒"/>
+        <string name="h7" value="消耗HP 17，消耗MP 17，弩攻击速度提升2级，持续 130秒"/>
+        <string name="h8" value="消耗HP 15，消耗MP 15，弩攻击速度提升2级，持续 150秒"/>
+        <string name="h9" value="消耗HP 13，消耗MP 13，弩攻击速度提升2级，持续 170秒"/>
+        <string name="desc" value="[最高等级 : 10]\n消耗HP和MP，在一定时间内提升弩的攻击速度2级。\n必须装备弩。\n需要技能 : #c精准弩 5级以上#"/>
     </imgdir>
     <imgdir name="3201003">
-        <string name="name" value="强弩"/>
+        <string name="name" value="强力击退"/>
         <string name="h1" value="消耗MP 8，13%几率发动，伤害 105%，最多攻击 2个敌人"/>
 		<string name="h10" value="消耗MP 8，40%几率发动，伤害 150%，最多攻击 3个敌人"/>
 		<string name="h11" value="消耗MP 15，43%几率发动，伤害 155%，最多攻击 4个敌人"/>
@@ -9287,7 +9287,7 @@
 		<string name="h18" value="消耗MP 15，64%几率发动，伤害 190%，最多攻击 5个敌人"/>
 		<string name="h19" value="消耗MP 15，67%几率发动，伤害 195%，最多攻击 5个敌人"/>
 		<string name="h2" value="消耗MP 8，16%几率发动，伤害 110%，最多攻击 2个敌人"/>
-		<string name="h20" value="消耗MP 15，70%几率发动，伤害 200%，最多攻击 6个敌人"/>
+		<string name="h20" value="消耗MP 15，90%几率发动，伤害 200%，最多攻击 6个敌人"/>
 		<string name="h3" value="消耗MP 8，19%几率发动，伤害 115%，最多攻击 2个敌人"/>
 		<string name="h4" value="消耗MP 8，22%几率发动，伤害 120%，最多攻击 2个敌人"/>
 		<string name="h5" value="消耗MP 8，25%几率发动，伤害 125%，最多攻击 2个敌人"/>
@@ -9311,7 +9311,7 @@
         <string name="h18" value="消耗MP 20，540秒内攻击不消耗箭矢"/>
         <string name="h19" value="消耗MP 20，570秒内攻击不消耗箭矢"/>
         <string name="h2" value="消耗MP 15，60秒内攻击不消耗箭矢"/>
-        <string name="h20" value="消耗MP 20，600秒内攻击不消耗箭矢"/>
+        <string name="h20" value="消耗MP 20，900秒内攻击不消耗箭矢"/>
         <string name="h3" value="消耗MP 15，90秒内攻击不消耗箭矢"/>
         <string name="h4" value="消耗MP 15，120秒内攻击不消耗箭矢"/>
         <string name="h5" value="消耗MP 15，150秒内攻击不消耗箭矢"/>
@@ -9346,7 +9346,7 @@
         <string name="h28" value="消耗MP 28，伤害 176%，最多攻击 6个敌人"/>
         <string name="h29" value="消耗MP 28，伤害 178%，最多攻击 6个敌人"/>
         <string name="h3" value="消耗MP 23，伤害 126%，最多攻击 6个敌人"/>
-        <string name="h30" value="消耗MP 28，伤害 180%，最多攻击 6个敌人"/>
+        <string name="h30" value="消耗MP 28，伤害 210%，最多攻击 6个敌人"/>
         <string name="h4" value="消耗MP 23，伤害 128%，最多攻击 6个敌人"/>
         <string name="h5" value="消耗MP 23，伤害 130%，最多攻击 6个敌人"/>
         <string name="h6" value="消耗MP 24，伤害 132%，最多攻击 6个敌人"/>
@@ -9372,7 +9372,7 @@
 		<string name="h18" value="移动速度 +28"/>
 		<string name="h19" value="移动速度 +29"/>
 		<string name="h2" value="移动速度 +4"/>
-		<string name="h20" value="移动速度 +30"/>
+		<string name="h20" value="移动速度 +30，跳跃力 +10"/>
 		<string name="h3" value="移动速度 +6"/>
 		<string name="h4" value="移动速度 +8"/>
 		<string name="h5" value="移动速度 +10"/>
@@ -9420,7 +9420,7 @@
         <string name="h18" value="消耗MP 32，召唤HP 5000的替身，持续 60秒"/>
         <string name="h19" value="消耗MP 32，召唤HP 5500的替身，持续 60秒"/>
         <string name="h2" value="消耗MP 23，召唤HP 600的替身，持续 5秒"/>
-        <string name="h20" value="消耗MP 32，召唤HP 6000的替身，持续 60秒"/>
+        <string name="h20" value="消耗MP 32，召唤HP 20000的替身，持续 60秒"/>
         <string name="h3" value="消耗MP 23，召唤HP 700的替身，持续 10秒"/>
         <string name="h4" value="消耗MP 23，召唤HP 800的替身，持续 10秒"/>
         <string name="h5" value="消耗MP 23，召唤HP 900的替身，持续 10秒"/>
@@ -9455,7 +9455,7 @@
         <string name="h28" value="消耗MP 30，伤害 139%，最多攻击 6个敌人，冻结 3秒"/>
         <string name="h29" value="消耗MP 30，伤害 139%，最多攻击 6个敌人，冻结 3秒"/>
         <string name="h3" value="消耗MP 20，伤害 104%，最多攻击 6个敌人，冻结 1秒"/>
-        <string name="h30" value="消耗MP 30，伤害 140%，最多攻击 6个敌人，冻结 3秒"/>
+        <string name="h30" value="消耗MP 30，伤害 170%，最多攻击 6个敌人，冻结 3秒"/>
         <string name="h4" value="消耗MP 20，伤害 106%，最多攻击 6个敌人，冻结 1秒"/>
         <string name="h5" value="消耗MP 20，伤害 108%，最多攻击 6个敌人，冻结 1秒"/>
         <string name="h6" value="消耗MP 20，伤害 110%，最多攻击 6个敌人，冻结 1秒"/>
@@ -9489,7 +9489,7 @@
         <string name="h28" value="消耗MP 28，伤害 158%，最多攻击 6个敌人"/>
         <string name="h29" value="消耗MP 28，伤害 159%，最多攻击 6个敌人"/>
         <string name="h3" value="消耗MP 18，伤害 70%，最多攻击 6个敌人"/>
-        <string name="h30" value="消耗MP 28，伤害 160%，最多攻击 6个敌人"/>
+        <string name="h30" value="消耗MP 28，伤害 200%，最多攻击 6个敌人"/>
         <string name="h4" value="消耗MP 18，伤害 75%，最多攻击 6个敌人"/>
         <string name="h5" value="消耗MP 18，伤害 80%，最多攻击 6个敌人"/>
         <string name="h6" value="消耗MP 18，伤害 85%，最多攻击 6个敌人"/>
@@ -9600,7 +9600,7 @@
         <string name="h27" value="弩弓系武器的熟练度 90%, 物理 攻击力 9 上升"/>
         <string name="h28" value="弩弓系武器的熟练度 90%, 物理 攻击力 9 上升"/>
         <string name="h29" value="弩弓系武器的熟练度 90%, 物理 攻击力 9 上升"/>
-        <string name="h30" value="弩弓系武器的熟练度 90%, 物理 攻击力 10 上升"/>
+        <string name="h30" value="弩弓系武器的熟练度 90%, 物理 攻击力 20 上升"/>
         <string name="desc" value="进一步提高弩的熟练度和攻击力。\n必须装备弩。\n需要技能 : #c精准弩 20级#"/>
     </imgdir>
     <imgdir name="3221000">
@@ -9838,7 +9838,7 @@
         <string name="h27" value="消耗MP 14，固定伤害 195000-199999，冷却 20秒"/>
         <string name="h28" value="消耗MP 13，固定伤害 195000-199999，冷却 15秒"/>
         <string name="h29" value="消耗MP 12，固定伤害 195000-199999，冷却 10秒"/>
-        <string name="h30" value="消耗MP 11，固定伤害 195000-199999，冷却 4秒"/>
+        <string name="h30" value="消耗MP 11，固定伤害 195000-199999，冷却 1秒"/>
         <string name="desc" value="瞄准敌人要害发动致命一击，造成195000-199999固定伤害。"/>
     </imgdir>
     <imgdir name="3221008">
@@ -9867,7 +9867,7 @@
         <string name="h18" value="命中率+18，回避率+18"/>
         <string name="h19" value="命中率+19，回避率+19"/>
         <string name="h2" value="命中率+2，回避率+2"/>
-        <string name="h20" value="命中率+20，回避率+20"/>
+        <string name="h20" value="命中率+20，回避率+40"/>
         <string name="h3" value="命中率+3，回避率+3"/>
         <string name="h4" value="命中率+4，回避率+4"/>
         <string name="h5" value="命中率+5，回避率+5"/>
@@ -9951,7 +9951,7 @@
         <string name="h18" value="消耗MP13，伤害132%，攻击2次"/>
         <string name="h19" value="消耗MP13，伤害134%，攻击2次"/>
         <string name="h2" value="消耗MP8，伤害100%，攻击2次"/>
-        <string name="h20" value="消耗MP14，伤害140%，攻击2次"/>
+        <string name="h20" value="消耗MP14，伤害150%，攻击2次"/>
         <string name="h3" value="消耗MP8，伤害102%，攻击2次"/>
         <string name="h4" value="消耗MP8，伤害104%，攻击2次"/>
         <string name="h5" value="消耗MP9，伤害106%，攻击2次"/>
@@ -9975,7 +9975,7 @@
         <string name="h18" value="消耗MP15，伤害140%，投掷2枚飞镖"/>
         <string name="h19" value="消耗MP15，伤害144%，投掷2枚飞镖"/>
         <string name="h2" value="消耗MP8，伤害62%，投掷2枚飞镖"/>
-        <string name="h20" value="消耗MP16，伤害150%，投掷2枚飞镖"/>
+        <string name="h20" value="消耗MP16，伤害160%，投掷2枚飞镖"/>
         <string name="h3" value="消耗MP8，伤害66%，投掷2枚飞镖"/>
         <string name="h4" value="消耗MP8，伤害70%，投掷2枚飞镖"/>
         <string name="h5" value="消耗MP9，伤害76%，投掷2枚飞镖"/>
@@ -10037,7 +10037,7 @@
         <string name="h28" value="出现比率48%，攻击力194%"/>
         <string name="h29" value="出现比率49%，攻击力197%"/>
         <string name="h3" value="出现比率23%，攻击力119%"/>
-        <string name="h30" value="出现比率50%，攻击力200%"/>
+        <string name="h30" value="出现比率70%，攻击力200%"/>
         <string name="h4" value="出现比率24%，攻击力122%"/>
         <string name="h5" value="出现比率25%，攻击力125%"/>
         <string name="h6" value="出现比率26%，攻击力128%"/>
@@ -10072,8 +10072,8 @@
     </imgdir>
     <imgdir name="4101003">
         <string name="name" value="快速暗器"/>
-        <string name="h1" value="消耗HP29和MP29，持续10秒"/>
-        <string name="h10" value="消耗HP20和MP20，持续100秒"/>
+        <string name="h1" value="消耗HP29和MP29，持续30秒"/>
+        <string name="h10" value="消耗HP20和MP20，持续300秒"/>
         <string name="h11" value="消耗HP19和MP19，持续110秒"/>
         <string name="h12" value="消耗HP18和MP18，持续120秒"/>
         <string name="h13" value="消耗HP17和MP17，持续130秒"/>
@@ -10083,39 +10083,39 @@
         <string name="h17" value="消耗HP13和MP13，持续170秒"/>
         <string name="h18" value="消耗HP12和MP12，持续180秒"/>
         <string name="h19" value="消耗HP11和MP11，持续190秒"/>
-        <string name="h2" value="消耗HP28和MP28，持续20秒"/>
+        <string name="h2" value="消耗HP28和MP28，持续60秒"/>
         <string name="h20" value="消耗HP10和MP10，持续200秒"/>
-        <string name="h3" value="消耗HP27和MP27，持续30秒"/>
-        <string name="h4" value="消耗HP26和MP26，持续40秒"/>
-        <string name="h5" value="消耗HP25和MP25，持续50秒"/>
-        <string name="h6" value="消耗HP24和MP24，持续60秒"/>
-        <string name="h7" value="消耗HP23和MP23，持续70秒"/>
-        <string name="h8" value="消耗HP22和MP22，持续80秒"/>
-        <string name="h9" value="消耗HP21和MP21，持续90秒"/>
+        <string name="h3" value="消耗HP27和MP27，持续90秒"/>
+        <string name="h4" value="消耗HP26和MP26，持续120秒"/>
+        <string name="h5" value="消耗HP25和MP25，持续150秒"/>
+        <string name="h6" value="消耗HP24和MP24，持续180秒"/>
+        <string name="h7" value="消耗HP23和MP23，持续210秒"/>
+        <string name="h8" value="消耗HP22和MP22，持续240秒"/>
+        <string name="h9" value="消耗HP21和MP21，持续270秒"/>
         <string name="desc" value="[最高等级 : 20]\n一定时间内攻击速度提升2个等级\n(必需装备拳套，使用飞镖)\n必需技能 : #c精准暗器等级5以上#"/>
     </imgdir>
     <imgdir name="4101004">
         <string name="name" value="轻功"/>
-        <string name="h1" value="消耗MP15，持续10秒，移动速度+2，跳跃力+1"/>
-        <string name="h10" value="消耗MP15，持续100秒，移动速度+20，跳跃力+10"/>
-        <string name="h11" value="消耗MP30，持续110秒，移动速度+22，跳跃力+11"/>
-        <string name="h12" value="消耗MP30，持续120秒，移动速度+24，跳跃力+12"/>
-        <string name="h13" value="消耗MP30，持续130秒，移动速度+26，跳跃力+13"/>
-        <string name="h14" value="消耗MP30，持续140秒，移动速度+28，跳跃力+14"/>
-        <string name="h15" value="消耗MP30，持续150秒，移动速度+30，跳跃力+15"/>
-        <string name="h16" value="消耗MP30，持续160秒，移动速度+32，跳跃力+16"/>
-        <string name="h17" value="消耗MP30，持续170秒，移动速度+34，跳跃力+17"/>
-        <string name="h18" value="消耗MP30，持续180秒，移动速度+36，跳跃力+18"/>
-        <string name="h19" value="消耗MP30，持续190秒，移动速度+38，跳跃力+19"/>
-        <string name="h2" value="消耗MP15，持续20秒，移动速度+4，跳跃力+2"/>
-        <string name="h20" value="消耗MP30，持续200秒，移动速度+40，跳跃力+20"/>
-        <string name="h3" value="消耗MP15，持续30秒，移动速度+6，跳跃力+3"/>
-        <string name="h4" value="消耗MP15，持续40秒，移动速度+8，跳跃力+4"/>
-        <string name="h5" value="消耗MP15，持续50秒，移动速度+10，跳跃力+5"/>
-        <string name="h6" value="消耗MP15，持续60秒，移动速度+12，跳跃力+6"/>
-        <string name="h7" value="消耗MP15，持续70秒，移动速度+14，跳跃力+7"/>
-        <string name="h8" value="消耗MP15，持续80秒，移动速度+16，跳跃力+8"/>
-        <string name="h9" value="消耗MP15，持续90秒，移动速度+18，跳跃力+9"/>
+        <string name="h1" value="消耗MP15，持续15秒，移动速度+2，跳跃力+1"/>
+        <string name="h10" value="消耗MP15，持续150秒，移动速度+20，跳跃力+10"/>
+        <string name="h11" value="消耗MP30，持续165秒，移动速度+22，跳跃力+11"/>
+        <string name="h12" value="消耗MP30，持续180秒，移动速度+24，跳跃力+12"/>
+        <string name="h13" value="消耗MP30，持续195秒，移动速度+26，跳跃力+13"/>
+        <string name="h14" value="消耗MP30，持续210秒，移动速度+28，跳跃力+14"/>
+        <string name="h15" value="消耗MP30，持续225秒，移动速度+30，跳跃力+15"/>
+        <string name="h16" value="消耗MP30，持续240秒，移动速度+32，跳跃力+16"/>
+        <string name="h17" value="消耗MP30，持续255秒，移动速度+34，跳跃力+17"/>
+        <string name="h18" value="消耗MP30，持续270秒，移动速度+36，跳跃力+18"/>
+        <string name="h19" value="消耗MP30，持续285秒，移动速度+38，跳跃力+19"/>
+        <string name="h2" value="消耗MP15，持续30秒，移动速度+4，跳跃力+2"/>
+        <string name="h20" value="消耗MP30，持续300秒，移动速度+40，跳跃力+20"/>
+        <string name="h3" value="消耗MP15，持续45秒，移动速度+6，跳跃力+3"/>
+        <string name="h4" value="消耗MP15，持续60秒，移动速度+8，跳跃力+4"/>
+        <string name="h5" value="消耗MP15，持续75秒，移动速度+10，跳跃力+5"/>
+        <string name="h6" value="消耗MP15，持续90秒，移动速度+12，跳跃力+6"/>
+        <string name="h7" value="消耗MP15，持续105秒，移动速度+14，跳跃力+7"/>
+        <string name="h8" value="消耗MP15，持续120秒，移动速度+16，跳跃力+8"/>
+        <string name="h9" value="消耗MP15，持续135秒，移动速度+18，跳跃力+9"/>
         <string name="desc" value="[最高等级 : 20]\n提高所有队员的移动速度和跳跃力"/>
     </imgdir>
     <imgdir name="4101005">
@@ -10297,36 +10297,36 @@
     </imgdir>
     <imgdir name="4111005">
         <string name="name" value="多重飞镖"/>
-        <string name="h1" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害65%"/>
-        <string name="h10" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害110%"/>
-        <string name="h11" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害114%"/>
-        <string name="h12" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害118%"/>
-        <string name="h13" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害122%"/>
-        <string name="h14" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害126%"/>
-        <string name="h15" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害130%"/>
-        <string name="h16" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害134%"/>
-        <string name="h17" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害138%"/>
-        <string name="h18" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害142%"/>
-        <string name="h19" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害146%"/>
-        <string name="h2" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害70%"/>
-        <string name="h20" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害150%"/>
-        <string name="h21" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害153%"/>
-        <string name="h22" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害156%"/>
-        <string name="h23" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害159%"/>
-        <string name="h24" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害162%"/>
-        <string name="h25" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害165%"/>
-        <string name="h26" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害168%"/>
-        <string name="h27" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害171%"/>
-        <string name="h28" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害174%"/>
-        <string name="h29" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害177%"/>
-        <string name="h3" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害75%"/>
-        <string name="h30" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害180%"/>
-        <string name="h4" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害80%"/>
-        <string name="h5" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害85%"/>
-        <string name="h6" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害90%"/>
-        <string name="h7" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害95%"/>
-        <string name="h8" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害100%"/>
-        <string name="h9" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害105%"/>
+        <string name="h1" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害95%"/>
+        <string name="h10" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害140%"/>
+        <string name="h11" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害144%"/>
+        <string name="h12" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害148%"/>
+        <string name="h13" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害152%"/>
+        <string name="h14" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害156%"/>
+        <string name="h15" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害160%"/>
+        <string name="h16" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害164%"/>
+        <string name="h17" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害168%"/>
+        <string name="h18" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害172%"/>
+        <string name="h19" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害176%"/>
+        <string name="h2" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害100%"/>
+        <string name="h20" value="消耗MP23，消耗3枚飞镖，最多攻击5个敌人，伤害180%"/>
+        <string name="h21" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害183%"/>
+        <string name="h22" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害186%"/>
+        <string name="h23" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害189%"/>
+        <string name="h24" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害192%"/>
+        <string name="h25" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害195%"/>
+        <string name="h26" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害198%"/>
+        <string name="h27" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害201%"/>
+        <string name="h28" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害204%"/>
+        <string name="h29" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害207%"/>
+        <string name="h3" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害105%"/>
+        <string name="h30" value="消耗MP30，消耗3枚飞镖，最多攻击6个敌人，伤害240%"/>
+        <string name="h4" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害110%"/>
+        <string name="h5" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害115%"/>
+        <string name="h6" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害120%"/>
+        <string name="h7" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害125%"/>
+        <string name="h8" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害130%"/>
+        <string name="h9" value="消耗MP16，消耗3枚飞镖，最多攻击4个敌人，伤害135%"/>
         <string name="desc" value="[最高等级:30]\n消耗MP制造巨大飞镖，贯穿敌人并攻击后方敌人。"/>
     </imgdir>
     <imgdir name="4111006">
@@ -10517,7 +10517,7 @@
         <string name="h28" value="消耗MP 48，伤害 98%，持续时间 12秒，攻击范围 200%"/>
         <string name="h29" value="消耗MP 48，伤害 99%，持续时间 12秒，攻击范围 200%"/>
         <string name="h3" value="消耗MP 16，伤害 66%，持续时间 4秒，攻击范围 110%"/>
-        <string name="h30" value="消耗MP 43，伤害 100%，持续时间 12秒，攻击范围 200%"/>
+        <string name="h30" value="消耗MP 43，伤害 150%，持续时间 12秒，攻击范围 200%"/>
         <string name="h4" value="消耗MP 16，伤害 68%，持续时间 4秒，攻击范围 120%"/>
         <string name="h5" value="消耗MP 16，伤害 70%，持续时间 4秒，攻击范围 120%"/>
         <string name="h6" value="消耗MP 16，伤害 72%，持续时间 4秒，攻击范围 120%"/>
@@ -10585,7 +10585,7 @@
         <string name="h28" value="消耗MP 20，伤害 148%，投掷3枚飞镖"/>
         <string name="h29" value="消耗MP 20，伤害 149%，投掷3枚飞镖"/>
         <string name="h3" value="消耗MP 11，伤害 106%，投掷3枚飞镖"/>
-        <string name="h30" value="消耗MP 20，伤害 150%，投掷3枚飞镖"/>
+        <string name="h30" value="消耗MP 20，伤害 160%，投掷3枚飞镖"/>
         <string name="h4" value="消耗MP 12，伤害 108%，投掷3枚飞镖"/>
         <string name="h5" value="消耗MP 12，伤害 110%，投掷3枚飞镖"/>
         <string name="h6" value="消耗MP 12，伤害 112%，投掷3枚飞镖"/>
@@ -10690,8 +10690,8 @@
     </imgdir>
     <imgdir name="4201002">
         <string name="name" value="快速短刀"/>
-        <string name="h1" value="消耗HP29和MP29，持续10秒"/>
-        <string name="h10" value="消耗HP20和MP20，持续100秒"/>
+        <string name="h1" value="消耗HP29和MP29，持续30秒"/>
+        <string name="h10" value="消耗HP20和MP20，持续300秒"/>
         <string name="h11" value="消耗HP19和MP19，持续110秒"/>
         <string name="h12" value="消耗HP18和MP18，持续120秒"/>
         <string name="h13" value="消耗HP17和MP17，持续130秒"/>
@@ -10701,39 +10701,39 @@
         <string name="h17" value="消耗HP13和MP13，持续170秒"/>
         <string name="h18" value="消耗HP12和MP12，持续180秒"/>
         <string name="h19" value="消耗HP11和MP11，持续190秒"/>
-        <string name="h2" value="消耗HP28和MP28，持续20秒"/>
+        <string name="h2" value="消耗HP28和MP28，持续60秒"/>
         <string name="h20" value="消耗HP10和MP10，持续200秒"/>
-        <string name="h3" value="消耗HP27和MP27，持续30秒"/>
-        <string name="h4" value="消耗HP26和MP26，持续40秒"/>
-        <string name="h5" value="消耗HP25和MP25，持续50秒"/>
-        <string name="h6" value="消耗HP24和MP24，持续60秒"/>
-        <string name="h7" value="消耗HP23和MP23，持续70秒"/>
-        <string name="h8" value="消耗HP22和MP22，持续80秒"/>
-        <string name="h9" value="消耗HP21和MP21，持续90秒"/>
+        <string name="h3" value="消耗HP27和MP27，持续90秒"/>
+        <string name="h4" value="消耗HP26和MP26，持续120秒"/>
+        <string name="h5" value="消耗HP25和MP25，持续150秒"/>
+        <string name="h6" value="消耗HP24和MP24，持续180秒"/>
+        <string name="h7" value="消耗HP23和MP23，持续210秒"/>
+        <string name="h8" value="消耗HP22和MP22，持续240秒"/>
+        <string name="h9" value="消耗HP21和MP21，持续270秒"/>
         <string name="desc" value="[最高等级 : 20]\n攻击速度提升2个等级(装备短刀，拳刃)\n必需技能 : #c精准短刀等级5以上#"/>
     </imgdir>
     <imgdir name="4201003">
         <string name="name" value="轻功"/>
-        <string name="h1" value="消耗MP15，持续10秒，移动速度+2，跳跃力+1"/>
-        <string name="h10" value="消耗MP15，持续100秒，移动速度+20，跳跃力+10"/>
-        <string name="h11" value="消耗MP30，持续110秒，移动速度+22，跳跃力+11"/>
-        <string name="h12" value="消耗MP30，持续120秒，移动速度+24，跳跃力+12"/>
-        <string name="h13" value="消耗MP30，持续130秒，移动速度+26，跳跃力+13"/>
-        <string name="h14" value="消耗MP30，持续140秒，移动速度+28，跳跃力+14"/>
-        <string name="h15" value="消耗MP30，持续150秒，移动速度+30，跳跃力+15"/>
-        <string name="h16" value="消耗MP30，持续160秒，移动速度+32，跳跃力+16"/>
-        <string name="h17" value="消耗MP30，持续170秒，移动速度+34，跳跃力+17"/>
-        <string name="h18" value="消耗MP30，持续180秒，移动速度+36，跳跃力+18"/>
-        <string name="h19" value="消耗MP30，持续190秒，移动速度+38，跳跃力+19"/>
-        <string name="h2" value="消耗MP15，持续20秒，移动速度+4，跳跃力+2"/>
-        <string name="h20" value="消耗MP30，持续200秒，移动速度+40，跳跃力+20"/>
-        <string name="h3" value="消耗MP15，持续30秒，移动速度+6，跳跃力+3"/>
-        <string name="h4" value="消耗MP15，持续40秒，移动速度+8，跳跃力+4"/>
-        <string name="h5" value="消耗MP15，持续50秒，移动速度+10，跳跃力+5"/>
-        <string name="h6" value="消耗MP15，持续60秒，移动速度+12，跳跃力+6"/>
-        <string name="h7" value="消耗MP15，持续70秒，移动速度+14，跳跃力+7"/>
-        <string name="h8" value="消耗MP15，持续80秒，移动速度+16，跳跃力+8"/>
-        <string name="h9" value="消耗MP15，持续90秒，移动速度+18，跳跃力+9"/>
+        <string name="h1" value="消耗MP15，持续15秒，移动速度+2，跳跃力+1"/>
+        <string name="h10" value="消耗MP15，持续150秒，移动速度+20，跳跃力+10"/>
+        <string name="h11" value="消耗MP30，持续165秒，移动速度+22，跳跃力+11"/>
+        <string name="h12" value="消耗MP30，持续180秒，移动速度+24，跳跃力+12"/>
+        <string name="h13" value="消耗MP30，持续195秒，移动速度+26，跳跃力+13"/>
+        <string name="h14" value="消耗MP30，持续210秒，移动速度+28，跳跃力+14"/>
+        <string name="h15" value="消耗MP30，持续225秒，移动速度+30，跳跃力+15"/>
+        <string name="h16" value="消耗MP30，持续240秒，移动速度+32，跳跃力+16"/>
+        <string name="h17" value="消耗MP30，持续255秒，移动速度+34，跳跃力+17"/>
+        <string name="h18" value="消耗MP30，持续270秒，移动速度+36，跳跃力+18"/>
+        <string name="h19" value="消耗MP30，持续285秒，移动速度+38，跳跃力+19"/>
+        <string name="h2" value="消耗MP15，持续30秒，移动速度+4，跳跃力+2"/>
+        <string name="h20" value="消耗MP30，持续300秒，移动速度+40，跳跃力+20"/>
+        <string name="h3" value="消耗MP15，持续45秒，移动速度+6，跳跃力+3"/>
+        <string name="h4" value="消耗MP15，持续60秒，移动速度+8，跳跃力+4"/>
+        <string name="h5" value="消耗MP15，持续75秒，移动速度+10，跳跃力+5"/>
+        <string name="h6" value="消耗MP15，持续90秒，移动速度+12，跳跃力+6"/>
+        <string name="h7" value="消耗MP15，持续105秒，移动速度+14，跳跃力+7"/>
+        <string name="h8" value="消耗MP15，持续120秒，移动速度+16，跳跃力+8"/>
+        <string name="h9" value="消耗MP15，持续135秒，移动速度+18，跳跃力+9"/>
         <string name="desc" value="[最高等级 : 20]\n提高所有队员的移动速度和跳跃力"/>
     </imgdir>
     <imgdir name="4201004">
@@ -10772,36 +10772,36 @@
     </imgdir>
     <imgdir name="4201005">
         <string name="name" value="回旋斩"/>
-        <string name="h1" value="消耗MP15，以40%伤害攻击4次"/>
-        <string name="h10" value="消耗MP15，以74%伤害攻击4次"/>
-        <string name="h11" value="消耗MP18，以60%伤害攻击5次"/>
-        <string name="h12" value="消耗MP18，以62%伤害攻击5次"/>
-        <string name="h13" value="消耗MP18，以64%伤害攻击5次"/>
-        <string name="h14" value="消耗MP18，以66%伤害攻击5次"/>
-        <string name="h15" value="消耗MP18，以68%伤害攻击5次"/>
-        <string name="h16" value="消耗MP18，以70%伤害攻击5次"/>
-        <string name="h17" value="消耗MP18，以72%伤害攻击5次"/>
-        <string name="h18" value="消耗MP18，以74%伤害攻击5次"/>
-        <string name="h19" value="消耗MP18，以76%伤害攻击5次"/>
-        <string name="h2" value="消耗MP15，以44%伤害攻击4次"/>
-        <string name="h20" value="消耗MP18，以78%伤害攻击5次"/>
-        <string name="h21" value="消耗MP27，以71%伤害攻击6次"/>
-        <string name="h22" value="消耗MP27，以72%伤害攻击6次"/>
-        <string name="h23" value="消耗MP27，以73%伤害攻击6次"/>
-        <string name="h24" value="消耗MP27，以74%伤害攻击6次"/>
-        <string name="h25" value="消耗MP27，以75%伤害攻击6次"/>
-        <string name="h26" value="消耗MP27，以76%伤害攻击6次"/>
-        <string name="h27" value="消耗MP27，以77%伤害攻击6次"/>
-        <string name="h28" value="消耗MP27，以78%伤害攻击6次"/>
-        <string name="h29" value="消耗MP27，以79%伤害攻击6次"/>
-        <string name="h3" value="消耗MP15，以48%伤害攻击4次"/>
-        <string name="h30" value="消耗MP27，以80%伤害攻击6次"/>
-        <string name="h4" value="消耗MP15，以52%伤害攻击4次"/>
-        <string name="h5" value="消耗MP15，以56%伤害攻击4次"/>
-        <string name="h6" value="消耗MP15，以60%伤害攻击4次"/>
-        <string name="h7" value="消耗MP15，以64%伤害攻击4次"/>
-        <string name="h8" value="消耗MP15，以68%伤害攻击4次"/>
-        <string name="h9" value="消耗MP15，以72%伤害攻击4次"/>
+        <string name="h1" value="消耗MP15，以50%伤害攻击4次"/>
+        <string name="h10" value="消耗MP15，以84%伤害攻击4次"/>
+        <string name="h11" value="消耗MP18，以70%伤害攻击5次"/>
+        <string name="h12" value="消耗MP18，以72%伤害攻击5次"/>
+        <string name="h13" value="消耗MP18，以74%伤害攻击5次"/>
+        <string name="h14" value="消耗MP18，以76%伤害攻击5次"/>
+        <string name="h15" value="消耗MP18，以78%伤害攻击5次"/>
+        <string name="h16" value="消耗MP18，以80%伤害攻击5次"/>
+        <string name="h17" value="消耗MP18，以82%伤害攻击5次"/>
+        <string name="h18" value="消耗MP18，以84%伤害攻击5次"/>
+        <string name="h19" value="消耗MP18，以86%伤害攻击5次"/>
+        <string name="h2" value="消耗MP15，以54%伤害攻击4次"/>
+        <string name="h20" value="消耗MP18，以88%伤害攻击5次"/>
+        <string name="h21" value="消耗MP27，以81%伤害攻击6次"/>
+        <string name="h22" value="消耗MP27，以82%伤害攻击6次"/>
+        <string name="h23" value="消耗MP27，以83%伤害攻击6次"/>
+        <string name="h24" value="消耗MP27，以84%伤害攻击6次"/>
+        <string name="h25" value="消耗MP27，以85%伤害攻击6次"/>
+        <string name="h26" value="消耗MP27，以86%伤害攻击6次"/>
+        <string name="h27" value="消耗MP27，以87%伤害攻击6次"/>
+        <string name="h28" value="消耗MP27，以88%伤害攻击6次"/>
+        <string name="h29" value="消耗MP27，以89%伤害攻击6次"/>
+        <string name="h3" value="消耗MP15，以58%伤害攻击4次"/>
+        <string name="h30" value="消耗MP27，以90%伤害攻击6次"/>
+        <string name="h4" value="消耗MP15，以62%伤害攻击4次"/>
+        <string name="h5" value="消耗MP15，以66%伤害攻击4次"/>
+        <string name="h6" value="消耗MP15，以70%伤害攻击4次"/>
+        <string name="h7" value="消耗MP15，以74%伤害攻击4次"/>
+        <string name="h8" value="消耗MP15，以78%伤害攻击4次"/>
+        <string name="h9" value="消耗MP15，以82%伤害攻击4次"/>
         <string name="desc" value="[最高等级 : 30]\n消耗MP，用短刀对1个敌人连续攻击。"/>
     </imgdir>
     <imgdir name="421">
@@ -10809,26 +10809,26 @@
     </imgdir>
     <imgdir name="4210000">
         <string name="name" value="强化盾"/>
-        <string name="h1" value="装备盾牌时，盾牌物理防御力增加5%"/>
-        <string name="h10" value="装备盾牌时，盾牌物理防御力增加50%"/>
-        <string name="h11" value="装备盾牌时，盾牌物理防御力增加55%"/>
-        <string name="h12" value="装备盾牌时，盾牌物理防御力增加60%"/>
-        <string name="h13" value="装备盾牌时，盾牌物理防御力增加65%"/>
-        <string name="h14" value="装备盾牌时，盾牌物理防御力增加70%"/>
-        <string name="h15" value="装备盾牌时，盾牌物理防御力增加75%"/>
-        <string name="h16" value="装备盾牌时，盾牌物理防御力增加80%"/>
-        <string name="h17" value="装备盾牌时，盾牌物理防御力增加85%"/>
-        <string name="h18" value="装备盾牌时，盾牌物理防御力增加90%"/>
-        <string name="h19" value="装备盾牌时，盾牌物理防御力增加95%"/>
-        <string name="h2" value="装备盾牌时，盾牌物理防御力增加10%"/>
-        <string name="h20" value="装备盾牌时，盾牌物理防御力增加100%"/>
-        <string name="h3" value="装备盾牌时，盾牌物理防御力增加15%"/>
-        <string name="h4" value="装备盾牌时，盾牌物理防御力增加20%"/>
-        <string name="h5" value="装备盾牌时，盾牌物理防御力增加25%"/>
-        <string name="h6" value="装备盾牌时，盾牌物理防御力增加30%"/>
-        <string name="h7" value="装备盾牌时，盾牌物理防御力增加35%"/>
-        <string name="h8" value="装备盾牌时，盾牌物理防御力增加40%"/>
-        <string name="h9" value="装备盾牌时，盾牌物理防御力增加45%"/>
+        <string name="h1" value="装备盾牌时，物理防御力和魔法防御力各增加10%"/>
+        <string name="h10" value="装备盾牌时，物理防御力和魔法防御力各增加100%"/>
+        <string name="h11" value="装备盾牌时，物理防御力和魔法防御力各增加110%"/>
+        <string name="h12" value="装备盾牌时，物理防御力和魔法防御力各增加120%"/>
+        <string name="h13" value="装备盾牌时，物理防御力和魔法防御力各增加130%"/>
+        <string name="h14" value="装备盾牌时，物理防御力和魔法防御力各增加140%"/>
+        <string name="h15" value="装备盾牌时，物理防御力和魔法防御力各增加150%"/>
+        <string name="h16" value="装备盾牌时，物理防御力和魔法防御力各增加160%"/>
+        <string name="h17" value="装备盾牌时，物理防御力和魔法防御力各增加170%"/>
+        <string name="h18" value="装备盾牌时，物理防御力和魔法防御力各增加180%"/>
+        <string name="h19" value="装备盾牌时，物理防御力和魔法防御力各增加190%"/>
+        <string name="h2" value="装备盾牌时，物理防御力和魔法防御力各增加20%"/>
+        <string name="h20" value="装备盾牌时，物理防御力和魔法防御力各增加200%"/>
+        <string name="h3" value="装备盾牌时，物理防御力和魔法防御力各增加30%"/>
+        <string name="h4" value="装备盾牌时，物理防御力和魔法防御力各增加40%"/>
+        <string name="h5" value="装备盾牌时，物理防御力和魔法防御力各增加50%"/>
+        <string name="h6" value="装备盾牌时，物理防御力和魔法防御力各增加60%"/>
+        <string name="h7" value="装备盾牌时，物理防御力和魔法防御力各增加70%"/>
+        <string name="h8" value="装备盾牌时，物理防御力和魔法防御力各增加80%"/>
+        <string name="h9" value="装备盾牌时，物理防御力和魔法防御力各增加90%"/>
         <string name="desc" value="[最高等级:20]\n装备盾牌时，提高盾牌的物理防御力。"/>
     </imgdir>
     <imgdir name="4211001">
@@ -11043,7 +11043,7 @@
         <string name="h28" value="38%的几率 回避敌人的攻击"/>
         <string name="h29" value="39%的几率 回避敌人的攻击"/>
         <string name="h3" value="13%的几率 回避敌人的攻击"/>
-        <string name="h30" value="40%的几率 回避敌人的攻击"/>
+        <string name="h30" value="50%的几率 回避敌人的攻击"/>
         <string name="h4" value="14%的几率 回避敌人的攻击"/>
         <string name="h5" value="15%的几率 回避敌人的攻击"/>
         <string name="h6" value="16%的几率 回避敌人的攻击"/>

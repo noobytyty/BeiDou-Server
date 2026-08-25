@@ -22,83 +22,83 @@
       <imgdir name="level">
         <imgdir name="1">
           <string name="hs" value="h1"/>
-          <int name="x" value="105"/>
+          <int name="x" value="110"/>
         </imgdir>
         <imgdir name="2">
           <string name="hs" value="h2"/>
-          <int name="x" value="110"/>
+          <int name="x" value="120"/>
         </imgdir>
         <imgdir name="3">
           <string name="hs" value="h3"/>
-          <int name="x" value="115"/>
+          <int name="x" value="130"/>
         </imgdir>
         <imgdir name="4">
           <string name="hs" value="h4"/>
-          <int name="x" value="120"/>
+          <int name="x" value="140"/>
         </imgdir>
         <imgdir name="5">
           <string name="hs" value="h5"/>
-          <int name="x" value="125"/>
+          <int name="x" value="150"/>
         </imgdir>
         <imgdir name="6">
           <string name="hs" value="h6"/>
-          <int name="x" value="130"/>
+          <int name="x" value="160"/>
         </imgdir>
         <imgdir name="7">
           <string name="hs" value="h7"/>
-          <int name="x" value="135"/>
+          <int name="x" value="170"/>
         </imgdir>
         <imgdir name="8">
           <string name="hs" value="h8"/>
-          <int name="x" value="140"/>
+          <int name="x" value="180"/>
         </imgdir>
         <imgdir name="9">
           <string name="hs" value="h9"/>
-          <int name="x" value="145"/>
+          <int name="x" value="190"/>
         </imgdir>
         <imgdir name="10">
           <string name="hs" value="h10"/>
-          <int name="x" value="150"/>
+          <int name="x" value="200"/>
         </imgdir>
         <imgdir name="11">
           <string name="hs" value="h11"/>
-          <int name="x" value="155"/>
+          <int name="x" value="210"/>
         </imgdir>
         <imgdir name="12">
           <string name="hs" value="h12"/>
-          <int name="x" value="160"/>
+          <int name="x" value="220"/>
         </imgdir>
         <imgdir name="13">
           <string name="hs" value="h13"/>
-          <int name="x" value="165"/>
+          <int name="x" value="230"/>
         </imgdir>
         <imgdir name="14">
           <string name="hs" value="h14"/>
-          <int name="x" value="170"/>
+          <int name="x" value="240"/>
         </imgdir>
         <imgdir name="15">
           <string name="hs" value="h15"/>
-          <int name="x" value="175"/>
+          <int name="x" value="250"/>
         </imgdir>
         <imgdir name="16">
           <string name="hs" value="h16"/>
-          <int name="x" value="180"/>
+          <int name="x" value="260"/>
         </imgdir>
         <imgdir name="17">
           <string name="hs" value="h17"/>
-          <int name="x" value="185"/>
+          <int name="x" value="270"/>
         </imgdir>
         <imgdir name="18">
           <string name="hs" value="h18"/>
-          <int name="x" value="190"/>
+          <int name="x" value="280"/>
         </imgdir>
         <imgdir name="19">
           <string name="hs" value="h19"/>
-          <int name="x" value="195"/>
+          <int name="x" value="290"/>
         </imgdir>
         <imgdir name="20">
           <string name="hs" value="h20"/>
-          <int name="x" value="200"/>
+          <int name="x" value="300"/>
         </imgdir>
       </imgdir>
     </imgdir>

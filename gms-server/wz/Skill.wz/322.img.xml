@@ -157,7 +157,7 @@
         <imgdir name="30">
           <string name="hs" value="h30"/>
           <int name="mastery" value="16"/>
-          <int name="x" value="10"/>
+          <int name="x" value="20"/>
         </imgdir>
       </imgdir>
       <imgdir name="req">
@@ -2734,7 +2734,7 @@
         <imgdir name="30">
           <string name="hs" value="h30"/>
           <int name="mpCon" value="11"/>
-          <int name="cooltime" value="4"/>
+          <int name="cooltime" value="1"/>
         </imgdir>
       </imgdir>
     </imgdir>
