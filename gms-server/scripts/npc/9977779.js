@@ -1,65 +1,75 @@
-/**北斗脚本
-
-收藏家 9977779
-
-收藏图鉴：怪物卡 + 任务达人进度、领取收藏家腰带与成就勋章。
-*/
+/**
+ * BeiDou NPC
+ *
+ * Collector 9977779
+ *
+ * Monster card and quest collection progress, collector belt, and achievement medals.
+ */
 var collectionMode = -1;
 var collSvc = Java.type("org.gms.server.CollectionService").getInstance();
 var COLLECTOR_BELT = 1132991;
 var ACHIEVEMENTS = [
-    [1142992, 25, 0, "卡牌新星"],       // 收集 25 张怪物卡
-    [1142993, 50, 0, "卡牌大师"],       // 收集 50 张怪物卡
-    [1142994, 100, 0, "卡牌收藏家"],    // 收集 100 张怪物卡
-    [1142995, 0, 50, "任务新秀"],       // 完成 50 个任务
-    [1142996, 0, 100, "任务达人"],      // 完成 100 个任务
-    [1142997, 0, 200, "任务大师"],      // 完成 200 个任务
-    [1142998, 100, 100, "收藏大师"]     // 100 卡 + 100 任务
+    [1142992, 25, 0, "Card Novice"],
+    [1142993, 50, 0, "Card Master"],
+    [1142994, 100, 0, "Card Collector"],
+    [1142995, 0, 50, "Quest Novice"],
+    [1142996, 0, 100, "Quest Expert"],
+    [1142997, 0, 200, "Quest Master"],
+    [1142998, 100, 100, "Collection Master"]
 ];
 
-function collectionMenu() {
-    var accId = cm.getPlayer().getAccountId();
-    var cards = collSvc.getCardCount(accId);
-    var quests = collSvc.getQuestCount(accId);
-    cm.sendSimple("收藏图鉴：\r\n怪物卡：" + cards + " 张（每 25 张全属性+1）\r\n完成任务：" + quests + " 个（每 50 个全属性+1、攻+1、HP/MP+100）\r\n\r\n#L0#查看当前加成#l\r\n#L1#领取收藏家腰带（" + COLLECTOR_BELT + "）#l\r\n#L2#领取成就勋章#l\r\n#L3#返回");
+function collectionMenu(notice) {
+    collectionMode = 1;
+    var player = cm.getPlayer();
+    var snapshot = collSvc.getSnapshot(player);
+    var beltStatus = player.isCollectorBeltEquipped() ? "equipped" : "not equipped";
+    var progress = snapshot.available()
+        ? "Belt level: " + snapshot.beltLevel() + "\r\nMonster cards: " + snapshot.cards()
+            + " (all stats +1 per 25 cards)\r\nCompleted quests: " + snapshot.quests()
+            + " (all stats +1, attack +1, HP/MP +100 per 50 quests)"
+        : "Collection data is temporarily unavailable. Please try again later.";
+    var prefix = notice ? notice + "\r\n\r\n" : "";
+    cm.sendSimple(prefix + "Collection Codex\r\nBelt: " + beltStatus + "\r\n" + progress
+        + "\r\n\r\n#L0#View full collection status#l\r\n#L1#Claim Collector Belt (" + COLLECTOR_BELT + ")#l\r\n#L2#Claim achievement medals#l\r\n#L3#Exit#l");
 }
 
 function collectionAction(selection) {
-    var accId = cm.getPlayer().getAccountId();
+    var player = cm.getPlayer();
     if (selection == 3) {
-        collectionMode = -1;
+        cm.dispose();
+        return;
+    }
+    if (selection == 9) {
         collectionMenu();
         return;
     }
     if (selection == 0) {
-        // 查看加成
-        var bonus = collSvc.getBonus(accId);
-        var msg = "当前收藏加成（穿戴收藏家腰带时生效）：\r\n";
-        msg += "力量 +" + bonus.str + "，敏捷 +" + bonus.dex + "，智力 +" + bonus.int_ + "，运气 +" + bonus.luk + "\r\n";
-        msg += "物攻 +" + bonus.watk + "，魔攻 +" + bonus.matk + "，HP +" + bonus.maxhp + "，MP +" + bonus.maxmp;
-        cm.sendOk(msg);
-        collectionMode = -1;
-        cm.dispose();
+        collectionMode = 2;
+        cm.sendSimple(collSvc.formatStatus(player) + "\r\n\r\n#L9#Back#l");
         return;
     }
     if (selection == 1) {
-        // 领取收藏家腰带
         if (cm.haveItem(COLLECTOR_BELT)) {
-            cm.sendOk("你已经拥有收藏家腰带了！");
+            cm.sendOk("You already have the Collector Belt.");
         } else if (!cm.canHold(COLLECTOR_BELT)) {
-            cm.sendOk("背包空间不足！");
+            cm.sendOk("You do not have enough equipment inventory space.");
         } else {
             cm.gainItem(COLLECTOR_BELT, 1);
-            cm.sendOk("已领取收藏家腰带 #t" + COLLECTOR_BELT + "#！穿戴后按你的收藏进度获得属性加成。");
+            cm.sendOk("You received the Collector Belt #t" + COLLECTOR_BELT + "#. Equip it to activate your collection bonuses.");
         }
         collectionMode = -1;
         cm.dispose();
         return;
     }
     if (selection == 2) {
-        // 领取成就勋章
-        var cards = collSvc.getCardCount(accId);
-        var quests = collSvc.getQuestCount(accId);
+        var snapshot = collSvc.getSnapshot(player);
+        if (!snapshot.available()) {
+            cm.sendOk("Collection data is temporarily unavailable. Please try again later.");
+            cm.dispose();
+            return;
+        }
+        var cards = snapshot.cards();
+        var quests = snapshot.quests();
         var got = [];
         var failed = [];
         for (var i = 0; i < ACHIEVEMENTS.length; i++) {
@@ -67,34 +77,35 @@ function collectionAction(selection) {
             var itemId = a[0];
             if (cards >= a[1] && quests >= a[2]) {
                 if (cm.haveItem(itemId)) {
-                    failed.push("#t" + itemId + "#（已拥有）");
+                    failed.push("#t" + itemId + "# (already owned)");
                 } else if (!cm.canHold(itemId)) {
-                    failed.push("#t" + itemId + "#（背包不足）");
+                    failed.push("#t" + itemId + "# (not enough inventory space)");
                 } else {
                     cm.gainItem(itemId, 1);
                     got.push("#t" + itemId + "#");
                 }
             } else {
-                failed.push("#t" + itemId + "#（需卡 " + a[1] + "/任务 " + a[2] + "）");
+                failed.push(a[3] + " (cards " + a[1] + ", quests " + a[2] + ")");
             }
         }
-        var msg = "成就勋章领取结果：\r\n";
-        if (got.length > 0) { msg += "已领取：" + got.join("、") + "\r\n"; } else { msg += "没有新达成的成就勋章。\r\n"; }
-        if (failed.length > 0) { msg += "未达成：" + failed.join("、"); }
+        var msg = "Achievement medal results:\r\n";
+        if (got.length > 0) {
+            msg += "Received: " + got.join(", ") + "\r\n";
+        } else {
+            msg += "No new achievement medals are available.\r\n";
+        }
+        if (failed.length > 0) {
+            msg += "Unavailable: " + failed.join(", ");
+        }
         cm.sendOk(msg);
         collectionMode = -1;
         cm.dispose();
         return;
     }
-    collectionMode = -1;
-    collectionMenu();
+    collectionMenu("Invalid option. Please choose again.");
 }
 
-// ===== 高级美容服务结束 =====
-
-
 function start() {
-    collectionMode = 1;
     collectionMenu();
 }
 

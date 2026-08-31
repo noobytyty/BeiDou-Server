@@ -222,6 +222,8 @@ public class PacketCreator {
     }
 
     private static void addCharacterInfo(OutPacket p, Character chr) {
+        CollectionService.CollectionSnapshot collectionSnapshot =
+                CollectionService.getInstance().getSnapshot(chr);
         p.writeLong(-1);
         p.writeByte(0);
         addCharStats(p, chr);
@@ -241,7 +243,7 @@ public class PacketCreator {
         addMiniGameInfo(p, chr);
         addRingInfo(p, chr);
         addTeleportInfo(p, chr);
-        addMonsterBookInfo(p, chr);
+        addMonsterBookInfo(p, chr, collectionSnapshot);
         addNewYearInfo(p, chr);
         addAreaInfo(p, chr);//assuming it stayed here xd
         p.writeShort(0);
@@ -556,10 +558,16 @@ public class PacketCreator {
         }
     }
 
-    private static void addMonsterBookInfo(OutPacket p, Character chr) {
+    private static void addMonsterBookInfo(
+            OutPacket p,
+            Character chr,
+            CollectionService.CollectionSnapshot collectionSnapshot
+    ) {
         p.writeInt(chr.getMonsterBookCover()); // cover
         p.writeByte(0);
-        Map<Integer, Integer> cards = chr.getMonsterBook().getCards();
+        Map<Integer, Integer> cards = collectionSnapshot.available()
+                ? collectionSnapshot.cardCounts()
+                : chr.getMonsterBook().getCards();
         p.writeShort(cards.size());
         for (Entry<Integer, Integer> all : cards.entrySet()) {
             p.writeShort(all.getKey() % 10000); // Id
@@ -2710,6 +2718,8 @@ public class PacketCreator {
     public static Packet charInfo(Character chr) {
         //3D 00 0A 43 01 00 02 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
         final OutPacket p = OutPacket.create(SendOpcode.CHAR_INFO);
+        CollectionService.CollectionSnapshot collectionSnapshot =
+                CollectionService.getInstance().getSnapshot(chr);
         p.writeInt(chr.getId());
         p.writeByte(chr.getLevel());
         p.writeShort(chr.getJob().getId());
@@ -2762,7 +2772,10 @@ public class PacketCreator {
         }
 
         MonsterBook book = chr.getMonsterBook();
-        p.writeInt(book.getBookLevel());
+        int displayBookLevel = collectionSnapshot.available()
+                ? CollectionService.calculateMonsterBookDisplayLevel(collectionSnapshot.cardTier())
+                : book.getBookLevel();
+        p.writeInt(displayBookLevel);
         p.writeInt(book.getNormalCard());
         p.writeInt(book.getSpecialCard());
         p.writeInt(book.getTotalCards());

@@ -8249,7 +8249,7 @@
     </imgdir>
     <imgdir name="2430029">
         <string name="name" value="神秘盒子"/>
-        <string name="desc" value="谁也不知道盒子里面装的是什么\n，也许黄色的蝴蝶藏在里面。"/>
+        <string name="desc" value="随机美容盒，使用后会随机更换发型、脸型和肤色。"/>
     </imgdir>
     <imgdir name="2430028">
         <string name="name" value="神秘盒子"/>
@@ -9217,6 +9217,6 @@
     </imgdir>
     <imgdir name="2438000">
         <string name="name" value="随机美容券"/>
-        <string name="desc" value="一张神秘的美容券，使用后随机更换你的脸型和发型，发色与脸型颜色也随机变换。"/>
+        <string name="desc" value="一张神秘的美容券，使用后随机更换你的脸型、发型和肤色，发色与脸型颜色也随机变换。"/>
     </imgdir>
 </imgdir>

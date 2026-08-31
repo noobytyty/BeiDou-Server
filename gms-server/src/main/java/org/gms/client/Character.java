@@ -257,6 +257,7 @@ public class Character extends AbstractCharacterObject {
     @Getter
     private boolean hidden;
     private boolean equipchanged = true, berserk, hasMerchant, hasSandboxItem = false, whiteChat = false;
+    private transient boolean collectorBeltEquipped;
     @Setter
     private boolean canRecvPartySearchInvite = true;
     private boolean usedSafetyCharm = false;
@@ -634,6 +635,12 @@ public class Character extends AbstractCharacterObject {
         }
     }
 
+    public void refreshCollectionBonus() {
+        if (isCollectorBeltEquipped()) {
+            updateLocalStats();
+        }
+    }
+
     public void setAwayFromChannelWorld() {
         setAwayFromChannelWorld(false);
     }
@@ -742,6 +749,10 @@ public class Character extends AbstractCharacterObject {
         }
 
         return false;
+    }
+
+    public boolean isCollectorBeltEquipped() {
+        return hasEquippedItem(CollectionService.COLLECTOR_BELT);
     }
 
     public int addDojoPointsByMap(int mapId) {
@@ -2843,9 +2854,15 @@ public class Character extends AbstractCharacterObject {
     }
 
     public void equipChanged() {
+        boolean collectorBeltEquippedBefore = collectorBeltEquipped;
+        boolean collectorBeltEquippedAfter = isCollectorBeltEquipped();
         getMap().broadcastUpdateCharLookMessage(this, this);
         equipchanged = true;
         updateLocalStats();
+        collectorBeltEquipped = collectorBeltEquippedAfter;
+        if (collectorBeltEquippedBefore != collectorBeltEquippedAfter) {
+            showHint(CollectionService.getInstance().formatEquipmentChange(this, collectorBeltEquippedAfter), 600);
+        }
         if (getMessenger() != null) {
             getWorldServer().updateMessenger(getMessenger(), getName(), getWorld(), client.getChannel());
         }
@@ -4490,6 +4507,18 @@ public class Character extends AbstractCharacterObject {
         synchronized (quests) {
             return new ArrayList<>(quests.values());
         }
+    }
+
+    public Set<Integer> getCompletedQuestIds() {
+        Set<Integer> completedQuestIds = new HashSet<>();
+        synchronized (quests) {
+            for (QuestStatus questStatus : quests.values()) {
+                if (questStatus.getStatus() == QuestStatus.Status.COMPLETED) {
+                    completedQuestIds.add((int) questStatus.getQuestID());
+                }
+            }
+        }
+        return completedQuestIds;
     }
 
     public final List<QuestStatus> getCompletedQuests() {
@@ -6821,6 +6850,7 @@ public class Character extends AbstractCharacterObject {
 
         chr.setCashShop(new CashShop(charactersDO.getAccountid(), charactersDO.getId(), chr.getJobType()));
         chr.setAutoBanManager(new AutobanManager(chr));
+        chr.collectorBeltEquipped = chr.isCollectorBeltEquipped();
 
         List<CharactersDO> charactersDOList = characterService.getCharacterByAccountId(charactersDO.getAccountid());
         charactersDOList.stream()
@@ -7251,8 +7281,8 @@ public class Character extends AbstractCharacterObject {
             recalcEquipStats();
 
             // 收藏家腰带：穿戴时按账号收藏进度加成（怪物卡图鉴 + 任务达人）
-            if (hasEquippedItem(CollectionService.COLLECTOR_BELT)) {
-                CollectionService.Bonus bonus = CollectionService.getInstance().getBonus(getAccountId());
+            if (isCollectorBeltEquipped()) {
+                CollectionService.Bonus bonus = CollectionService.getInstance().getEffectiveBonus(this);
                 localstr += bonus.str;
                 localdex += bonus.dex;
                 localint_ += bonus.int_;
@@ -9158,6 +9188,22 @@ public class Character extends AbstractCharacterObject {
     }
 
     public void updateQuestStatus(QuestStatus qs) {
+        boolean completed = qs.getStatus().equals(QuestStatus.Status.COMPLETED);
+        boolean wasCompleted;
+        synchronized (quests) {
+            QuestStatus previousQuestStatus = quests.get(qs.getQuestID());
+            wasCompleted = previousQuestStatus != null
+                    && previousQuestStatus.getStatus().equals(QuestStatus.Status.COMPLETED);
+        }
+
+        boolean collectionChanged = wasCompleted != completed;
+        CollectionService collectionService = null;
+        CollectionService.CollectionSnapshot previousCollection = null;
+        if (collectionChanged) {
+            collectionService = CollectionService.getInstance();
+            previousCollection = collectionService.getSnapshot(this);
+        }
+
         synchronized (quests) {
             quests.put(qs.getQuestID(), qs);
         }
@@ -9183,6 +9229,19 @@ public class Character extends AbstractCharacterObject {
                 announceUpdateQuest(DelayedQuestUpdate.UPDATE, qs, true);
             }
             // reminder: do not reset quest progress of infoNumbers, some quests cannot backtrack
+        }
+
+        if (collectionChanged) {
+            collectionService.invalidate(getAccountId());
+            collectionService.refreshOnlineCharacters(this);
+            CollectionService.CollectionSnapshot currentCollection = collectionService.getSnapshot(this);
+            if (completed
+                    && previousCollection.available()
+                    && currentCollection.available()
+                    && currentCollection.quests() / CollectionService.QUESTS_PER_STAT
+                    > previousCollection.quests() / CollectionService.QUESTS_PER_STAT) {
+                showHint(collectionService.formatQuestMilestone(this, currentCollection.quests()), 600);
+            }
         }
     }
 

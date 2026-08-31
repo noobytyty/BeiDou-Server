@@ -36407,17 +36407,17 @@
     <string name="d0" value="Oh, hey. I managed to get this nice statue of myself, cool huh?"/>
   </imgdir>
   <imgdir name="9977777">
-    <string name="name" value="词条工匠"/>
-    <string name="n0" value="Hey, I am /name, head developer of HeavenMS. How&apos;re you faring?"/>
-    <string name="n1" value="HeavenMS was developed in 3 years, based on Solaxia. Many features emerged since then, all gracefully presented to you in this server. Long live MapleStory!!"/>
-    <string name="d0" value="Oh, hey. I managed to get this nice statue of myself, cool huh?"/>
-    <string name="func" value="HeavenMS Developer"/>
+    <string name="name" value="Affix Artisan"/>
+    <string name="n0" value="I can inspect, reroll, lock, and salvage equipment affixes."/>
+    <string name="n1" value="Locked affixes are preserved during a reroll."/>
+    <string name="d0" value="Equipment affix service"/>
+    <string name="func" value="Affix Artisan"/>
   </imgdir>
   <imgdir name="9977778">
     <string name="name" value="美容师"/>
-    <string name="n0" value="Welcome! I can help you with your hairstyle and face."/>
-    <string name="n1" value="I also offer beauty slot management and a trial room!"/>
-    <string name="d0" value="Take a seat and let me work my magic!"/>
+    <string name="n0" value="I can manage your saved hairstyles, faces, and skin colors."/>
+    <string name="n1" value="You can preview a saved style before applying it."/>
+    <string name="d0" value="Beauty archives and preview"/>
     <string name="func" value="Beautician"/>
   </imgdir>
   <imgdir name="9977779">

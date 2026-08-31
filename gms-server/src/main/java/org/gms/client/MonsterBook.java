@@ -23,6 +23,7 @@ package org.gms.client;
 
 import org.gms.dao.entity.MonsterbookDO;
 import org.gms.manager.ServerManager;
+import org.gms.server.CollectionService;
 import org.gms.service.MonsterBookService;
 import org.gms.util.DatabaseConnection;
 import org.gms.util.I18nUtil;
@@ -61,7 +62,11 @@ public final class MonsterBook {
     public void addCard(final Client c, final int cardid) {
         c.getPlayer().getMap().broadcastMessage(c.getPlayer(), PacketCreator.showForeignCardEffect(c.getPlayer().getId()), false);
 
+        Character player = c.getPlayer();
+        CollectionService collectionService = CollectionService.getInstance();
+        CollectionService.CollectionSnapshot previousCollection = collectionService.getSnapshot(player);
         Integer qty;
+        boolean cardAdded = false;
         lock.lock();
         try {
             qty = cards.get(cardid);
@@ -69,10 +74,12 @@ public final class MonsterBook {
             if (qty != null) {
                 if (qty < 5) {
                     cards.put(cardid, qty + 1);
+                    cardAdded = true;
                 }
             } else {
                 cards.put(cardid, 1);
                 qty = 0;
+                cardAdded = true;
 
                 if (cardid / 1000 >= 2388) {
                     specialCard++;
@@ -96,6 +103,17 @@ public final class MonsterBook {
         }
         c.getPlayer().dropMessage(5,
                 I18nUtil.getMessage("MonsterBook.addCard.progress", Math.min(qty + 1, 5)));
+        if (cardAdded) {
+            collectionService.invalidate(player.getAccountId());
+            collectionService.refreshOnlineCharacters(player);
+            CollectionService.CollectionSnapshot currentCollection = collectionService.getSnapshot(player);
+            if (previousCollection.available()
+                    && currentCollection.available()
+                    && currentCollection.cards() / CollectionService.CARDS_PER_STAT
+                    > previousCollection.cards() / CollectionService.CARDS_PER_STAT) {
+                player.showHint(collectionService.formatCardMilestone(player, currentCollection.cards()), 600);
+            }
+        }
     }
 
     private void calculateLevel() {
@@ -127,7 +145,7 @@ public final class MonsterBook {
     public Map<Integer, Integer> getCards() {
         lock.lock();
         try {
-            return Collections.unmodifiableMap(cards);
+            return Collections.unmodifiableMap(new LinkedHashMap<>(cards));
         } finally {
             lock.unlock();
         }
@@ -140,6 +158,23 @@ public final class MonsterBook {
         } finally {
             lock.unlock();
         }
+    }
+
+    public int getCollectedCardCount() {
+        lock.lock();
+        try {
+            return getCollectedCardCountUnsafe();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    private int getCollectedCardCountUnsafe() {
+        int count = 0;
+        for (int quantity : cards.values()) {
+            count += Math.min(quantity, 5);
+        }
+        return count;
     }
 
     public int getNormalCard() {
@@ -186,8 +221,15 @@ public final class MonsterBook {
                 VALUES (?, ?, ?)
                 ON DUPLICATE KEY UPDATE level = ?;
                 """;
+        Map<Integer, Integer> cardSnapshot;
+        lock.lock();
+        try {
+            cardSnapshot = new LinkedHashMap<>(cards);
+        } finally {
+            lock.unlock();
+        }
         try (final PreparedStatement ps = con.prepareStatement(query)) {
-            for (Map.Entry<Integer, Integer> cardAndLevel : cards.entrySet()) {
+            for (Map.Entry<Integer, Integer> cardAndLevel : cardSnapshot.entrySet()) {
                 final int card = cardAndLevel.getKey();
                 final int level = cardAndLevel.getValue();
                 // insert

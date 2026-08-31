@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 美容存档槽位服务：每个账号独立的发型/脸型存档（基础 5 槽，可花钱扩展）。
- * 与 NPC 脚本（9977777 美容服务）配合，提供保存/读取/购买槽位能力。
+ * 美容存档槽位服务：每个账号独立的发型/脸型/肤色存档（基础 5 槽，可花钱扩展）。
+ * 与 NPC 脚本（9977778 美容服务）配合，提供保存/读取/购买槽位能力。
  */
 public class BeautySlotService {
 
@@ -21,6 +21,7 @@ public class BeautySlotService {
 
     public static final int TYPE_HAIR = 0;
     public static final int TYPE_FACE = 1;
+    public static final int TYPE_SKIN = 2;
     public static final int BASE_SLOTS = 5;
 
     private static final BeautySlotService instance = new BeautySlotService();
@@ -40,7 +41,12 @@ public class BeautySlotService {
     }
 
     private String slotColumn(int slotType) {
-        return slotType == TYPE_HAIR ? "beauty_hair_slots" : "beauty_face_slots";
+        return switch (slotType) {
+            case TYPE_HAIR -> "beauty_hair_slots";
+            case TYPE_FACE -> "beauty_face_slots";
+            case TYPE_SKIN -> "beauty_skin_slots";
+            default -> throw new IllegalArgumentException("Unknown beauty slot type: " + slotType);
+        };
     }
 
     /** 账号当前槽位上限（基础 5 + 已购买数量） */
@@ -78,6 +84,7 @@ public class BeautySlotService {
 
     /** 已存档的槽位列表 */
     public List<BeautySlot> getSlots(int accountId, int slotType) {
+        slotColumn(slotType);
         List<BeautySlot> ret = new ArrayList<>();
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(
@@ -97,6 +104,7 @@ public class BeautySlotService {
 
     /** 读取指定槽位内容，空槽返回 -1 */
     public int getSlot(int accountId, int slotType, int slotIndex) {
+        slotColumn(slotType);
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(
                      "SELECT item_id FROM beauty_slots WHERE account_id = ? AND slot_type = ? AND slot_index = ?")) {
@@ -116,6 +124,7 @@ public class BeautySlotService {
 
     /** 保存（覆盖）槽位 */
     public void saveSlot(int accountId, int slotType, int slotIndex, int itemId) {
+        slotColumn(slotType);
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(
                      "INSERT INTO beauty_slots (account_id, slot_type, slot_index, item_id) VALUES (?, ?, ?, ?) " +
@@ -132,6 +141,7 @@ public class BeautySlotService {
 
     /** 清空槽位 */
     public void clearSlot(int accountId, int slotType, int slotIndex) {
+        slotColumn(slotType);
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(
                      "DELETE FROM beauty_slots WHERE account_id = ? AND slot_type = ? AND slot_index = ?")) {

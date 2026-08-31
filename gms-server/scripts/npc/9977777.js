@@ -6,29 +6,20 @@
     it under the terms of the GNU Affero General Public License as
     published by the Free Software Foundation version 3 as published by
     the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
+    this program under the terms of the GNU Affero General Public
     License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-/* 词条工匠 NPC - 装备词条服务（查看/重铸/锁定/分解） */
 
-var status;
+var status = 0;
 var affixOperation = -1;
 var affixEquipSlot = -1;
 var InventoryType = Java.type("org.gms.client.inventory.InventoryType");
 var Equip = Java.type("org.gms.client.inventory.Equip");
-var RerollAffixCommand = Java.type("org.gms.client.command.commands.gm0.RerollAffixCommand");
-var SalvageEquipmentCommand = Java.type("org.gms.client.command.commands.gm0.SalvageEquipmentCommand");
+var EquipmentAffixFormatter = Java.type("org.gms.client.inventory.EquipmentAffixFormatter");
+var I18nUtil = Java.type("org.gms.util.I18nUtil");
 
-function isAffixNpcMap() {
-    return cm.getPlayer().getMapId() == 910000000;
+function t(key, arg0) {
+    return arguments.length > 1 ? I18nUtil.getMessage(key, arg0) : I18nUtil.getMessage(key);
 }
 
 function runAffixCommand(commandClass, params) {
@@ -36,32 +27,46 @@ function runAffixCommand(commandClass, params) {
     command.execute(cm.getClient(), params);
 }
 
+function mainMenu(notice) {
+    status = 0;
+    affixOperation = -1;
+    affixEquipSlot = -1;
+    var message = notice ? notice + "\r\n\r\n" : "";
+    message += t("AffixArtisan.menu.title") + "\r\n"
+        + "#L0#" + t("AffixArtisan.menu.inspect") + "#l\r\n"
+        + "#L1#" + t("AffixArtisan.menu.reroll") + "#l\r\n"
+        + "#L2#" + t("AffixArtisan.menu.lock") + "#l\r\n"
+        + "#L3#" + t("AffixArtisan.menu.salvage") + "#l\r\n"
+        + "#L4#" + t("AffixArtisan.menu.exit") + "#l";
+    cm.sendSimple(message);
+}
+
 function sendEquipSelection(prompt) {
+    status = 1;
     var inventory = cm.getPlayer().getInventory(InventoryType.EQUIP);
-    var iterator = inventory.iterator();
     var text = prompt + "\r\n";
+    var iterator = inventory.iterator();
     var hasEquipment = false;
     while (iterator.hasNext()) {
         var item = iterator.next();
         if (item instanceof Equip) {
             hasEquipment = true;
             text += "#L" + item.getPosition() + "##v" + item.getItemId() + "# #z" + item.getItemId()
-                + "#（词条 " + item.getAffixes().size() + " 条）#l\r\n";
+                + t("AffixArtisan.equipment.affixes", item.getAffixes().size()) + "#l\r\n";
         }
     }
     if (!hasEquipment) {
-        cm.sendOk("装备背包中没有可操作的装备。");
+        cm.sendOk(t("AffixArtisan.equipment.empty"));
         cm.dispose();
         return;
     }
+    text += "#L999#" + t("AffixArtisan.back") + "#l";
     cm.sendSimple(text);
 }
 
-function start() {
-    status = 0;
-    affixOperation = -1;
-    affixEquipSlot = -1;
-    cm.sendSimple("请选择词条工匠服务：\r\n#L0#查看装备词条#l\r\n#L1#重铸词条#l\r\n#L2#锁定或解锁词条#l\r\n#L3#分解装备#l\r\n");
+function getEquipment(slot) {
+    var item = cm.getPlayer().getInventory(InventoryType.EQUIP).getItem(slot);
+    return item instanceof Equip ? item : null;
 }
 
 function action(mode, type, selection) {
@@ -69,46 +74,83 @@ function action(mode, type, selection) {
         cm.dispose();
         return;
     }
+
     if (status == 0) {
+        if (selection == 4) {
+            cm.dispose();
+            return;
+        }
+        if (selection < 0 || selection > 3) {
+            mainMenu(t("AffixArtisan.invalid.operation"));
+            return;
+        }
         affixOperation = selection;
-        status = 1;
-        if (selection == 0) {
-            sendEquipSelection("请选择要查看词条的装备：");
-        } else {
-            sendEquipSelection("请选择要操作的装备：");
+        sendEquipSelection(t(
+                selection == 0 ? "AffixArtisan.prompt.inspect" : "AffixArtisan.prompt.operation"
+        ));
+        return;
+    }
+
+    if (status == 1) {
+        if (selection == 999) {
+            mainMenu();
+            return;
         }
-    } else if (status == 1) {
-        if (selection > 0 && selection < 97) {
-            if (affixOperation == 0) {
-                runAffixCommand("org.gms.client.command.commands.gm0.InspectCommand", [String(selection)]);
-                cm.dispose();
-            } else if (affixOperation == 1) {
-                affixEquipSlot = selection;
-                status = 2;
-                var rerollEquip = cm.getPlayer().getInventory(InventoryType.EQUIP).getItem(selection);
-                cm.sendYesNo(RerollAffixCommand.preview(rerollEquip)
-                    + "\r\n锁定词条会保留，确定继续吗？");
-            } else if (affixOperation == 2) {
-                affixEquipSlot = selection;
-                status = 2;
-                cm.sendGetNumber("请输入词条序号（从0开始）：", 0, 0, 7);
-            } else if (affixOperation == 3) {
-                affixEquipSlot = selection;
-                status = 2;
-                var salvageEquip = cm.getPlayer().getInventory(InventoryType.EQUIP).getItem(selection);
-                cm.sendYesNo(SalvageEquipmentCommand.preview(salvageEquip)
-                    + "\r\n装备将被删除，确定继续吗？");
-            }
+        if (selection <= 0 || selection >= 97) {
+            sendEquipSelection(t("AffixArtisan.invalid.equipment"));
+            return;
         }
-    } else if (status == 2 && affixOperation == 2) {
+
+        var equip = getEquipment(selection);
+        if (equip == null) {
+            sendEquipSelection(t("AffixArtisan.invalid.equipment"));
+            return;
+        }
+
+        affixEquipSlot = selection;
+        if (affixOperation == 0) {
+            runAffixCommand("org.gms.client.command.commands.gm0.InspectCommand", [String(selection)]);
+            cm.dispose();
+        } else if (affixOperation == 1) {
+            status = 2;
+            cm.sendYesNo(Java.type("org.gms.client.command.commands.gm0.RerollAffixCommand").preview(equip)
+                + "\r\n" + t("AffixArtisan.confirm.reroll"));
+        } else if (affixOperation == 2) {
+            status = 2;
+            cm.sendSimple(EquipmentAffixFormatter.formatSelection(equip));
+        } else if (affixOperation == 3) {
+            status = 2;
+            cm.sendYesNo(Java.type("org.gms.client.command.commands.gm0.SalvageEquipmentCommand").preview(equip)
+                + "\r\n" + t("AffixArtisan.confirm.salvage"));
+        }
+        return;
+    }
+
+    if (status == 2 && affixOperation == 2) {
+        if (selection == 999) {
+            sendEquipSelection(t("AffixArtisan.prompt.operation"));
+            return;
+        }
+        var lockEquip = getEquipment(affixEquipSlot);
+        if (lockEquip == null) {
+            sendEquipSelection(t("AffixArtisan.invalid.equipment"));
+            return;
+        }
+        if (selection < 0 || selection >= lockEquip.getAffixes().size()) {
+            cm.sendSimple(EquipmentAffixFormatter.formatSelection(lockEquip));
+            return;
+        }
         runAffixCommand("org.gms.client.command.commands.gm0.LockAffixCommand", [
             String(affixEquipSlot),
             String(selection)
         ]);
-        cm.dispose();
-    } else if (status == 2 && (affixOperation == 1 || affixOperation == 3)) {
+        cm.sendSimple(EquipmentAffixFormatter.formatSelection(lockEquip));
+        return;
+    }
+
+    if (status == 2 && (affixOperation == 1 || affixOperation == 3)) {
         if (mode != 1) {
-            cm.dispose();
+            sendEquipSelection(t("AffixArtisan.cancelled"));
             return;
         }
         if (affixOperation == 1) {
@@ -122,4 +164,8 @@ function action(mode, type, selection) {
         }
         cm.dispose();
     }
+}
+
+function start() {
+    mainMenu();
 }

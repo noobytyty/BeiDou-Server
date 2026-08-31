@@ -1,14 +1,25 @@
 /**北斗脚本
 
-随机美容券 2438000
+随机美容券 2438000 / 神秘盒子 2430029
 
-使用后随机更换脸型与发型：从最新新增的发型/脸型池中随机抽取。
+使用后随机更换脸型、发型和肤色：从最新新增的发型/脸型池中随机抽取，并随机选择可用肤色。
 注意：池中每个 base 附带"可用颜色"列表（只包含客户端/服务端真实存在的颜色变体），
 避免抽到缺失的外观导致客户端闪退。
 
-说明：本脚本的池与 npc/9977778.js（美容师）使用同一份新增发型/脸型清单。
+Note: this script maintains its random beauty pool independently and does not depend on the custom beautician script.
 */
 var COUPON_ID = 2430029;
+var SKIN_COLORS = [0, 1, 2, 3, 4, 5, 9, 10];
+var SKIN_NAMES = {
+    0: "Normal",
+    1: "Dark",
+    2: "Black",
+    3: "Pale",
+    4: "Blue",
+    5: "Green",
+    9: "White",
+    10: "Pink"
+};
 
 // 新发型： [base, "可用颜色,逗号分隔"]（颜色 = base + 颜色索引）
 var HAIR_POOL = [
@@ -1615,8 +1626,8 @@ var FACE_POOL = [
 ];
 
 function start() {
-    if (HAIR_POOL.length == 0 || FACE_POOL.length == 0) {
-        im.dropMessage(5, "随机美容券暂时无法使用，请稍后再试。");
+    if (HAIR_POOL.length == 0 || FACE_POOL.length == 0 || SKIN_COLORS.length == 0) {
+        im.dropMessage(5, "The random beauty box is temporarily unavailable. Please try again later.");
         im.dispose();
         return;
     }
@@ -1626,9 +1637,11 @@ function start() {
     var faceColors = facePick[1].split(",");
     var hair = hairPick[0] + parseInt(hairColors[Math.floor(Math.random() * hairColors.length)]);
     var face = facePick[0] + parseInt(faceColors[Math.floor(Math.random() * faceColors.length)]) * 100;
+    var skin = SKIN_COLORS[Math.floor(Math.random() * SKIN_COLORS.length)];
     im.setHair(hair);
     im.setFace(face);
+    im.setSkin(skin);
     im.gainItem(COUPON_ID, -1);
-    im.dropMessage(5, "随机美容券生效！新发型：#t" + hair + "#，新脸型：#t" + face + "#。");
+    im.dropMessage(5, "Random beauty box activated! Hairstyle: #t" + hair + "#, face: #t" + face + "#, skin color: " + skin + " (" + SKIN_NAMES[skin] + ").");
     im.dispose();
 }

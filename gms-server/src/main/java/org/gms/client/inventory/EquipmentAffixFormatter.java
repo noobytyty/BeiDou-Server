@@ -29,6 +29,20 @@ public final class EquipmentAffixFormatter {
         return result.toString();
     }
 
+    public static String formatSelection(Equip equip) {
+        StringBuilder result = new StringBuilder(I18nUtil.getMessage("EquipmentAffixFormatter.select.title"));
+        if (equip.getAffixes().isEmpty()) {
+            result.append('\n').append(I18nUtil.getMessage("EquipmentAffixFormatter.empty"));
+        } else {
+            for (int i = 0; i < equip.getAffixes().size(); i++) {
+                result.append("\r\n#L").append(i).append("#")
+                        .append(formatAffix(equip.getAffixes().get(i))).append("#l");
+            }
+        }
+        result.append("\r\n#L999#").append(I18nUtil.getMessage("EquipmentAffixFormatter.select.back")).append("#l");
+        return result.toString();
+    }
+
     private static String formatAffix(EquipmentAffix affix) {
         String label = I18nUtil.getMessage("EquipmentAffixFormatter.affix." + affix.getAffixCode());
         String nameKey = EquipmentAffixGenerator.getAffixNameKey(affix.getAffixCode(), affix.getAffixTier());

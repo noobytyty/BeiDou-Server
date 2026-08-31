@@ -8249,7 +8249,7 @@
     </imgdir>
     <imgdir name="2430029">
         <string name="name" value="Mystery Box "/>
-        <string name="desc" value="A box whose contents are unknown, though a Yellow Butterfly might just be hidden inside."/>
+        <string name="desc" value="A random beauty box that changes your hairstyle, face, and skin color."/>
     </imgdir>
     <imgdir name="2430028">
         <string name="name" value="Mystery Box "/>
@@ -9217,6 +9217,6 @@
     </imgdir>
     <imgdir name="2438000">
         <string name="name" value="Random Beauty Coupon"/>
-        <string name="desc" value="A mysterious coupon that randomly restyles your face and hair, including random colors."/>
+        <string name="desc" value="A mysterious coupon that randomly restyles your face, hair, and skin color."/>
     </imgdir>
 </imgdir>
