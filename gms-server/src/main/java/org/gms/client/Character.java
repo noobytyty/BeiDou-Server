@@ -638,6 +638,7 @@ public class Character extends AbstractCharacterObject {
     public void refreshCollectionBonus() {
         if (isCollectorBeltEquipped()) {
             updateLocalStats();
+            forceUpdateCollectionBelt();
         }
     }
 
@@ -2860,6 +2861,9 @@ public class Character extends AbstractCharacterObject {
         equipchanged = true;
         updateLocalStats();
         collectorBeltEquipped = collectorBeltEquippedAfter;
+        if (collectorBeltEquippedAfter) {
+            forceUpdateCollectionBelt();
+        }
         if (collectorBeltEquippedBefore != collectorBeltEquippedAfter) {
             showHint(CollectionService.getInstance().formatEquipmentChange(this, collectorBeltEquippedAfter), 600);
         }
@@ -3065,7 +3069,18 @@ public class Character extends AbstractCharacterObject {
         final List<ModifyInventory> mods = new LinkedList<>();
         mods.add(new ModifyInventory(3, item));
         mods.add(new ModifyInventory(0, item));
-        sendPacket(PacketCreator.modifyInventory(true, mods));
+        if (item.getItemId() == CollectionService.COLLECTOR_BELT && item.getPosition() < 0) {
+            sendPacket(PacketCreator.modifyInventory(true, mods, this));
+        } else {
+            sendPacket(PacketCreator.modifyInventory(true, mods));
+        }
+    }
+
+    private void forceUpdateCollectionBelt() {
+        Item belt = getInventory(InventoryType.EQUIPPED).findById(CollectionService.COLLECTOR_BELT);
+        if (belt != null) {
+            forceUpdateItem(belt);
+        }
     }
 
     public void gainGachaExp() {

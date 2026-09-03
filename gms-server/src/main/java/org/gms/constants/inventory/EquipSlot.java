@@ -45,17 +45,18 @@ public enum EquipSlot {
     }
 
     public boolean isAllowed(int slot, boolean cash) {
-        if (slot < 0) {
-            if (allowed != null) {
-                for (Integer allow : allowed) {
-                    int condition = cash ? allow - 100 : allow;
-                    if (slot == condition) {
-                        return true;
-                    }
+        if (slot >= 0) {
+            return false;
+        }
+        if (allowed != null) {
+            for (Integer allow : allowed) {
+                int condition = cash ? allow - 100 : allow;
+                if (slot == condition) {
+                    return true;
                 }
             }
         }
-        return cash && slot < 0;
+        return cash && allowed == null && slot <= -100;
     }
 
     public static EquipSlot getFromTextSlot(String slot) {

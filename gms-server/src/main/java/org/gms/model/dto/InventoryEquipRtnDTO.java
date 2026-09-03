@@ -27,6 +27,10 @@ public class InventoryEquipRtnDTO {
      */
     private Byte level;
     /**
+     * 装备品质，对应inventoryequipment.rarity
+     */
+    private Byte rarity;
+    /**
      * 力量，对应str
      */
     private Short attStr;

@@ -20,6 +20,7 @@
  */
 package org.gms.client.inventory;
 
+import org.gms.server.ItemInformationProvider;
 import org.gms.util.DatabaseConnection;
 import org.gms.util.Pair;
 
@@ -29,7 +30,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -99,7 +104,13 @@ public enum ItemFactory {
     }
 
     private static Equip loadEquipFromResultSet(Connection con, ResultSet rs) throws SQLException {
-        Equip equip = new Equip(rs.getInt("itemid"), (short) rs.getInt("position"));
+        int itemId = rs.getInt("itemid");
+        int position = rs.getInt("position");
+        if (position > -100 && position < 0
+                && ItemInformationProvider.getInstance().isCash(itemId)) {
+            position -= 100;
+        }
+        Equip equip = new Equip(itemId, (short) position);
         equip.setOwner(rs.getString("owner"));
         equip.setQuantity((short) rs.getInt("quantity"));
         equip.setAcc((short) rs.getInt("acc"));
@@ -155,6 +166,41 @@ public enum ItemFactory {
             }
         }
         return affixes;
+    }
+
+    public static Map<Long, List<EquipmentAffix>> loadAffixes(Connection con, Collection<Long> inventoryItemIds)
+            throws SQLException {
+        if (inventoryItemIds.isEmpty()) {
+            return Map.of();
+        }
+
+        String placeholders = String.join(",", Collections.nCopies(inventoryItemIds.size(), "?"));
+        Map<Long, List<EquipmentAffix>> affixesByItem = new LinkedHashMap<>();
+        try (PreparedStatement ps = con.prepareStatement("""
+                SELECT inventoryitemid, slot_index, affix_code, affix_tier, affix_value, roll_seed, locked
+                FROM inventory_equipment_affix
+                WHERE inventoryitemid IN (%s)
+                ORDER BY inventoryitemid, slot_index
+                """.formatted(placeholders))) {
+            int index = 1;
+            for (Long inventoryItemId : inventoryItemIds) {
+                ps.setLong(index++, inventoryItemId);
+            }
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    affixesByItem.computeIfAbsent(rs.getLong("inventoryitemid"), id -> new ArrayList<>())
+                            .add(EquipmentAffix.builder()
+                                    .slotIndex(rs.getInt("slot_index"))
+                                    .affixCode(rs.getString("affix_code"))
+                                    .affixTier(rs.getInt("affix_tier"))
+                                    .value(rs.getInt("affix_value"))
+                                    .rollSeed(rs.getLong("roll_seed"))
+                                    .locked(rs.getBoolean("locked"))
+                                    .build());
+                }
+            }
+        }
+        return affixesByItem;
     }
 
     private static void saveAffixes(Connection con, int inventoryItemId, Equip equip) throws SQLException {

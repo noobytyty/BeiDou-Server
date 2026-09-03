@@ -17,12 +17,15 @@ import org.gms.net.server.Server;
 import org.gms.net.server.world.World;
 import org.gms.server.ItemInformationProvider;
 import org.gms.util.CashIdGenerator;
+import org.gms.util.DatabaseConnection;
 import org.gms.util.I18nUtil;
 import org.gms.util.PacketCreator;
 import org.gms.util.RequireUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -93,6 +96,7 @@ public class InventoryService {
                 // 只查询背包
                 .and(INVENTORYITEMS_D_O.TYPE.eq(ItemFactory.INVENTORY.getValue()))
                 .and(INVENTORYITEMS_D_O.CHARACTERID.eq(data.getCharacterId())), Row.class);
+        Map<Long, List<EquipmentAffix>> affixesByItem = loadAffixes(results);
         List<InventorySearchRtnDTO> rtnDTOList = new ArrayList<>();
         Set<Character> characterSet = new HashSet<>();
         for (Row obj : results) {
@@ -100,7 +104,7 @@ public class InventoryService {
             Character character = getCharacterById(characterId);
             // 过滤在线玩家
             if (character == null) {
-                rtnDTOList.add(buildByDb(obj));
+                rtnDTOList.add(buildByDb(obj, affixesByItem.getOrDefault(obj.getLong("inventoryitemid"), List.of())));
             } else {
                 characterSet.add(character);
             }
@@ -157,7 +161,7 @@ public class InventoryService {
         return null;
     }
 
-    private InventorySearchRtnDTO buildByDb(Row obj) {
+    private InventorySearchRtnDTO buildByDb(Row obj, List<EquipmentAffix> affixes) {
         ItemInformationProvider ii = ItemInformationProvider.getInstance();
         InventorySearchRtnDTO rtnDTO = InventorySearchRtnDTO.builder()
                 .id(obj.getLong("inventoryitemid"))
@@ -183,6 +187,7 @@ public class InventoryService {
                     .inventoryItemId(obj.getLong("inventoryitemid"))
                     .upgradeSlots(obj.getByte("upgradeslots"))
                     .level(obj.getByte("level"))
+                    .rarity(obj.getByte("rarity"))
                     .attStr(obj.getShort("str"))
                     .attDex(obj.getShort("dex"))
                     .attInt(obj.getShort("int"))
@@ -204,6 +209,7 @@ public class InventoryService {
                     .itemExp(obj.getInt("itemexp"))
                     .ringId(obj.getInt("ringid"))
                     .build());
+            rtnDTO.setAffixes(affixes);
         }
         return rtnDTO;
     }
@@ -236,6 +242,7 @@ public class InventoryService {
                         .inventoryItemId(-1L)
                         .upgradeSlots(equip.getUpgradeSlots())
                         .level(equip.getLevel())
+                        .rarity(equip.getRarity())
                         .attStr(equip.getStr())
                         .attDex(equip.getDex())
                         .attInt(equip.getInt())
@@ -257,9 +264,29 @@ public class InventoryService {
                         .itemExp(equip.getItemExp())
                         .ringId(equip.getRingId())
                         .build());
+                rtnDTO.setAffixes(new ArrayList<>(equip.getAffixes()));
             }
             return rtnDTO;
         }).toList();
+    }
+
+    private Map<Long, List<EquipmentAffix>> loadAffixes(List<Row> results) {
+        List<Long> inventoryItemIds = results.stream()
+                .filter(row -> row.getLong("inventoryequipmentid") != null)
+                .map(row -> row.getLong("inventoryitemid"))
+                .filter(Objects::nonNull)
+                .distinct()
+                .toList();
+        if (inventoryItemIds.isEmpty()) {
+            return Map.of();
+        }
+
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            return ItemFactory.loadAffixes(connection, inventoryItemIds);
+        } catch (SQLException e) {
+            throw new IllegalStateException(
+                    I18nUtil.getExceptionMessage("InventoryService.loadAffixes.exception"), e);
+        }
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -460,4 +487,3 @@ public class InventoryService {
         return inventoryItemsDO;
     }
 }
-

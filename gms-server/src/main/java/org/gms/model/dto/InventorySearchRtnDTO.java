@@ -6,8 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.gms.client.inventory.Equip;
+import org.gms.client.inventory.EquipmentAffix;
 import org.gms.client.inventory.Item;
 
+import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -79,6 +81,11 @@ public class InventorySearchRtnDTO {
     private InventoryEquipRtnDTO inventoryEquipment;
 
     /**
+     * 装备词条。仅装备类型使用，保存时由服务端保留并在角色加载时恢复。
+     */
+    private List<EquipmentAffix> affixes;
+
+    /**
      *
      * 物品名称，根据itemID返回。
      */
@@ -90,6 +97,7 @@ public class InventorySearchRtnDTO {
             Equip equip = new Equip(getItemId(), getPosition());
             equip.setUpgradeSlots(Optional.ofNullable(getInventoryEquipment().getUpgradeSlots()).orElse((byte) 0));
             equip.setLevel(Optional.ofNullable(getInventoryEquipment().getLevel()).orElse((byte) 0));
+            equip.setRarity(Optional.ofNullable(getInventoryEquipment().getRarity()).orElse((byte) 0));
             equip.setStr(Optional.ofNullable(getInventoryEquipment().getAttStr()).orElse((short) 0));
             equip.setDex(Optional.ofNullable(getInventoryEquipment().getAttDex()).orElse((short) 0));
             equip.setInt(Optional.ofNullable(getInventoryEquipment().getAttInt()).orElse((short) 0));
@@ -109,6 +117,7 @@ public class InventorySearchRtnDTO {
             equip.setItemLevel(Optional.ofNullable(getInventoryEquipment().getItemLevel()).orElse((byte) 0));
             equip.setItemExp(Optional.ofNullable(getInventoryEquipment().getItemExp()).orElse(0));
             equip.setRingId(Optional.ofNullable(getInventoryEquipment().getRingId()).orElse(0));
+            equip.setLoadedAffixes(Optional.ofNullable(affixes).orElse(List.of()));
             item = equip;
         } else {
             item = new Item(getItemId(), getPosition(), getQuantity(), getPetId());

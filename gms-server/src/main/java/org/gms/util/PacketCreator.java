@@ -237,7 +237,7 @@ public class PacketCreator {
         }
 
         p.writeInt(chr.getMeso());
-        addInventoryInfo(p, chr);
+        addInventoryInfo(p, chr, collectionSnapshot);
         addSkillInfo(p, chr);
         addQuestInfo(p, chr);
         addMiniGameInfo(p, chr);
@@ -386,10 +386,20 @@ public class PacketCreator {
     }
 
     private static void addItemInfo(OutPacket p, Item item) {
-        addItemInfo(p, item, false);
+        addItemInfo(p, item, false, null, null);
     }
 
     protected static void addItemInfo(final OutPacket p, Item item, boolean zeroPosition) {
+        addItemInfo(p, item, zeroPosition, null, null);
+    }
+
+    private static void addItemInfo(
+            final OutPacket p,
+            Item item,
+            boolean zeroPosition,
+            Character displayCharacter,
+            CollectionService.CollectionSnapshot collectionSnapshot
+    ) {
         ItemInformationProvider ii = ItemInformationProvider.getInstance();
         boolean isCash = ii.isCash(item.getItemId());
         boolean isPet = item.getPetId() > -1;
@@ -442,16 +452,18 @@ public class PacketCreator {
             }
             return;
         }
+        CollectionService.Bonus collectionBonus = getCollectionDisplayBonus(
+                item, displayCharacter, collectionSnapshot);
         p.writeByte(equip.getUpgradeSlots()); // upgrade slots
         p.writeByte(equip.getLevel()); // level
-        p.writeShort(equip.getStr()); // str
-        p.writeShort(equip.getDex()); // dex
-        p.writeShort(equip.getInt()); // int
-        p.writeShort(equip.getLuk()); // luk
-        p.writeShort(equip.getHp()); // hp
-        p.writeShort(equip.getMp()); // mp
-        p.writeShort(equip.getWatk()); // watk
-        p.writeShort(equip.getMatk()); // matk
+        p.writeShort(equip.getStr() + collectionBonus.str); // str
+        p.writeShort(equip.getDex() + collectionBonus.dex); // dex
+        p.writeShort(equip.getInt() + collectionBonus.int_); // int
+        p.writeShort(equip.getLuk() + collectionBonus.luk); // luk
+        p.writeShort(equip.getHp() + collectionBonus.maxhp); // hp
+        p.writeShort(equip.getMp() + collectionBonus.maxmp); // mp
+        p.writeShort(equip.getWatk() + collectionBonus.watk); // watk
+        p.writeShort(equip.getMatk() + collectionBonus.matk); // matk
         p.writeShort(equip.getWdef()); // wdef
         p.writeShort(equip.getMdef()); // mdef
         p.writeShort(equip.getAcc()); // accuracy
@@ -483,7 +495,11 @@ public class PacketCreator {
 
     }
 
-    private static void addInventoryInfo(OutPacket p, Character chr) {
+    private static void addInventoryInfo(
+            OutPacket p,
+            Character chr,
+            CollectionService.CollectionSnapshot collectionSnapshot
+    ) {
         for (byte i = 1; i <= 5; i++) {
             p.writeByte(chr.getInventory(InventoryType.getByType(i)).getSlotLimit());
         }
@@ -500,15 +516,15 @@ public class PacketCreator {
             }
         }
         for (Item item : equipped) {    // equipped doesn't actually need sorting, thanks Pllsz
-            addItemInfo(p, item);
+            addItemInfo(p, item, false, chr, collectionSnapshot);
         }
         p.writeShort(0); // start of equip cash
         for (Item item : equippedCash) {
-            addItemInfo(p, item);
+            addItemInfo(p, item, false, chr, collectionSnapshot);
         }
         p.writeShort(0); // start of equip inventory
         for (Item item : chr.getInventory(InventoryType.EQUIP).list()) {
-            addItemInfo(p, item);
+            addItemInfo(p, item, false, chr, collectionSnapshot);
         }
         p.writeInt(0);
         for (Item item : chr.getInventory(InventoryType.USE).list()) {
@@ -526,6 +542,22 @@ public class PacketCreator {
         for (Item item : chr.getInventory(InventoryType.CASH).list()) {
             addItemInfo(p, item);
         }
+    }
+
+    private static CollectionService.Bonus getCollectionDisplayBonus(
+            Item item,
+            Character displayCharacter,
+            CollectionService.CollectionSnapshot collectionSnapshot
+    ) {
+        if (!(item instanceof Equip)
+                || displayCharacter == null
+                || collectionSnapshot == null
+                || !collectionSnapshot.available()
+                || item.getItemId() != CollectionService.COLLECTOR_BELT
+                || item.getPosition() >= 0) {
+            return new CollectionService.Bonus();
+        }
+        return collectionSnapshot.bonus();
     }
 
     private static void addSkillInfo(OutPacket p, Character chr) {
@@ -2451,9 +2483,20 @@ public class PacketCreator {
     }
 
     public static Packet modifyInventory(boolean updateTick, final List<ModifyInventory> mods) {
+        return modifyInventory(updateTick, mods, null);
+    }
+
+    public static Packet modifyInventory(
+            boolean updateTick,
+            final List<ModifyInventory> mods,
+            Character displayCharacter
+    ) {
         OutPacket p = OutPacket.create(SendOpcode.INVENTORY_OPERATION);
         p.writeBool(updateTick);
         p.writeByte(mods.size());
+        CollectionService.CollectionSnapshot collectionSnapshot = displayCharacter == null
+                ? null
+                : CollectionService.getInstance().getSnapshot(displayCharacter);
         //p.writeByte(0); v104 :)
         int addMovement = -1;
         for (ModifyInventory mod : mods) {
@@ -2462,7 +2505,7 @@ public class PacketCreator {
             p.writeShort(mod.getMode() == 2 ? mod.getOldPosition() : mod.getPosition());
             switch (mod.getMode()) {
                 case 0: {//add item
-                    addItemInfo(p, mod.getItem(), true);
+                    addItemInfo(p, mod.getItem(), true, displayCharacter, collectionSnapshot);
                     break;
                 }
                 case 1: {//update quantity

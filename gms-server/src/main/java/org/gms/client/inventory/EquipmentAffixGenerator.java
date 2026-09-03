@@ -89,9 +89,13 @@ public final class EquipmentAffixGenerator {
         int minAffixTier = Math.max(1, meanAffixTier - tierRadius);
         int maxAffixTier = Math.min(12, meanAffixTier + tierRadius);
         List<EquipmentAffixConfig.PoolEntry> candidates = levelCandidates(loadedConfig, equipType, reqLevel);
+        Map<String, Integer> equipmentStats =
+                ItemInformationProvider.getInstance().getEquipStats(equip.getItemId());
+        if (equipmentStats == null) {
+            return List.of();
+        }
         candidates = candidates.stream()
-                .filter(entry -> isAffixCompatibleWithJob(entry.affixCode(), equip.getItemId(),
-                        ItemInformationProvider.getInstance().getEquipStats(equip.getItemId()).getOrDefault("reqJob", 0)))
+                .filter(entry -> isAffixCompatibleWithJob(entry.affixCode(), equip.getItemId(), equipmentStats))
                 .filter(entry -> isElementalAffixCompatible(entry.affixCode(), equip.getItemId()))
                 .toList();
         candidates = candidates.stream()
@@ -114,13 +118,15 @@ public final class EquipmentAffixGenerator {
                 Math.max(0, rarity.mainAffixCount() + (isOverall(equip) ? 1 : 0) - selectedMainCodes.size()),
                 MAIN_AFFIX_GROUP,
                 candidates, selectedMainCodes, loadedConfig.ranges(), meanAffixTier,
-                tierRadius, minAffixTier, maxAffixTier, reqLevel, definitions, equip.getItemId());
+                tierRadius, minAffixTier, maxAffixTier, reqLevel, definitions, equip.getItemId(),
+                rarity.rarity());
         appendAffixes(
                 affixes, nextSlot,
                 Math.max(0, rarity.secondaryAffixCount() - selectedSecondaryCodes.size()),
                 SECONDARY_AFFIX_GROUP,
                 candidates, selectedSecondaryCodes, loadedConfig.ranges(), meanAffixTier,
-                tierRadius, minAffixTier, maxAffixTier, reqLevel, definitions, equip.getItemId());
+                tierRadius, minAffixTier, maxAffixTier, reqLevel, definitions, equip.getItemId(),
+                rarity.rarity());
         return affixes;
     }
 
@@ -128,24 +134,67 @@ public final class EquipmentAffixGenerator {
         return equip.getItemId() / 10000 == 105;
     }
 
-    private static boolean isAffixCompatibleWithJob(String affixCode, int itemId, int reqJob) {
+    private static boolean isAffixCompatibleWithJob(
+            String affixCode,
+            int itemId,
+            Map<String, Integer> equipmentStats
+    ) {
         Integer weaponJob = weaponJob(itemId);
         if (weaponJob != null) {
             return isWeaponAffixCompatible(affixCode, weaponJob);
         }
+        int reqJob = equipmentStats.getOrDefault("reqJob", 0);
+        if (reqJob == 0) {
+            // Some legacy mage equipment has no job flag but requires or grants INT.
+            reqJob = inferJobFromEquipmentStats(equipmentStats);
+        }
+        return reqJob == 0 || isAffixCompatibleWithJob(affixCode, reqJob);
+    }
+
+    private static int inferJobFromEquipmentStats(Map<String, Integer> equipmentStats) {
+        int reqStr = equipmentStats.getOrDefault("reqSTR", 0);
+        int reqDex = equipmentStats.getOrDefault("reqDEX", 0);
+        int reqInt = equipmentStats.getOrDefault("reqINT", 0);
+        int incStr = equipmentStats.getOrDefault("STR", 0);
+        int incDex = equipmentStats.getOrDefault("DEX", 0);
+        int incInt = equipmentStats.getOrDefault("INT", 0);
+        if ((reqInt > 0 || incInt > 0) && reqStr == 0 && reqDex == 0 && incStr == 0 && incDex == 0) {
+            return 2;
+        }
+        return 0;
+    }
+
+    static boolean isAffixCompatibleWithJob(String affixCode, int reqJob) {
+        // Character.wz uses 1/2/4/8/16 for warrior/magician/bowman/thief/pirate.
         if (reqJob == 0) {
             return true;
         }
-        return isAffixCompatibleWithJob(affixCode, reqJob);
+        int recognizedJobFlags = 0;
+        for (int jobFlag : new int[]{1, 2, 4, 8, 16}) {
+            if ((reqJob & jobFlag) != 0) {
+                recognizedJobFlags |= jobFlag;
+                if (isAffixCompatibleWithSingleJob(affixCode, jobFlag)) {
+                    return true;
+                }
+            }
+        }
+        return recognizedJobFlags != reqJob;
     }
 
-    private static boolean isAffixCompatibleWithJob(String affixCode, int reqJob) {
+    static boolean isAffixCompatibleWithEquipmentStats(
+            String affixCode,
+            Map<String, Integer> equipmentStats
+    ) {
+        return isAffixCompatibleWithJob(affixCode, 0, equipmentStats);
+    }
+
+    private static boolean isAffixCompatibleWithSingleJob(String affixCode, int reqJob) {
         return switch (reqJob) {
-            case 2 -> !containsAny(affixCode, "INT", "MATK", "LUK", "DEX");
-            case 4 -> !containsAny(affixCode, "STR", "WATK", "LUK", "DEX");
-            case 8 -> !containsAny(affixCode, "STR", "INT", "MATK", "LUK");
-            case 16 -> !containsAny(affixCode, "STR", "INT", "MATK", "DEX");
-            case 32 -> !containsAny(affixCode, "INT", "MATK", "LUK");
+            case 1 -> !containsAny(affixCode, "INT", "MATK", "LUK", "DEX");
+            case 2 -> !containsAny(affixCode, "STR", "WATK", "DEX");
+            case 4 -> !containsAny(affixCode, "INT", "MATK", "LUK");
+            case 8 -> !containsAny(affixCode, "STR", "INT", "MATK");
+            case 16 -> !containsAny(affixCode, "INT", "MATK", "LUK");
             default -> true;
         };
     }
@@ -231,7 +280,8 @@ public final class EquipmentAffixGenerator {
             int maxAffixTier,
             int reqLevel,
             Map<String, EquipmentAffixConfig.Definition> definitions,
-            int itemId
+            int itemId,
+            int rarity
     ) {
         List<EquipmentAffixConfig.PoolEntry> groupCandidates = candidates.stream()
                 .filter(entry -> affixGroup.equals(entry.affixGroup()))
@@ -243,7 +293,7 @@ public final class EquipmentAffixGenerator {
                 break;
             }
             EquipmentAffixConfig.Range range = chooseRange(
-                    ranges, selected.affixCode(), meanAffixTier, tierRadius, minAffixTier, maxAffixTier);
+                    ranges, selected.affixCode(), meanAffixTier, tierRadius, minAffixTier, maxAffixTier, rarity);
             int value = Randomizer.nextInt(range.maxValue() - range.minValue() + 1) + range.minValue();
             value = applyLowLevelTierDiscount(value, reqLevel, meanAffixTier, range.affixTier());
             affixes.add(EquipmentAffix.builder()
@@ -448,7 +498,8 @@ public final class EquipmentAffixGenerator {
             int meanAffixTier,
             int tierRadius,
             int minAffixTier,
-            int maxAffixTier
+            int maxAffixTier,
+            int rarity
     ) {
         List<EquipmentAffixConfig.Range> available = ranges.stream()
                 .filter(range -> range.affixCode().equals(affixCode))
@@ -456,21 +507,38 @@ public final class EquipmentAffixGenerator {
                 .filter(range -> range.affixTier() <= maxAffixTier)
                 .toList();
         int totalWeight = available.stream()
-                .mapToInt(range -> range.weight() * tierDistanceWeight(
-                        Math.abs(range.affixTier() - meanAffixTier), tierRadius))
+                .mapToInt(range -> tierWeight(range, meanAffixTier, tierRadius, rarity))
                 .sum();
         if (available.isEmpty() || totalWeight <= 0) {
             throw new IllegalStateException("Equipment affix has no valid tier range: " + affixCode);
         }
         int roll = Randomizer.nextInt(totalWeight);
         for (EquipmentAffixConfig.Range range : available) {
-            roll -= range.weight() * tierDistanceWeight(
-                    Math.abs(range.affixTier() - meanAffixTier), tierRadius);
+            roll -= tierWeight(range, meanAffixTier, tierRadius, rarity);
             if (roll < 0) {
                 return range;
             }
         }
         throw new IllegalStateException("Equipment affix tier selection failed: " + affixCode);
+    }
+
+    static int tierWeight(
+            EquipmentAffixConfig.Range range,
+            int meanAffixTier,
+            int tierRadius,
+            int rarity
+    ) {
+        int distanceWeight = tierDistanceWeight(
+                Math.abs(range.affixTier() - meanAffixTier), tierRadius);
+        double qualityMultiplier = qualityTierWeightMultiplier(rarity, range.affixTier());
+        return Math.max(1, (int) Math.round(range.weight() * distanceWeight * qualityMultiplier));
+    }
+
+    static double qualityTierWeightMultiplier(int rarity, int affixTier) {
+        int normalizedRarity = Math.max(0, Math.min(6, rarity));
+        int highTierSteps = Math.max(0, affixTier - 4);
+        double multiplier = 1.0 + (normalizedRarity - 2) * highTierSteps * 0.005;
+        return Math.max(0.75, Math.min(1.20, multiplier));
     }
 
     private static int tierDistanceWeight(int distance, int tierRadius) {
