@@ -1102,4 +1102,6 @@
     <uol name="ladder" value="../30/ladder"/>
     <uol name="rope" value="../30/rope"/>
   </imgdir>
+  <uol name="48" value="30" />
+  <uol name="49" value="30" />
 </imgdir>

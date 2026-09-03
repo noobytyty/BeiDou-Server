@@ -6688,6 +6688,36 @@ public class Character extends AbstractCharacterObject {
         return ret;
     }
 
+    private void normalizeVirtualInventoryEntryItems() {
+        normalizeVirtualInventoryEntryItem(ItemId.VIRTUAL_SCROLL_SATCHEL, InventoryType.USE);
+        normalizeVirtualInventoryEntryItem(ItemId.VIRTUAL_ORE_SATCHEL, InventoryType.ETC);
+    }
+
+    private void normalizeVirtualInventoryEntryItem(int itemId, InventoryType expectedType) {
+        Inventory expectedInventory = getInventory(expectedType);
+        Item retained = expectedInventory.findById(itemId);
+
+        for (InventoryType sourceType : List.of(InventoryType.USE, InventoryType.ETC)) {
+            Inventory sourceInventory = getInventory(sourceType);
+            for (Item item : sourceInventory.listById(itemId)) {
+                if (sourceInventory == expectedInventory && (retained == null || item == retained)) {
+                    retained = item;
+                    continue;
+                }
+
+                sourceInventory.removeSlot(item.getPosition());
+                if (retained == null) {
+                    if (expectedInventory.addItem(item) == -1) {
+                        sourceInventory.addItemFromDB(item);
+                        throw new IllegalStateException(
+                                "Unable to move virtual inventory entry " + itemId + " to " + expectedType);
+                    }
+                    retained = item;
+                }
+            }
+        }
+    }
+
     private void loadCharSkillPoints(String[] skillPoints) {
         int[] sps = new int[skillPoints.length];
         for (int i = 0; i < skillPoints.length; i++) {
@@ -6812,6 +6842,7 @@ public class Character extends AbstractCharacterObject {
                 }
             }
         }
+        chr.normalizeVirtualInventoryEntryItems();
         chr.loadVirtualInventories(virtualInventoryService.loadByCharacterId(charactersDO.getId()));
         chr.commitExcludedItems();
         if ((sandboxCheck & ItemConstants.SANDBOX) == ItemConstants.SANDBOX) {

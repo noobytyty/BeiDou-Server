@@ -190,9 +190,15 @@ public final class ItemConstants {
 
         InventoryType ret = InventoryType.UNDEFINED;
 
-        final byte type = (byte) (itemId / 1000000);
-        if (type >= 1 && type <= 5) {
-            ret = InventoryType.getByType(type);
+        if (itemId == ItemId.VIRTUAL_SCROLL_SATCHEL) {
+            ret = InventoryType.USE;
+        } else if (itemId == ItemId.VIRTUAL_ORE_SATCHEL) {
+            ret = InventoryType.ETC;
+        } else {
+            final byte type = (byte) (itemId / 1000000);
+            if (type >= 1 && type <= 5) {
+                ret = InventoryType.getByType(type);
+            }
         }
 
         inventoryTypeCache.put(itemId, ret);

@@ -1277,4 +1277,6 @@
     <uol name="jump" value="../30/jump"/>
     <uol name="sit" value="../30/sit"/>
   </imgdir>
+  <uol name="48" value="30" />
+  <uol name="49" value="30" />
 </imgdir>

@@ -1551,4 +1551,6 @@
     <uol name="jump" value="../33/jump"/>
     <uol name="fly" value="../33/fly"/>
   </imgdir>
+  <uol name="48" value="30" />
+  <uol name="49" value="30" />
 </imgdir>
