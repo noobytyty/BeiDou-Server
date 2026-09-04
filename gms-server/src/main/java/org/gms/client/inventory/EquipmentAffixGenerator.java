@@ -86,8 +86,12 @@ public final class EquipmentAffixGenerator {
         int reqLevel = ItemInformationProvider.getInstance().getEquipLevelReq(equip.getItemId());
         int meanAffixTier = meanTierForLevel(reqLevel);
         int tierRadius = tierRadiusForLevel(reqLevel);
-        int minAffixTier = Math.max(1, meanAffixTier - tierRadius);
-        int maxAffixTier = Math.min(12, meanAffixTier + tierRadius);
+        int levelMinTier = Math.max(1, meanAffixTier - tierRadius);
+        int levelMaxTier = Math.min(12, meanAffixTier + tierRadius);
+        // 方案A 品质硬上限：可抽取的最高阶级不超过该品质上限（V1.11.56）。
+        // 等级窗口仍决定下界；当下界被顶过上限时收敛到上限，保证窗口不空。
+        int maxAffixTier = Math.min(levelMaxTier, Math.max(1, rarity.maxAffixTier()));
+        int minAffixTier = Math.min(levelMinTier, maxAffixTier);
         List<EquipmentAffixConfig.PoolEntry> candidates = levelCandidates(loadedConfig, equipType, reqLevel);
         Map<String, Integer> equipmentStats =
                 ItemInformationProvider.getInstance().getEquipStats(equip.getItemId());

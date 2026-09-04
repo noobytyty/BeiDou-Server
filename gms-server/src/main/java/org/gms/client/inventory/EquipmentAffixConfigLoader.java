@@ -32,7 +32,7 @@ public final class EquipmentAffixConfigLoader {
                 SELECT rarity, code, name_key, drop_weight, boss_drop_weight, dungeon_drop_weight,
                        gachapon_drop_weight,
                        affix_count, main_affix_count, secondary_affix_count,
-                       value_multiplier
+                       value_multiplier, max_affix_tier
                 FROM equipment_rarity_config
                 WHERE enabled = 1
                 ORDER BY rarity
@@ -50,7 +50,8 @@ public final class EquipmentAffixConfigLoader {
                         resultSet.getByte("affix_count"),
                         resultSet.getByte("main_affix_count"),
                         resultSet.getByte("secondary_affix_count"),
-                        resultSet.getInt("value_multiplier")
+                        resultSet.getInt("value_multiplier"),
+                        resultSet.getByte("max_affix_tier")
                 ));
             }
         }

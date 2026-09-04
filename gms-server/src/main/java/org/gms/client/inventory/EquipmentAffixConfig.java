@@ -21,7 +21,8 @@ public record EquipmentAffixConfig(
             byte affixCount,
             byte mainAffixCount,
             byte secondaryAffixCount,
-            int valueMultiplier
+            int valueMultiplier,
+            byte maxAffixTier
     ) {
     }
 
