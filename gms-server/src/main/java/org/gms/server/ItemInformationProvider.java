@@ -319,6 +319,10 @@ public class ItemInformationProvider {
         return ret;
     }
 
+    public boolean hasItemData(int itemId) {
+        return getItemData(itemId) != null;
+    }
+
     public List<Integer> getItemIdsInRange(int minId, int maxId, boolean ignoreCashItem) {
         List<Integer> list = new ArrayList<>();
 
@@ -525,12 +529,19 @@ public class ItemInformationProvider {
         Data item = getItemData(itemId);
 
         if (item == null) {
+            if (ItemConstants.isCashWeapon(itemId)) {
+                equipmentSlotCache.put(itemId, "Wp");
+                return "Wp";
+            }
             return null;
         }
 
         Data info = item.getChildByPath("info");
-
         if (info == null) {
+            if (ItemConstants.isCashWeapon(itemId)) {
+                equipmentSlotCache.put(itemId, "Wp");
+                return "Wp";
+            }
             return null;
         }
 
@@ -1735,6 +1746,10 @@ public class ItemInformationProvider {
     }
 
     public boolean isCash(int itemId) {
+        if (ItemConstants.isCashWeapon(itemId)) {
+            return true;
+        }
+
         int itemType = itemId / 1000000;
         if (itemType == 5) {
             return true;

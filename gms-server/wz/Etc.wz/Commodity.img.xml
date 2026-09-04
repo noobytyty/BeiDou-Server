@@ -26113,7 +26113,7 @@
         <int name="Period" value="30" />
         <int name="Priority" value="12" />
         <int name="Gender" value="2" />
-        <int name="OnSale" value="1" />
+        <int name="OnSale" value="0" />
     </imgdir>
     <imgdir name="2604">
         <int name="SN" value="11002580" />
@@ -26884,7 +26884,7 @@
         <int name="Period" value="30" />
         <int name="Priority" value="12" />
         <int name="Gender" value="2" />
-        <int name="OnSale" value="1" />
+        <int name="OnSale" value="0" />
     </imgdir>
     <imgdir name="2681">
         <int name="SN" value="11002596" />
