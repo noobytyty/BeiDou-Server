@@ -12,6 +12,7 @@ var slotType = -1;
 var slotStep = 0;
 var slotSel = -1;
 var previewOrig = -1;
+var previewChoices = [];
 var beautySlotPrice = 5000000;
 var SLOT_HAIR = 0;
 var SLOT_FACE = 1;
@@ -72,6 +73,7 @@ function beautyMainMenu() {
     slotStep = 0;
     slotSel = -1;
     previewOrig = -1;
+    previewChoices = [];
     cm.sendSimple("The direct hairstyle, face, and skin color selection service is unavailable.\r\nYou can still manage saved styles, skin colors, and preview them before applying.\r\n\r\nCurrent hairstyle: " + currentBeautyLabel(cm.getPlayer(), SLOT_HAIR)
         + "\r\nCurrent face: " + currentBeautyLabel(cm.getPlayer(), SLOT_FACE)
         + "\r\nCurrent skin color: " + currentBeautyLabel(cm.getPlayer(), SLOT_SKIN)
@@ -154,12 +156,15 @@ function beautySlotsAction(selection, mode) {
         } else if (selection == 1) {
             slotStep = 2;
             var applyLimit = slotSvc.getSlotLimit(accountId, slotType);
-            var applyList = "Choose a saved slot to preview:\r\n";
+            previewChoices = [];
             var savedCount = 0;
             for (var j = 0; j < applyLimit; j++) {
                 var savedItem = slotSvc.getSlot(accountId, slotType, j);
                 if (savedItem > 0) {
-                    applyList += "#L" + j + "#Slot " + (j + 1) + ": " + beautyStyleLabel(slotType, savedItem) + "#l\r\n";
+                    previewChoices.push({
+                        slot: j,
+                        style: savedItem
+                    });
                     savedCount++;
                 }
             }
@@ -168,8 +173,11 @@ function beautySlotsAction(selection, mode) {
                 beautySlotsMenu("You have no saved " + typeName + "s.");
                 return;
             }
-            applyList += "#L" + applyLimit + "#Back#l";
-            cm.sendSimple(applyList);
+            var styles = [];
+            for (var choiceIndex = 0; choiceIndex < previewChoices.length; choiceIndex++) {
+                styles.push(previewChoices[choiceIndex].style);
+            }
+            cm.sendStyle("Choose a saved " + typeName + " to preview:", styles);
         } else if (selection == 2) {
             var viewLimit = slotSvc.getSlotLimit(accountId, slotType);
             var viewMessage = "Saved " + typeName + "s:\r\n";
@@ -220,21 +228,24 @@ function beautySlotsAction(selection, mode) {
         cm.sendOk("Saved your current " + typeName + " to slot " + (slotSel + 1) + ": " + beautyStyleLabel(slotType, overwriteStyle));
         cm.dispose();
     } else if (slotStep == 2) {
-        var applySlotLimit = slotSvc.getSlotLimit(accountId, slotType);
-        if (selection < 0 || selection >= applySlotLimit) {
+        if (selection < 0 || selection >= previewChoices.length) {
             slotStep = 0;
+            previewChoices = [];
             beautySlotsMenu();
             return;
         }
-        var previewItem = slotSvc.getSlot(accountId, slotType, selection);
+        var selectedChoice = previewChoices[selection];
+        var previewItem = selectedChoice.style;
         if (previewItem <= 0) {
             slotStep = 0;
+            previewChoices = [];
             beautySlotsMenu("That slot is empty.");
             return;
         }
-        slotSel = selection;
+        slotSel = selectedChoice.slot;
         previewOrig = currentBeautyStyle(player, slotType);
         applyBeautyStyle(cm, slotType, previewItem);
+        previewChoices = [];
         slotStep = 3;
         cm.sendYesNo("Preview room: you are wearing " + beautyStyleLabel(slotType, previewItem) + ".\r\nKeep this style?");
     } else if (slotStep == 3) {
@@ -259,8 +270,16 @@ function start() {
 }
 
 function action(mode, type, selection) {
-    if (mode <= 0) {
+    if (mode === -1) {
         cm.dispose();
+        return;
+    }
+    if (mode === 0) {
+        if ((slotMode == SLOT_PURCHASE && slotStep == 1) || slotStep == 3 || slotStep == 4) {
+            beautySlotsAction(selection, mode);
+        } else {
+            cm.dispose();
+        }
         return;
     }
     if (beautyMode == -1) {

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.gms.client.inventory.Equip;
 import org.gms.client.inventory.EquipmentAffix;
 import org.gms.client.inventory.Item;
+import org.gms.server.ItemInformationProvider;
 
 import java.util.List;
 import java.util.Optional;
@@ -94,7 +95,12 @@ public class InventorySearchRtnDTO {
     public Item toItem() {
         Item item;
         if (isEquipment()) {
-            Equip equip = new Equip(getItemId(), getPosition());
+            short position = getPosition();
+            if (position > -100 && position < 0
+                    && ItemInformationProvider.getInstance().isCash(getItemId())) {
+                position -= 100;
+            }
+            Equip equip = new Equip(getItemId(), position);
             equip.setUpgradeSlots(Optional.ofNullable(getInventoryEquipment().getUpgradeSlots()).orElse((byte) 0));
             equip.setLevel(Optional.ofNullable(getInventoryEquipment().getLevel()).orElse((byte) 0));
             equip.setRarity(Optional.ofNullable(getInventoryEquipment().getRarity()).orElse((byte) 0));

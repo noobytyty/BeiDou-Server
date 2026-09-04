@@ -32,7 +32,9 @@ import org.gms.constants.id.ItemId;
 import org.gms.constants.inventory.ItemConstants;
 import org.gms.net.AbstractPacketHandler;
 import org.gms.net.packet.InPacket;
+import org.gms.scripting.item.ItemScriptManager;
 import org.gms.server.ItemInformationProvider;
+import org.gms.server.ItemInformationProvider.ScriptedItem;
 import org.gms.server.StatEffect;
 import org.gms.util.I18nUtil;
 import org.gms.util.PacketCreator;
@@ -53,6 +55,23 @@ public final class UseItemHandler extends AbstractPacketHandler {
         p.readInt();
         short slot = p.readShort();
         int itemId = p.readInt();
+
+        if (itemId == ItemId.VIRTUAL_SCROLL_SATCHEL || itemId == ItemId.VIRTUAL_ORE_SATCHEL) {
+            InventoryType inventoryType = itemId == ItemId.VIRTUAL_ORE_SATCHEL ? InventoryType.ETC : InventoryType.USE;
+            Item satchel = chr.getInventory(inventoryType).getItem(slot);
+            if (satchel != null && satchel.getQuantity() > 0 && satchel.getItemId() == itemId) {
+                ScriptedItem scriptedItem = ii.getScriptedItemInfo(itemId);
+                if (scriptedItem != null) {
+                    ItemScriptManager.getInstance().runItemScript(c, scriptedItem);
+                } else {
+                    c.sendPacket(PacketCreator.enableActions());
+                }
+            } else {
+                c.sendPacket(PacketCreator.enableActions());
+            }
+            return;
+        }
+
         Item toUse = chr.getInventory(InventoryType.USE).getItem(slot);
         if (toUse != null && toUse.getQuantity() > 0 && toUse.getItemId() == itemId) {
             if (itemId == ItemId.ALL_CURE_POTION) {

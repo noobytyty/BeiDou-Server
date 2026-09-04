@@ -45,7 +45,10 @@ import org.gms.service.AccountService;
 import org.gms.service.CashShopService;
 import org.gms.service.CharacterService;
 import org.gms.util.DatabaseConnection;
+import org.gms.util.I18nUtil;
 import org.gms.util.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -66,6 +69,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Ponk
  */
 public class CashShop {
+    private static final Logger log = LoggerFactory.getLogger(CashShop.class);
+
     public static final int NX_CREDIT = 1;
     public static final int MAPLE_POINT = 2;
     public static final int NX_PREPAID = 4;
@@ -160,9 +165,14 @@ public class CashShop {
         }
 
         private static void loadCommodityItems(Map<Integer, ModifiedCashItemDO> loadedItems, DataProvider etc) {
+            ItemInformationProvider itemInformationProvider = ItemInformationProvider.getInstance();
             for (Data item : etc.getData("Commodity.img").getChildren()) {
                 int sn = DataTool.getIntConvert("SN", item);
                 int itemId = DataTool.getIntConvert("ItemId", item);
+                if (ItemConstants.isCashWeapon(itemId) && !itemInformationProvider.hasItemData(itemId)) {
+                    log.error(I18nUtil.getLogMessage("CashShop.loadCommodityItems.error.itemNotFound"), sn, itemId);
+                    continue;
+                }
                 int price = DataTool.getIntConvert("Price", item, 0);
                 long period = DataTool.getIntConvert("Period", item, 1);
                 short count = (short) DataTool.getIntConvert("Count", item, 1);

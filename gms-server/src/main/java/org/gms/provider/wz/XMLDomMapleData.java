@@ -164,8 +164,10 @@ public class XMLDomMapleData implements Data {
 
         switch (nodeName) {
             case "imgdir":
+            case "dir":
                 return DataType.PROPERTY;
             case "canvas":
+            case "png":
                 return DataType.CANVAS;
             case "convex":
                 return DataType.CONVEX;
@@ -178,6 +180,7 @@ public class XMLDomMapleData implements Data {
             case "float":
                 return DataType.FLOAT;
             case "int":
+            case "int32":
                 return DataType.INT;
             case "short":
                 return DataType.SHORT;

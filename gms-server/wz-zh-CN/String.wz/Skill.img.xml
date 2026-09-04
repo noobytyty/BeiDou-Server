@@ -431,26 +431,26 @@
     <imgdir name="1100000">
         <string name="name" value="精准剑"/>
         <string name="desc" value="[最高等级：20]\n提高剑系武器的熟练度和命中率。只在装备对应武器时生效。"/>
-        <string name="h1" value="剑系武器熟练度 51%，命中率 +1 暴击率+1%"/>
-        <string name="h2" value="剑系武器熟练度 51%，命中率 +2 暴击率+2%"/>
-        <string name="h3" value="剑系武器熟练度 52%，命中率 +3 暴击率+3%"/>
-        <string name="h4" value="剑系武器熟练度 52%，命中率 +4 暴击率+4%"/>
-        <string name="h5" value="剑系武器熟练度 53%，命中率 +5 暴击率+5%"/>
-        <string name="h6" value="剑系武器熟练度 53%，命中率 +6 暴击率+6%"/>
-        <string name="h7" value="剑系武器熟练度 54%，命中率 +7 暴击率+7%"/>
-        <string name="h8" value="剑系武器熟练度 54%，命中率 +8 暴击率+8%"/>
-        <string name="h9" value="剑系武器熟练度 55%，命中率 +9 暴击率+9%"/>
-        <string name="h10" value="剑系武器熟练度 55%，命中率 +10 暴击率+10%"/>
-        <string name="h11" value="剑系武器熟练度 56%，命中率 +11 暴击率+11%"/>
-        <string name="h12" value="剑系武器熟练度 56%，命中率 +12 暴击率+12%"/>
-        <string name="h13" value="剑系武器熟练度 57%，命中率 +13 暴击率+13%"/>
-        <string name="h14" value="剑系武器熟练度 57%，命中率 +14 暴击率+14%"/>
-        <string name="h15" value="剑系武器熟练度 58%，命中率 +15 暴击率+15%"/>
-        <string name="h16" value="剑系武器熟练度 58%，命中率 +16 暴击率+16%"/>
-        <string name="h17" value="剑系武器熟练度 59%，命中率 +17 暴击率+17%"/>
-        <string name="h18" value="剑系武器熟练度 59%，命中率 +18 暴击率+18%"/>
-        <string name="h19" value="剑系武器熟练度 60%，命中率 +19 暴击率+19%"/>
-        <string name="h20" value="剑系武器熟练度 60%，命中率 +20 暴击率+20%"/>
+        <string name="h1" value="剑系武器熟练度 7%，命中率 +1"/>
+        <string name="h2" value="剑系武器熟练度 7%，命中率 +2"/>
+        <string name="h3" value="剑系武器熟练度 14%，命中率 +3"/>
+        <string name="h4" value="剑系武器熟练度 14%，命中率 +4"/>
+        <string name="h5" value="剑系武器熟练度 21%，命中率 +5"/>
+        <string name="h6" value="剑系武器熟练度 21%，命中率 +6"/>
+        <string name="h7" value="剑系武器熟练度 28%，命中率 +7"/>
+        <string name="h8" value="剑系武器熟练度 28%，命中率 +8"/>
+        <string name="h9" value="剑系武器熟练度 35%，命中率 +9"/>
+        <string name="h10" value="剑系武器熟练度 35%，命中率 +10"/>
+        <string name="h11" value="剑系武器熟练度 42%，命中率 +11"/>
+        <string name="h12" value="剑系武器熟练度 42%，命中率 +12"/>
+        <string name="h13" value="剑系武器熟练度 49%，命中率 +13"/>
+        <string name="h14" value="剑系武器熟练度 49%，命中率 +14"/>
+        <string name="h15" value="剑系武器熟练度 56%，命中率 +15"/>
+        <string name="h16" value="剑系武器熟练度 56%，命中率 +16"/>
+        <string name="h17" value="剑系武器熟练度 63%，命中率 +17"/>
+        <string name="h18" value="剑系武器熟练度 63%，命中率 +18"/>
+        <string name="h19" value="剑系武器熟练度 70%，命中率 +19"/>
+        <string name="h20" value="剑系武器熟练度 70%，命中率 +20"/>
     </imgdir>
     <imgdir name="11000000">
         <string name="name" value="生命加强"/>
@@ -469,26 +469,26 @@
     <imgdir name="1100001">
         <string name="name" value="精准斧"/>
         <string name="desc" value="[最高等级：20]\n提高斧系武器的熟练度和命中率。只在装备对应武器时生效。"/>
-        <string name="h1" value="斧系武器熟练度 52%，命中率 +1 暴击率+1% 攻击力 +1"/>
-        <string name="h2" value="斧系武器熟练度 52%，命中率 +2 暴击率+1% 攻击力 +2"/>
-        <string name="h3" value="斧系武器熟练度 54%，命中率 +3 暴击率+2% 攻击力 +3"/>
-        <string name="h4" value="斧系武器熟练度 54%，命中率 +4 暴击率+2% 攻击力 +4"/>
-        <string name="h5" value="斧系武器熟练度 56%，命中率 +5 暴击率+3% 攻击力 +5"/>
-        <string name="h6" value="斧系武器熟练度 56%，命中率 +6 暴击率+3% 攻击力 +6"/>
-        <string name="h7" value="斧系武器熟练度 58%，命中率 +7 暴击率+4% 攻击力 +7"/>
-        <string name="h8" value="斧系武器熟练度 58%，命中率 +8 暴击率+4% 攻击力 +8"/>
-        <string name="h9" value="斧系武器熟练度 60%，命中率 +9 暴击率+5% 攻击力 +9"/>
-        <string name="h10" value="斧系武器熟练度 60%，命中率 +10 暴击率+5% 攻击力 +10"/>
-        <string name="h11" value="斧系武器熟练度 62%，命中率 +11 暴击率+6% 攻击力 +11"/>
-        <string name="h12" value="斧系武器熟练度 62%，命中率 +12 暴击率+6% 攻击力 +12"/>
-        <string name="h13" value="斧系武器熟练度 64%，命中率 +13 暴击率+7% 攻击力 +13"/>
-        <string name="h14" value="斧系武器熟练度 64%，命中率 +14 暴击率+7% 攻击力 +14"/>
-        <string name="h15" value="斧系武器熟练度 66%，命中率 +15 暴击率+8% 攻击力 +15"/>
-        <string name="h16" value="斧系武器熟练度 66%，命中率 +16 暴击率+8% 攻击力 +16"/>
-        <string name="h17" value="斧系武器熟练度 68%，命中率 +17 暴击率+9% 攻击力 +17"/>
-        <string name="h18" value="斧系武器熟练度 68%，命中率 +18 暴击率+9% 攻击力 +18"/>
-        <string name="h19" value="斧系武器熟练度 70%，命中率 +19 暴击率+10% 攻击力 +19"/>
-        <string name="h20" value="斧系武器熟练度 70%，命中率 +20 暴击率+10% 攻击力 +20"/>
+        <string name="h1" value="斧系武器熟练度 7%，命中率 +1"/>
+        <string name="h2" value="斧系武器熟练度 7%，命中率 +2"/>
+        <string name="h3" value="斧系武器熟练度 14%，命中率 +3"/>
+        <string name="h4" value="斧系武器熟练度 14%，命中率 +4"/>
+        <string name="h5" value="斧系武器熟练度 21%，命中率 +5"/>
+        <string name="h6" value="斧系武器熟练度 21%，命中率 +6"/>
+        <string name="h7" value="斧系武器熟练度 28%，命中率 +7"/>
+        <string name="h8" value="斧系武器熟练度 28%，命中率 +8"/>
+        <string name="h9" value="斧系武器熟练度 35%，命中率 +9"/>
+        <string name="h10" value="斧系武器熟练度 35%，命中率 +10"/>
+        <string name="h11" value="斧系武器熟练度 42%，命中率 +11"/>
+        <string name="h12" value="斧系武器熟练度 42%，命中率 +12"/>
+        <string name="h13" value="斧系武器熟练度 49%，命中率 +13"/>
+        <string name="h14" value="斧系武器熟练度 49%，命中率 +14"/>
+        <string name="h15" value="斧系武器熟练度 56%，命中率 +15"/>
+        <string name="h16" value="斧系武器熟练度 56%，命中率 +16"/>
+        <string name="h17" value="斧系武器熟练度 63%，命中率 +17"/>
+        <string name="h18" value="斧系武器熟练度 63%，命中率 +18"/>
+        <string name="h19" value="斧系武器熟练度 70%，命中率 +19"/>
+        <string name="h20" value="斧系武器熟练度 70%，命中率 +20"/>
     </imgdir>
     <imgdir name="1100002">
         <string name="name" value="终极剑"/>
@@ -8592,17 +8592,7 @@
         <string name="name" value="快速箭"/>
         <string name="h1" value="消耗HP 29，消耗MP 29，弓攻击速度提升2级，持续 10秒"/>
         <string name="h10" value="消耗HP 10，消耗MP 10，弓攻击速度提升2级，持续 200秒"/>
-        <string name="h11" value="消耗HP 19，消耗MP 19，弓攻击速度提升2级，持续 110秒"/>
-        <string name="h12" value="消耗HP 18，消耗MP 18，弓攻击速度提升2级，持续 120秒"/>
-        <string name="h13" value="消耗HP 17，消耗MP 17，弓攻击速度提升2级，持续 130秒"/>
-        <string name="h14" value="消耗HP 16，消耗MP 16，弓攻击速度提升2级，持续 140秒"/>
-        <string name="h15" value="消耗HP 15，消耗MP 15，弓攻击速度提升2级，持续 150秒"/>
-        <string name="h16" value="消耗HP 14，消耗MP 14，弓攻击速度提升2级，持续 160秒"/>
-        <string name="h17" value="消耗HP 13，消耗MP 13，弓攻击速度提升2级，持续 170秒"/>
-        <string name="h18" value="消耗HP 12，消耗MP 12，弓攻击速度提升2级，持续 180秒"/>
-        <string name="h19" value="消耗HP 11，消耗MP 11，弓攻击速度提升2级，持续 190秒"/>
         <string name="h2" value="消耗HP 27，消耗MP 27，弓攻击速度提升2级，持续 30秒"/>
-        <string name="h20" value="消耗HP 10，消耗MP 10，弓攻击速度提升2级，持续 200秒"/>
         <string name="h3" value="消耗HP 25，消耗MP 25，弓攻击速度提升2级，持续 50秒"/>
         <string name="h4" value="消耗HP 23，消耗MP 23，弓攻击速度提升2级，持续 70秒"/>
         <string name="h5" value="消耗HP 21，消耗MP 21，弓攻击速度提升2级，持续 90秒"/>
@@ -8739,7 +8729,7 @@
         <string name="h3" value="39%几率发动，伤害 130%，敌人HP在 23%以下时有 2%几率直接击败"/>
         <string name="h4" value="42%几率发动，伤害 140%，敌人HP在 26%以下时有 2%几率直接击败"/>
         <string name="h5" value="45%几率发动，伤害 150%，敌人HP在 26%以下时有 3%几率直接击败"/>
-        <string name="h6" value="48%几率发动，伤害 160%，敌人HP在 29%以下时有 3%几率直接击败"/>
+        <string name="h6" value="48%几率发动，伤害 190%，敌人HP在 29%以下时有 3%几率直接击败"/>
         <string name="h7" value="51%几率发动，伤害 170%，敌人HP在 29%以下时有 4%几率直接击败"/>
         <string name="h8" value="54%几率发动，伤害 180%，敌人HP在 32%以下时有 4%几率直接击败"/>
         <string name="h9" value="57%几率发动，伤害 190%，敌人HP在 32%以下时有 5%几率直接击败"/>
@@ -8910,6 +8900,7 @@
     </imgdir>
     <imgdir name="3120005">
         <string name="name" value="神箭手"/>
+        <string name="h1" value="弓系武器的熟练度 65%"/>
         <string name="h2" value="弓系武器的熟练度 65%"/>
         <string name="h3" value="弓系武器的熟练度 65%, 物理 攻击力 1 上升"/>
         <string name="h4" value="弓系武器的熟练度 65%, 物理 攻击力 1 上升"/>
@@ -9253,17 +9244,7 @@
         <string name="name" value="快速弩"/>
         <string name="h1" value="消耗HP 29，消耗MP 29，弩攻击速度提升2级，持续 10秒"/>
         <string name="h10" value="消耗HP 10，消耗MP 10，弩攻击速度提升2级，持续 200秒"/>
-        <string name="h11" value="消耗HP 19，消耗MP 19，弩攻击速度提升2级，持续 110秒"/>
-        <string name="h12" value="消耗HP 18，消耗MP 18，弩攻击速度提升2级，持续 120秒"/>
-        <string name="h13" value="消耗HP 17，消耗MP 17，弩攻击速度提升2级，持续 130秒"/>
-        <string name="h14" value="消耗HP 16，消耗MP 16，弩攻击速度提升2级，持续 140秒"/>
-        <string name="h15" value="消耗HP 15，消耗MP 15，弩攻击速度提升2级，持续 150秒"/>
-        <string name="h16" value="消耗HP 14，消耗MP 14，弩攻击速度提升2级，持续 160秒"/>
-        <string name="h17" value="消耗HP 13，消耗MP 13，弩攻击速度提升2级，持续 170秒"/>
-        <string name="h18" value="消耗HP 12，消耗MP 12，弩攻击速度提升2级，持续 180秒"/>
-        <string name="h19" value="消耗HP 11，消耗MP 11，弩攻击速度提升2级，持续 190秒"/>
         <string name="h2" value="消耗HP 27，消耗MP 27，弩攻击速度提升2级，持续 30秒"/>
-        <string name="h20" value="消耗HP 10，消耗MP 10，弩攻击速度提升2级，持续 200秒"/>
         <string name="h3" value="消耗HP 25，消耗MP 25，弩攻击速度提升2级，持续 50秒"/>
         <string name="h4" value="消耗HP 23，消耗MP 23，弩攻击速度提升2级，持续 70秒"/>
         <string name="h5" value="消耗HP 21，消耗MP 21，弩攻击速度提升2级，持续 90秒"/>
@@ -9886,7 +9867,7 @@
         <string name="h5" value="投射武器的射程距离增加125"/>
         <string name="h6" value="投射武器的射程距离增加150"/>
         <string name="h7" value="投射武器的射程距离增加175"/>
-        <string name="h8" value="投射武器的射程距离增加200"/>
+        <string name="h8" value="投射武器的射程距离增加250"/>
         <string name="desc" value="[最高等级 : 8]\n增加飞镖等投掷武器的攻击射程。\n必要技能：#c集中术 Lv.3#"/>
     </imgdir>
     <imgdir name="4001002">
@@ -10074,17 +10055,7 @@
         <string name="name" value="快速暗器"/>
         <string name="h1" value="消耗HP29和MP29，持续30秒"/>
         <string name="h10" value="消耗HP20和MP20，持续300秒"/>
-        <string name="h11" value="消耗HP19和MP19，持续110秒"/>
-        <string name="h12" value="消耗HP18和MP18，持续120秒"/>
-        <string name="h13" value="消耗HP17和MP17，持续130秒"/>
-        <string name="h14" value="消耗HP16和MP16，持续140秒"/>
-        <string name="h15" value="消耗HP15和MP15，持续150秒"/>
-        <string name="h16" value="消耗HP14和MP14，持续160秒"/>
-        <string name="h17" value="消耗HP13和MP13，持续170秒"/>
-        <string name="h18" value="消耗HP12和MP12，持续180秒"/>
-        <string name="h19" value="消耗HP11和MP11，持续190秒"/>
         <string name="h2" value="消耗HP28和MP28，持续60秒"/>
-        <string name="h20" value="消耗HP10和MP10，持续200秒"/>
         <string name="h3" value="消耗HP27和MP27，持续90秒"/>
         <string name="h4" value="消耗HP26和MP26，持续120秒"/>
         <string name="h5" value="消耗HP25和MP25，持续150秒"/>
@@ -10092,7 +10063,7 @@
         <string name="h7" value="消耗HP23和MP23，持续210秒"/>
         <string name="h8" value="消耗HP22和MP22，持续240秒"/>
         <string name="h9" value="消耗HP21和MP21，持续270秒"/>
-        <string name="desc" value="[最高等级 : 20]\n一定时间内攻击速度提升2个等级\n(必需装备拳套，使用飞镖)\n必需技能 : #c精准暗器等级5以上#"/>
+        <string name="desc" value="[最高等级 : 10]\n一定时间内攻击速度提升2个等级\n(必需装备拳套，使用飞镖)\n必需技能 : #c精准暗器等级5以上#"/>
     </imgdir>
     <imgdir name="4101004">
         <string name="name" value="轻功"/>
@@ -10692,17 +10663,7 @@
         <string name="name" value="快速短刀"/>
         <string name="h1" value="消耗HP29和MP29，持续30秒"/>
         <string name="h10" value="消耗HP20和MP20，持续300秒"/>
-        <string name="h11" value="消耗HP19和MP19，持续110秒"/>
-        <string name="h12" value="消耗HP18和MP18，持续120秒"/>
-        <string name="h13" value="消耗HP17和MP17，持续130秒"/>
-        <string name="h14" value="消耗HP16和MP16，持续140秒"/>
-        <string name="h15" value="消耗HP15和MP15，持续150秒"/>
-        <string name="h16" value="消耗HP14和MP14，持续160秒"/>
-        <string name="h17" value="消耗HP13和MP13，持续170秒"/>
-        <string name="h18" value="消耗HP12和MP12，持续180秒"/>
-        <string name="h19" value="消耗HP11和MP11，持续190秒"/>
         <string name="h2" value="消耗HP28和MP28，持续60秒"/>
-        <string name="h20" value="消耗HP10和MP10，持续200秒"/>
         <string name="h3" value="消耗HP27和MP27，持续90秒"/>
         <string name="h4" value="消耗HP26和MP26，持续120秒"/>
         <string name="h5" value="消耗HP25和MP25，持续150秒"/>
@@ -10710,7 +10671,7 @@
         <string name="h7" value="消耗HP23和MP23，持续210秒"/>
         <string name="h8" value="消耗HP22和MP22，持续240秒"/>
         <string name="h9" value="消耗HP21和MP21，持续270秒"/>
-        <string name="desc" value="[最高等级 : 20]\n攻击速度提升2个等级(装备短刀，拳刃)\n必需技能 : #c精准短刀等级5以上#"/>
+        <string name="desc" value="[最高等级 : 10]\n攻击速度提升2个等级(装备短刀，拳刃)\n必需技能 : #c精准短刀等级5以上#"/>
     </imgdir>
     <imgdir name="4201003">
         <string name="name" value="轻功"/>
@@ -11151,7 +11112,7 @@
         <string name="h27" value="消耗MP 43，伤害 570%，攻击3次，12秒内累计伤害，最后一击必杀伤害 235%，成功率 84%"/>
         <string name="h28" value="消耗MP 42，伤害 580%，攻击3次，12秒内累计伤害，最后一击必杀伤害 240%，成功率 86%"/>
         <string name="h29" value="消耗MP 41，伤害 590%，攻击3次，12秒内累计伤害，最后一击必杀伤害 245%，成功率 88%"/>
-        <string name="h30" value="消耗MP 40，伤害 600%，攻击3次，12秒内累计伤害，最后一击必杀伤害 250%，成功率 90%"/>
+        <string name="h30" value="消耗MP 40，伤害 600%，攻击3次，4秒内累计伤害，最后一击必杀伤害 250%，成功率 90%"/>
         <string name="desc" value="隐身状态下靠近敌人并攻击要害；\n进行3次攻击后，最后一击有一定概率造成必杀伤害。"/>
     </imgdir>
     <imgdir name="4221003">
@@ -11287,7 +11248,7 @@
         <string name="h27" value="消耗MP 26 , 给4个敌人伤害 485%, 84%几率击晕敌人"/>
         <string name="h28" value="消耗MP 26 , 给4个敌人伤害 490%, 86%几率击晕敌人"/>
         <string name="h29" value="消耗MP 26 , 给4个敌人伤害 495%, 88%几率击晕敌人"/>
-        <string name="h30" value="消耗MP 26 , 给4个敌人伤害 500%, 90%几率击晕敌人"/>
+        <string name="h30" value="消耗MP 26 , 给4个敌人伤害 600%, 90%几率击晕敌人"/>
         <string name="desc" value="用迅速的速度砍2次多数敌人.\n一定几率使敌人眩晕"/>
     </imgdir>
     <imgdir name="4221008">

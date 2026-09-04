@@ -1002,12 +1002,37 @@ function action(mode, type, selection) {
             cm.sendStyle("挑选一款肤色吧！", skins);
         }
     } else if (status === 2) {
+        if (mode !== 1) {
+            cm.dispose();
+            return;
+        }
+
+        var selectedStyle;
         if (beauty == 1) {
-            cm.setHair(newHairs[selection]);
+            if (selection >= 0 && selection < newHairs.length) {
+                selectedStyle = newHairs[selection];
+            }
         } else if (beauty == 2) {
-            cm.setFace(newFaces[selection]);
+            if (selection >= 0 && selection < newFaces.length) {
+                selectedStyle = newFaces[selection];
+            }
         } else if (beauty == 3) {
-            cm.setSkin(skins[selection]);
+            if (selection >= 0 && selection < skins.length) {
+                selectedStyle = skins[selection];
+            }
+        }
+
+        if (selectedStyle === undefined) {
+            cm.dispose();
+            return;
+        }
+
+        if (beauty == 1) {
+            cm.setHair(selectedStyle);
+        } else if (beauty == 2) {
+            cm.setFace(selectedStyle);
+        } else if (beauty == 3) {
+            cm.setSkin(selectedStyle);
         }
     }
 }
