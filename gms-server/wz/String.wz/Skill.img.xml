@@ -3553,7 +3553,7 @@
   </imgdir>
   <imgdir name="2211003">
     <string name="name" value="Thunder Spear"/>
-    <string name="desc" value="[Master Level : 30]\nForms a spear of lightning to attack 1 enemy with lightning magic."/>
+    <string name="desc" value="[Master Level : 30]\nForms a spear of lightning to attack up to 3 enemies with lightning magic."/>
     <string name="h1" value="Use MP 10, Attack 80, Mastery 15%"/>
     <string name="h2" value="Use MP 10, Attack 90, Mastery 15%"/>
     <string name="h3" value="Use MP 11, Attack 95, Mastery 15%"/>
