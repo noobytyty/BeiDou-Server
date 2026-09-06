@@ -7352,7 +7352,7 @@
 		<string name="h7" value="消耗MP 13，攻击力 128%"/>
 		<string name="h8" value="消耗MP 13，攻击力 132%"/>
 		<string name="h9" value="消耗MP 14，攻击力 136%"/>
-        <string name="desc" value="[最高等级:30]\n凝聚雷电之枪攻击1个敌人，造成雷属性魔法伤害。"/>
+        <string name="desc" value="[最高等级:30]\n凝聚雷电之枪攻击1个敌人2次，造成雷属性魔法伤害。"/>
     </imgdir>
     <imgdir name="2211004">
         <string name="name" value="封印术"/>

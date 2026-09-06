@@ -1,4 +1,4 @@
-﻿<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='UTF-8'?>
 <imgdir name="221.img">
   <imgdir name="info">
     <canvas name="icon" width="26" height="30">
@@ -683,6 +683,7 @@
           <int name="mad" value="92" />
           <int name="mastery" value="1" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -692,6 +693,7 @@
           <int name="mad" value="96" />
           <int name="mastery" value="1" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -701,6 +703,7 @@
           <int name="mad" value="100" />
           <int name="mastery" value="1" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -710,6 +713,7 @@
           <int name="mad" value="104" />
           <int name="mastery" value="2" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -719,6 +723,7 @@
           <int name="mad" value="108" />
           <int name="mastery" value="2" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -728,6 +733,7 @@
           <int name="mad" value="112" />
           <int name="mastery" value="2" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -737,6 +743,7 @@
           <int name="mad" value="116" />
           <int name="mastery" value="3" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -746,6 +753,7 @@
           <int name="mad" value="120" />
           <int name="mastery" value="3" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -755,6 +763,7 @@
           <int name="mad" value="125" />
           <int name="mastery" value="3" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -764,6 +773,7 @@
           <int name="mad" value="129" />
           <int name="mastery" value="4" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -773,6 +783,7 @@
           <int name="mad" value="133" />
           <int name="mastery" value="4" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -782,6 +793,7 @@
           <int name="mad" value="137" />
           <int name="mastery" value="4" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -791,6 +803,7 @@
           <int name="mad" value="141" />
           <int name="mastery" value="5" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -800,6 +813,7 @@
           <int name="mad" value="145" />
           <int name="mastery" value="5" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -809,6 +823,7 @@
           <int name="mad" value="149" />
           <int name="mastery" value="5" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -818,6 +833,7 @@
           <int name="mad" value="153" />
           <int name="mastery" value="6" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -827,6 +843,7 @@
           <int name="mad" value="157" />
           <int name="mastery" value="6" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -836,6 +853,7 @@
           <int name="mad" value="161" />
           <int name="mastery" value="6" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -845,6 +863,7 @@
           <int name="mad" value="165" />
           <int name="mastery" value="7" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -854,6 +873,7 @@
           <int name="mad" value="169" />
           <int name="mastery" value="7" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -863,6 +883,7 @@
           <int name="mad" value="173" />
           <int name="mastery" value="7" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -872,6 +893,7 @@
           <int name="mad" value="177" />
           <int name="mastery" value="8" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -881,6 +903,7 @@
           <int name="mad" value="182" />
           <int name="mastery" value="8" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -890,6 +913,7 @@
           <int name="mad" value="186" />
           <int name="mastery" value="8" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -899,6 +923,7 @@
           <int name="mad" value="190" />
           <int name="mastery" value="9" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -908,6 +933,7 @@
           <int name="mad" value="194" />
           <int name="mastery" value="9" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -917,6 +943,7 @@
           <int name="mad" value="198" />
           <int name="mastery" value="9" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -926,6 +953,7 @@
           <int name="mad" value="202" />
           <int name="mastery" value="10" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -935,6 +963,7 @@
           <int name="mad" value="206" />
           <int name="mastery" value="10" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
@@ -944,6 +973,7 @@
           <int name="mad" value="210" />
           <int name="mastery" value="10" />
           <int name="mobCount" value="3" />
+          <int name="attackCount" value="2" />
           <vector name="lt" x="-150" y="-90" />
           <vector name="rb" x="150" y="90" />
         </imgdir>
