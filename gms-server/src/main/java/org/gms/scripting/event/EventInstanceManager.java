@@ -24,6 +24,7 @@ package org.gms.scripting.event;
 import org.gms.client.Character;
 import org.gms.client.Skill;
 import org.gms.client.SkillFactory;
+import org.gms.client.inventory.EquipmentDropSource;
 import org.gms.config.GameConfig;
 import org.gms.constants.inventory.ItemConstants;
 import org.gms.net.server.coordinator.world.EventRecallCoordinator;
@@ -1062,6 +1063,14 @@ public class EventInstanceManager {
 
     //gives out EXP & a random item in a similar fashion of when clearing KPQ, LPQ, etc.
     public final boolean giveEventReward(Character player, int eventLevel) {
+        return giveEventReward(player, eventLevel, EquipmentDropSource.DUNGEON);
+    }
+
+    public final boolean giveBossEventReward(Character player, int eventLevel) {
+        return giveEventReward(player, eventLevel, EquipmentDropSource.BOSS);
+    }
+
+    private boolean giveEventReward(Character player, int eventLevel, EquipmentDropSource equipmentDropSource) {
         List<Integer> rewardsSet, rewardsQty;
         Integer rewardExp;
 
@@ -1098,7 +1107,7 @@ public class EventInstanceManager {
         AbstractPlayerInteraction api = player.getAbstractPlayerInteraction();
         int rnd = (int) Math.floor(Math.random() * rewardsSet.size());
 
-        api.gainItem(rewardsSet.get(rnd), rewardsQty.get(rnd).shortValue());
+        api.gainItem(rewardsSet.get(rnd), rewardsQty.get(rnd).shortValue(), equipmentDropSource);
         if (rewardExp > 0) {
             player.gainExp(rewardExp);
         }

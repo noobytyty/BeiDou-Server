@@ -55,6 +55,7 @@ import org.gms.scripting.map.MapScriptManager;
 import org.gms.server.ItemInformationProvider;
 import org.gms.server.StatEffect;
 import org.gms.server.TimerManager;
+import org.gms.server.AreaBossEnhancementService;
 import org.gms.server.events.gm.Coconut;
 import org.gms.server.events.gm.Fitness;
 import org.gms.server.events.gm.Ola;
@@ -1943,6 +1944,7 @@ public class MapleMap {
 
     public void spawnRevives(final Monster monster) {
         monster.setMap(this);
+        AreaBossEnhancementService.enhanceOnSpawn(monster);
         if (getEventInstance() != null) {
             getEventInstance().registerMonster(monster);
         }

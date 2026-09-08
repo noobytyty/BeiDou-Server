@@ -116,11 +116,13 @@ public class NPCScriptManager extends AbstractScriptManager {
 
     private boolean start(Client c, int npc, int oid, String fileName, Character chr, boolean itemScript, String engineName) {
         try {
-            final NPCConversationManager cm = new NPCConversationManager(c, npc, oid, fileName, itemScript);
+            final NPCConversationManager cm = itemScript
+                    ? new ItemScriptMethods(c, npc, fileName)
+                    : new NPCConversationManager(c, npc, oid, fileName, false);
             if (cms.containsKey(c)) {
                 dispose(c);
             }
-            if (c.canClickNPC()) {
+            if (itemScript || c.canClickNPC()) {
                 cms.put(c, cm);
                 ScriptEngine engine = null;
                 if (!itemScript) {
@@ -145,8 +147,8 @@ public class NPCScriptManager extends AbstractScriptManager {
                     return false;
                 }
                 if (itemScript) {
-                    // 道具脚本：im 绑定 ItemScriptMethods（含虚拟背包等道具脚本专属方法），cm 仅用于会话管理
-                    engine.put(engineName, new ItemScriptMethods(c));
+                    // 道具脚本的 im 必须与会话管理器共用同一个对象，保证菜单状态可继续路由。
+                    engine.put(engineName, cm);
                     cms.put(c, cm);
                 } else {
                     engine.put(engineName, cm);

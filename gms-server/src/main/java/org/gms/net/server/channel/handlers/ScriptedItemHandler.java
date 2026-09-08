@@ -29,6 +29,7 @@ import org.gms.net.packet.InPacket;
 import org.gms.scripting.item.ItemScriptManager;
 import org.gms.server.ItemInformationProvider;
 import org.gms.server.ItemInformationProvider.ScriptedItem;
+import org.gms.util.PacketCreator;
 
 /**
  * @author Jay Estrella
@@ -43,11 +44,13 @@ public final class ScriptedItemHandler extends AbstractPacketHandler {
         ItemInformationProvider ii = ItemInformationProvider.getInstance();
         ScriptedItem info = ii.getScriptedItemInfo(itemId);
         if (info == null) {
+            c.sendPacket(PacketCreator.enableActions());
             return;
         }
 
         Item item = c.getPlayer().getInventory(ItemConstants.getInventoryType(itemId)).getItem(itemSlot);
         if (item == null || item.getItemId() != itemId || item.getQuantity() < 1) {
+            c.sendPacket(PacketCreator.enableActions());
             return;
         }
 

@@ -44,6 +44,10 @@ public class ItemScriptMethods extends NPCConversationManager {
         super(c, 9010000, -1, null, true);
     }
 
+    public ItemScriptMethods(Client c, int npc, String scriptName) {
+        super(c, npc, -1, scriptName, true);
+    }
+
     public void prepareVirtualInventory(int inventoryType) {
         VirtualInventoryType type = VirtualInventoryType.fromCode(inventoryType);
         if (type == null) {

@@ -57,6 +57,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.gms.scripting.event.EventInstanceManager;
 import org.gms.server.BountyHunterService;
+import org.gms.server.AreaBossEnhancementService;
 import org.gms.server.StatEffect;
 import org.gms.server.TimerManager;
 import org.gms.server.life.LifeFactory.BanishInfo;
@@ -95,6 +96,12 @@ public class Monster extends AbstractLoadedLife {
     private MonsterStats stats;
     private final AtomicInteger hp = new AtomicInteger(1);
     private final AtomicLong maxHpPlusHeal = new AtomicLong(1);
+    private boolean areaBossEnhanced;
+    private int areaBossPhase;
+    private int areaBossBaseWatk;
+    private int areaBossBaseMatk;
+    private int areaBossBaseWdef;
+    private int areaBossBaseMdef;
     private int mp;
     private WeakReference<Character> controller = new WeakReference<>(null);
     private boolean controllerHasAggro, controllerKnowsAboutAggro, controllerHasPuppet;
@@ -305,6 +312,54 @@ public class Monster extends AbstractLoadedLife {
         return stats;
     }
 
+    public boolean isAreaBossEnhanced() {
+        return areaBossEnhanced;
+    }
+
+    public void setAreaBossEnhanced(boolean areaBossEnhanced) {
+        this.areaBossEnhanced = areaBossEnhanced;
+    }
+
+    public int getAreaBossPhase() {
+        return areaBossPhase;
+    }
+
+    public void setAreaBossPhase(int areaBossPhase) {
+        this.areaBossPhase = areaBossPhase;
+    }
+
+    public int getAreaBossBaseWatk() {
+        return areaBossBaseWatk;
+    }
+
+    public void setAreaBossBaseWatk(int areaBossBaseWatk) {
+        this.areaBossBaseWatk = areaBossBaseWatk;
+    }
+
+    public int getAreaBossBaseMatk() {
+        return areaBossBaseMatk;
+    }
+
+    public void setAreaBossBaseMatk(int areaBossBaseMatk) {
+        this.areaBossBaseMatk = areaBossBaseMatk;
+    }
+
+    public int getAreaBossBaseWdef() {
+        return areaBossBaseWdef;
+    }
+
+    public void setAreaBossBaseWdef(int areaBossBaseWdef) {
+        this.areaBossBaseWdef = areaBossBaseWdef;
+    }
+
+    public int getAreaBossBaseMdef() {
+        return areaBossBaseMdef;
+    }
+
+    public void setAreaBossBaseMdef(int areaBossBaseMdef) {
+        this.areaBossBaseMdef = areaBossBaseMdef;
+    }
+
     public void setStats(MonsterStats stats) {
         this.stats = stats;
     }
@@ -465,6 +520,7 @@ public class Monster extends AbstractLoadedLife {
         if (!fake) {
             dispatchMonsterDamaged(from, trueDamage);
         }
+        AreaBossEnhancementService.updatePhase(this);
 
         // ========== 通知事件实例记录伤害 ==========
         EventInstanceManager eim = getMap().getEventInstance();

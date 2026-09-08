@@ -131,7 +131,7 @@ function action(mode, type, selection) {
             }
         } else if (status == 1) {
             if (state == 3) {
-                if (!cm.getPlayer().getEventInstance().giveEventReward(cm.getPlayer(), 6)) {
+                if (!cm.getPlayer().getEventInstance().giveBossEventReward(cm.getPlayer(), 6)) {
                     cm.sendOk("Please arrange a slot in all tabs of your inventory beforehand.");
                     cm.dispose();
                     return;

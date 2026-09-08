@@ -131,7 +131,7 @@ function action(mode, type, selection) {
             }
         } else if (status == 1) {
             if (state == 3) {
-                if (!cm.getPlayer().getEventInstance().giveEventReward(cm.getPlayer(), 6)) {
+                if (!cm.getPlayer().getEventInstance().giveBossEventReward(cm.getPlayer(), 6)) {
                     cm.sendOk("请提前在你的背包所有标签中安排一个空位。");
                     cm.dispose();
                     return;

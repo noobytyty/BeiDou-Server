@@ -592,6 +592,25 @@ public class AbstractPlayerInteraction {
     }
 
     public Item gainItem(int id, short quantity, boolean randomStats, boolean showMessage, long expires, Pet from) {
+        EquipmentDropSource source = getPlayer().getMap().getEventInstance() != null
+                ? EquipmentDropSource.DUNGEON
+                : EquipmentDropSource.NORMAL;
+        return gainItem(id, quantity, randomStats, showMessage, expires, from, source);
+    }
+
+    public Item gainItem(int id, short quantity, EquipmentDropSource source) {
+        return gainItem(id, quantity, false, true, -1, null, source);
+    }
+
+    private Item gainItem(
+            int id,
+            short quantity,
+            boolean randomStats,
+            boolean showMessage,
+            long expires,
+            Pet from,
+            EquipmentDropSource source
+    ) {
         Item item = null;
         Pet evolved;
         int petId = -1;
@@ -639,9 +658,6 @@ public class AbstractPlayerInteraction {
                         }
                         item = ItemInformationProvider.getInstance().scrollEquipWithId(item, ItemId.CHAOS_SCROll_60, true, ItemId.CHAOS_SCROll_60, c.getPlayer().isGM());
                     }
-                    EquipmentDropSource source = getPlayer().getMap().getEventInstance() != null
-                            ? EquipmentDropSource.DUNGEON
-                            : EquipmentDropSource.NORMAL;
                     item = EquipmentAffixGenerator.generate((Equip) item, source);
                 }
             } else {

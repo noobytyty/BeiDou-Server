@@ -217,7 +217,17 @@ public class CashShop {
         public static void loadAllModifiedCashItems() {
             modifiedCashItems.clear();
             CashShopService cashShopService = ServerManager.getApplicationContext().getBean(CashShopService.class);
-            cashShopService.loadAllModifiedCashItems().forEach(modifiedCashItemDO -> modifiedCashItems.put(modifiedCashItemDO.getSn(), modifiedCashItemDO));
+            cashShopService.loadAllModifiedCashItems().forEach(modifiedCashItemDO -> {
+                if (modifiedCashItemDO.getItemId() != null) {
+                    log.warn(
+                            I18nUtil.getLogMessage("CashShop.loadAllModifiedCashItems.warn.itemIdOverride"),
+                            modifiedCashItemDO.getSn(),
+                            modifiedCashItemDO.getItemId()
+                    );
+                    modifiedCashItemDO.setItemId(null);
+                }
+                modifiedCashItems.put(modifiedCashItemDO.getSn(), modifiedCashItemDO);
+            });
         }
 
         private static void loadCashCategories() {

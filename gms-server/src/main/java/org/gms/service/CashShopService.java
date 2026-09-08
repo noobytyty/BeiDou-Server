@@ -114,6 +114,8 @@ public class CashShopService {
         RequireUtil.requireNotNull(data.getSn(), I18nUtil.getExceptionMessage("PARAMETER_SHOULD_NOT_NULL", "sn"));
         ModifiedCashItemDO cashItem = CashShop.CashItemFactory.getWzItem(data.getSn());
         modifiedCashItemMapper.deleteById(data.getSn());
+        // Commodity.img 的 ItemId 决定客户端展示和实际购买物品，数据库只允许修改运营字段。
+        data.setItemId(null);
 
         // 如果是下架，直接插入或更新除状态外所有值为null
         if (data.getOnSale() != null && data.getOnSale() != 1) {
@@ -122,9 +124,6 @@ public class CashShopService {
             }
             CashShop.CashItemFactory.loadAllModifiedCashItems();
             return;
-        }
-        if (Objects.equals(cashItem.getItemId(), data.getItemId())) {
-            data.setItemId(null);
         }
         if (Objects.equals(cashItem.getPrice(), data.getPrice())) {
             data.setPrice(null);
