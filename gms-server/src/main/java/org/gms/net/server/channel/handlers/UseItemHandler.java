@@ -57,15 +57,10 @@ public final class UseItemHandler extends AbstractPacketHandler {
         int itemId = p.readInt();
 
         if (itemId == ItemId.VIRTUAL_SCROLL_SATCHEL || itemId == ItemId.VIRTUAL_ORE_SATCHEL) {
-            InventoryType inventoryType = itemId == ItemId.VIRTUAL_ORE_SATCHEL ? InventoryType.ETC : InventoryType.USE;
-            Item satchel = chr.getInventory(inventoryType).getItem(slot);
-            if (satchel != null && satchel.getQuantity() > 0 && satchel.getItemId() == itemId) {
-                ScriptedItem scriptedItem = ii.getScriptedItemInfo(itemId);
-                if (scriptedItem != null) {
-                    ItemScriptManager.getInstance().runItemScript(c, scriptedItem);
-                } else {
-                    c.sendPacket(PacketCreator.enableActions());
-                }
+            Item satchel = ItemScriptManager.getInstance().findScriptedItem(c, itemId, slot);
+            ScriptedItem scriptedItem = ii.getScriptedItemInfo(itemId);
+            if (satchel != null && scriptedItem != null) {
+                ItemScriptManager.getInstance().runItemScript(c, scriptedItem);
             } else {
                 c.sendPacket(PacketCreator.enableActions());
             }

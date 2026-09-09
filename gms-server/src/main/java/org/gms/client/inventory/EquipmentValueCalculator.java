@@ -15,7 +15,7 @@ public final class EquipmentValueCalculator {
 
     public static int getSalvagePrice(Equip equip) {
         long shopPrice = ItemInformationProvider.getInstance().getWholePrice(equip.getItemId());
-        long baseValue = Math.max(1_000L, shopPrice > 0 ? shopPrice * 60L / 100L : 1_000L);
+        long baseValue = Math.max(1_000L, shopPrice > 0 ? shopPrice * 15L / 100L : 1_000L);
         int rarity = Math.max(0, Math.min(equip.getRarity(), RARITY_MULTIPLIERS.length - 1));
         double value = baseValue * RARITY_MULTIPLIERS[rarity];
         for (EquipmentAffix affix : equip.getAffixes()) {

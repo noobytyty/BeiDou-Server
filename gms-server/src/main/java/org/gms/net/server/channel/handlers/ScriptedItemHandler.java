@@ -23,7 +23,6 @@ package org.gms.net.server.channel.handlers;
 
 import org.gms.client.Client;
 import org.gms.client.inventory.Item;
-import org.gms.constants.inventory.ItemConstants;
 import org.gms.net.AbstractPacketHandler;
 import org.gms.net.packet.InPacket;
 import org.gms.scripting.item.ItemScriptManager;
@@ -48,8 +47,8 @@ public final class ScriptedItemHandler extends AbstractPacketHandler {
             return;
         }
 
-        Item item = c.getPlayer().getInventory(ItemConstants.getInventoryType(itemId)).getItem(itemSlot);
-        if (item == null || item.getItemId() != itemId || item.getQuantity() < 1) {
+        Item item = ItemScriptManager.getInstance().findScriptedItem(c, itemId, itemSlot);
+        if (item == null) {
             c.sendPacket(PacketCreator.enableActions());
             return;
         }

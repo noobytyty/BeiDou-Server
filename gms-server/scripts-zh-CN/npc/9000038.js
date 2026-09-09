@@ -45,7 +45,7 @@ var itemQty_lv2 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 60, 60, 60, 60, 60,
 var itemSet_lv1 = [1122004, 1012078, 1432008, 1432009, 1032040, 1032009, 1102166, 2070001, 2040002, 2040310, 2040400, 2040600, 2040825, 2040902, 2010000, 2010001, 2010002, 2010003, 2010004, 2020001, 2020002, 2020003, 2022020, 2022022, 4010000, 4010001, 4010002, 4010003, 4010004, 4010005, 4010006, 4010007, 4003000];
 var itemQty_lv1 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 2, 2, 2, 2, 2, 2, 2, 2, 2];
 
-var levels = ["#m970030001#", "#m970030002#", "#m970030003#", "#m970030004#", "#m970030005#", "Final stage"];
+var levels = ["第一休息点", "第二休息点", "第三休息点", "第四休息点", "第五休息点", "最终阶段"];
 
 function start() {
     status = -1;
@@ -67,7 +67,10 @@ function action(mode, type, selection) {
         }
 
         if (status == 0) {
-            var sendStr = "The #bBoss Rush Party Quest#k rewards players accordingly to how far the team went on the boss huntings. Take note that each player #bcan only claim a reward if they leave through a portal inside a Resting Spot#k. Challenging stronger bosses will require the team to commit to more fightings until the next Resting Spot is reached, or until the final boss is defeated.\r\n\r\nThe possible rewards for those leaving in the selected Resting Spot are depicted here:\r\n\r\n#b";
+            var sendStr = "#e#b<圣诞组队任务奖励>#k#n\r\n\r\n"
+                + "奖励会根据队伍推进到的休息点发放。玩家必须通过休息点传送门离开，才能领取对应阶段的奖励。\r\n"
+                + "挑战更高难度需要坚持击败更多敌人，直到抵达下一个休息点或击败最终 BOSS。\r\n\r\n"
+                + "请选择要查看的奖励阶段：\r\n\r\n#b";
             for (var i = 0; i < 6; i++) {
                 sendStr += "#L" + i + "#" + levels[i] + "#l\r\n";
             }
@@ -75,6 +78,10 @@ function action(mode, type, selection) {
             cm.sendSimple(sendStr);
         } else if (status == 1) {
             var lvTarget, lvQty;
+            if (selection < 0 || selection > 5) {
+                cm.dispose();
+                return;
+            }
 
             if (selection == 0) {
                 lvTarget = itemSet_lv1;
@@ -96,7 +103,7 @@ function action(mode, type, selection) {
                 lvQty = itemQty_lv6;
             }
 
-            var sendStr = "The following items are being awarded at #b" + levels[selection] + "#k:\r\n\r\n";
+            var sendStr = "#e#b" + levels[selection] + "奖励内容#k#n：\r\n\r\n";
             for (var i = 0; i < lvTarget.length; i++) {
                 sendStr += "  #L" + i + "# #i" + lvTarget[i] + "#  #t" + lvTarget[i] + "#";
                 if (lvQty[i] > 1) {

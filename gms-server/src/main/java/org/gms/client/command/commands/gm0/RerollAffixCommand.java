@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 public class RerollAffixCommand extends Command {
     private static final ItemInformationProvider ITEM_INFORMATION_PROVIDER = ItemInformationProvider.getInstance();
+    private static final long BASE_REROLL_COST = 50_000L;
 
     {
         setDescription(I18nUtil.getMessage("RerollAffixCommand.message1"));
@@ -64,7 +65,7 @@ public class RerollAffixCommand extends Command {
         long lockedCount = equip.getAffixes().stream().filter(EquipmentAffix::isLocked).count();
         double lockMultiplier = Math.pow(1.6, lockedCount);
         double multiplier = rarityMultiplier * lockMultiplier;
-        return (int) (Math.round(10_000 * multiplier / 1_000) * 1_000);
+        return (int) (Math.round(BASE_REROLL_COST * multiplier / 1_000) * 1_000);
     }
 
     public static String preview(Equip equip) {

@@ -1,68 +1,60 @@
-/*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-var status = 0;
+/**
+ * Halloween Haunted House transport and activity guide
+ */
+var status = -1;
 var fee = 15000;
 
 function start() {
-    status = -1;
     action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode != 1) {
-        if (mode == 0) {
-            cm.sendOk("好的，下次见。");
+    if (mode <= 0) {
+        cm.dispose();
+        return;
+    }
+
+    status++;
+    if (status == 0) {
+        if (cm.getPlayer().getMapId() == 682000000) {
+            cm.sendSimple("#e#b<万圣节鬼屋>#k#n\r\n\r\n"
+                + "#L0#返回新叶城市区（" + fee + "金币）#l\r\n"
+                + "#L1#查看鬼屋活动说明#l\r\n"
+                + "#L2#离开#l");
+        } else {
+            cm.sendSimple("#e#b<万圣节鬼屋>#k#n\r\n\r\n"
+                + "前往鬼屋入口需要支付 " + fee + " 金币。\r\n"
+                + "#L0#前往鬼屋入口#l\r\n"
+                + "#L1#查看鬼屋活动说明#l\r\n"
+                + "#L2#离开#l");
+        }
+    } else if (status == 1) {
+        if (selection == 1) {
+            cm.sendOk("#e#b鬼屋活动说明#k#n\r\n"
+                + "鬼屋位于新叶城附近，入口地图为 682000000。\r\n"
+                + "进入鬼屋后，可以探索南瓜地窖，并与女仆 NPC 对话了解南瓜灯活动。\r\n"
+                + "相关任务：9923；收集 50 个南瓜片（2022255），完成后获得限时南瓜头（1002699）。");
+            cm.dispose();
+            return;
+        }
+        if (selection == 2) {
+            cm.dispose();
+            return;
+        }
+
+        if (cm.getPlayer().getMapId() == 682000000) {
+            if (cm.getMeso() < fee) {
+                cm.sendOk("你没有足够的金币支付 " + fee + " 金币。");
+            } else {
+                cm.gainMeso(-fee);
+                cm.warp(600000000, 0);
+            }
+        } else if (cm.getMeso() < fee) {
+            cm.sendOk("你没有足够的金币支付 " + fee + " 金币。");
+        } else {
+            cm.gainMeso(-fee);
+            cm.warp(682000000, 0);
         }
         cm.dispose();
-    } else {
-        status++;
-        if (cm.getPlayer().getMapId() == 682000000) {
-            if (status == 0) {
-                if (selection == 0) {
-                    cm.sendYesNo("你想回到 #b新叶城 市区中心#k 吗？费用是" + fee + "金币。");
-                }
-            } else if (status == 1) {
-                if (cm.getMeso() >= fee) {
-                    cm.gainMeso(-fee);
-                    cm.warp(600000000);
-                } else {
-                    cm.sendOk("嘿，你想搞什么鬼？你没有足够的金币来支付费用。");
-                }
-
-                cm.dispose();
-            }
-        } else {
-            if (status == 0) {
-                cm.sendYesNo("你想乘坐这辆车前往 #b鬼屋入口#k 吗? 这个费用是 " + fee + " 金币.")
-            } else if (status == 1) {
-                if (cm.getMeso() >= fee) {
-                    cm.gainMeso(-fee);
-                    cm.warp(682000000, 0);
-                } else {
-                    cm.sendOk("嘿，你想搞什么鬼？你没有足够的金币来支付费用。");
-                }
-
-                cm.dispose();
-            }
-        }
     }
 }
