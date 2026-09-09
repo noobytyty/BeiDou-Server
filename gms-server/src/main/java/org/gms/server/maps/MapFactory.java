@@ -35,6 +35,7 @@ import org.gms.util.DatabaseConnection;
 import org.gms.util.NumberTool;
 import org.gms.util.StringUtil;
 
+import lombok.extern.slf4j.Slf4j;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,12 +47,17 @@ import java.util.List;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+@Slf4j
 public class MapFactory {
     private static final Data nameData = DataProviderFactory.getDataProvider(WZFiles.STRING).getData("Map.img");
     private static final DataProvider mapSource = DataProviderFactory.getDataProvider(WZFiles.MAP);
 
     private static void loadLifeFromWz(MapleMap map, Data mapData) {
-        for (Data life : mapData.getChildByPath("life")) {
+        Data lifeNode = mapData.getChildByPath("life");
+        if (lifeNode == null) {   // 少数地图没有 life 节点，直接跳过
+            return;
+        }
+        for (Data life : lifeNode) {
             life.getName();
             String id = DataTool.getString(life.getChildByPath("id"));
             String type = DataTool.getString(life.getChildByPath("type"));
@@ -140,17 +146,30 @@ public class MapFactory {
         }
     }
 
+    /** mapSource.getData 在并发/高强度读取下偶发返回 null；重试一次，仍失败则明确报错而不是裸 NPE。 */
+    private static Data loadMapData(int mapid, String mapName) {
+        Data mapData = mapSource.getData(mapName);    // source.getData issue with giving nulls in rare ocasions found thanks to MedicOP
+        if (mapData == null) {
+            mapData = mapSource.getData(mapName);
+        }
+        if (mapData == null) {
+            log.error("地图 WZ 数据加载失败：mapid={}，mapName={}", mapid, mapName);
+            throw new IllegalStateException("Map data missing: mapid=" + mapid + ", mapName=" + mapName);
+        }
+        return mapData;
+    }
+
     public static MapleMap loadMapFromWz(int mapid, int world, int channel, EventInstanceManager event) {
         MapleMap map;
 
         String mapName = getMapName(mapid);
-        Data mapData = mapSource.getData(mapName);    // source.getData issue with giving nulls in rare ocasions found thanks to MedicOP
+        Data mapData = loadMapData(mapid, mapName);
         Data infoData = mapData.getChildByPath("info");
 
         String link = DataTool.getString(infoData.getChildByPath("link"), "");
         if (!link.equals("")) { //nexon made hundreds of dojo maps so to reduce the size they added links.
             mapName = getMapName(Integer.parseInt(link));
-            mapData = mapSource.getData(mapName);
+            mapData = loadMapData(Integer.parseInt(link), mapName);
         }
         float monsterRate = 0;
         Data mobRate = infoData.getChildByPath("mobRate");

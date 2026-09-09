@@ -69,11 +69,17 @@ public class SystemRescue {
             player.saveLocation("FREE_MARKET");    //如果传送的地图时自由市场则保存当前地图，方便下次出来。
         }
         //考虑到可能会出现地图文件改错改坏造成的闪退，因此不判定地图是否存在再进行转移。
-        player.changeMap(MapId);    // 更改角色地图ID，之后才可以执行下方的读取转移后的地图信息。
-        String MapName = MapObj.getMapName();
-        String Message_system = I18nUtil.getMessage("SystemRescue.map.message1", MapName_error, MapName);
-        player.getAbstractPlayerInteraction().saveOrUpdateCharacterExtendValue(key_mapError_sysmsg, Message_system);    //记录通知消息
-        log.info(Lebel + I18nUtil.getLogMessage("SystemRescue.info.map.message2"), player.getName(), MapName_error, MapId_error, MapName, MapId);
+        try {
+            player.changeMap(MapId);    // 更改角色地图ID，之后才可以执行下方的读取转移后的地图信息。
+            String MapName = MapObj.getMapName();
+            String Message_system = I18nUtil.getMessage("SystemRescue.map.message1", MapName_error, MapName);
+            player.getAbstractPlayerInteraction().saveOrUpdateCharacterExtendValue(key_mapError_sysmsg, Message_system);    //记录通知消息
+            log.info(Lebel + I18nUtil.getLogMessage("SystemRescue.info.map.message2"), player.getName(), MapName_error, MapId_error, MapName, MapId);
+        } catch (Throwable t) {
+            // 救援传送本身也可能失败（例如地图 WZ 偶发加载异常）。必须就地消化，
+            // 否则会在断线异常（Connection reset）的处理链上叠加二次异常。
+            log.warn(Lebel + I18nUtil.getLogMessage("SystemRescue.warn.map.message4"), MapId, player.getName(), t);
+        }
     }
 
     /**
