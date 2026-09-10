@@ -101,7 +101,7 @@ public abstract class CharacterFactory {
         Item scrollSatchel = new Item(ItemId.VIRTUAL_SCROLL_SATCHEL, (short) 0, (short) 1);
         newCharacter.getInventory(InventoryType.USE).addItem(scrollSatchel);
         Item oreSatchel = new Item(ItemId.VIRTUAL_ORE_SATCHEL, (short) 0, (short) 1);
-        newCharacter.getInventory(InventoryType.ETC).addItem(oreSatchel);
+        newCharacter.getInventory(InventoryType.USE).addItem(oreSatchel);
 
         if (!MakeCharInfoValidator.isNewCharacterValid(newCharacter)) {
             log.warn("Owner from account {} tried to packet edit in character creation", c.getAccountName());

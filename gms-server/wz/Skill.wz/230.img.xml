@@ -1051,11 +1051,13 @@
         <imgdir name="20">
           <string name="hs" value="h20" />
           <int name="mpCon" value="24" />
-          <int name="time" value="260" />
+          <int name="time" value="900" />
           <int name="acc" value="25" />
           <int name="eva" value="25" />
-          <int name="pdd" value="25" />
-          <int name="mdd" value="25" />
+          <int name="pdd" value="50" />
+          <int name="mdd" value="50" />
+          <int name="speed" value="20" />
+          <int name="jump" value="10" />
           <vector name="lt" x="-300" y="-200" />
           <vector name="rb" x="300" y="200" />
         </imgdir>

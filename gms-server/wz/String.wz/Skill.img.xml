@@ -653,7 +653,7 @@
     <string name="h27" value="54% success rate; final attack damage 235%"/>
     <string name="h28" value="56% success rate; final attack damage 240%"/>
     <string name="h29" value="58% success rate; final attack damage 245%"/>
-    <string name="h30" value="60% success rate; final attack damage 250%"/>
+    <string name="h30" value="70% success rate; final attack damage 300%"/>
   </imgdir>
   <imgdir name="1100003">
     <string name="name" value="Final Attack : Axe"/>
@@ -687,7 +687,7 @@
     <string name="h27" value="54% success rate; final attack damage 235%"/>
     <string name="h28" value="56% success rate; final attack damage 240%"/>
     <string name="h29" value="58% success rate; final attack damage 245%"/>
-    <string name="h30" value="60% success rate; final attack damage 250%"/>
+    <string name="h30" value="70% success rate; final attack damage 300%"/>
   </imgdir>
   <imgdir name="1101004">
     <string name="name" value="Sword Booster"/>
@@ -711,7 +711,7 @@
     <string name="h17" value="HP -13; MP -13; Increase sword attack speed for 170 sec"/>
     <string name="h18" value="HP -12; MP -12; Increase sword attack speed for 180 sec"/>
     <string name="h19" value="HP -11; MP -11; Increase sword attack speed for 190 sec"/>
-    <string name="h20" value="HP -10; MP -10; Increase sword attack speed for 200 sec"/>
+    <string name="h20" value="HP -10; MP -10; Increase sword attack speed for 900 sec"/>
   </imgdir>
   <imgdir name="1101005">
     <string name="name" value="Axe Booster"/>
@@ -735,7 +735,7 @@
     <string name="h17" value="HP -13; MP -13; Increase axe attack speed for 170 sec"/>
     <string name="h18" value="HP -12; MP -12; Increase axe attack speed for 180 sec"/>
     <string name="h19" value="HP -11; MP -11; Increase axe attack speed for 190 sec"/>
-    <string name="h20" value="HP -10; MP -10; Increase axe attack speed for 200 sec"/>
+    <string name="h20" value="HP -10; MP -10; Increase axe attack speed for 900 sec"/>
   </imgdir>
   <imgdir name="1101006">
     <string name="name" value="Rage"/>
@@ -759,7 +759,7 @@
     <string name="h17" value="MP -20; Weapon ATT +22; Weapon DEF -22 for 142 sec"/>
     <string name="h18" value="MP -20; Weapon ATT +22; Weapon DEF -22 for 148 sec"/>
     <string name="h19" value="MP -20; Weapon ATT +24; Weapon DEF -24 for 154 sec"/>
-    <string name="h20" value="MP -20; Weapon ATT +24; Weapon DEF -24 for 160 sec"/>
+    <string name="h20" value="MP -20; Weapon ATT +24; Weapon DEF -24 for 900 sec"/>
   </imgdir>
   <imgdir name="1101007">
     <string name="name" value="Power Guard"/>
@@ -878,7 +878,7 @@
     <string name="h27" value="54% success rate; final attack damage 235%"/>
     <string name="h28" value="56% success rate; final attack damage 240%"/>
     <string name="h29" value="58% success rate; final attack damage 245%"/>
-    <string name="h30" value="60% success rate; final attack damage 250%"/>
+    <string name="h30" value="70% success rate; final attack damage 300%"/>
   </imgdir>
   <imgdir name="1200003">
     <string name="name" value="Final Attack: Blunt Weapon"/>
@@ -912,7 +912,7 @@
     <string name="h27" value="54% success rate; final attack damage 235%"/>
     <string name="h28" value="56% success rate; final attack damage 240%"/>
     <string name="h29" value="58% success rate; final attack damage 245%"/>
-    <string name="h30" value="60% success rate; final attack damage 250%"/>
+    <string name="h30" value="70% success rate; final attack damage 300%"/>
   </imgdir>
   <imgdir name="1201004">
     <string name="name" value="Sword Booster"/>
@@ -936,7 +936,7 @@
     <string name="h17" value="HP -13; MP -13; Increase sword attack speed for 170 sec"/>
     <string name="h18" value="HP -12; MP -12; Increase sword attack speed for 180 sec"/>
     <string name="h19" value="HP -11; MP -11; Increase sword attack speed for 190 sec"/>
-    <string name="h20" value="HP -10; MP -10; Increase sword attack speed for 200 sec"/>
+    <string name="h20" value="HP -10; MP -10; Increase sword attack speed for 900 sec"/>
   </imgdir>
   <imgdir name="1201005">
     <string name="name" value="Blunt Weapon Booster"/>
@@ -960,7 +960,7 @@
     <string name="h17" value="HP -13; MP -13; Increase blunt weapon attack speed for 170 sec"/>
     <string name="h18" value="HP -12; MP -12; Increase blunt weapon attack speed for 180 sec"/>
     <string name="h19" value="HP -11; MP -11; Increase blunt weapon attack speed for 190 sec"/>
-    <string name="h20" value="HP -10; MP -10; Increase blunt weapon attack speed for 200 sec"/>
+    <string name="h20" value="HP -10; MP -10; Increase blunt weapon attack speed for 900 sec"/>
   </imgdir>
   <imgdir name="1201006">
     <string name="name" value="Threaten"/>
@@ -1103,7 +1103,7 @@
     <string name="h27" value="54% success rate; final attack damage 235%"/>
     <string name="h28" value="56% success rate; final attack damage 240%"/>
     <string name="h29" value="58% success rate; final attack damage 245%"/>
-    <string name="h30" value="60% success rate; final attack damage 250%"/>
+    <string name="h30" value="70% success rate; final attack damage 300%"/>
   </imgdir>
   <imgdir name="1300003">
     <string name="name" value="Final Attack : Pole Arm"/>
@@ -1137,7 +1137,7 @@
     <string name="h27" value="54% success rate; final attack damage 235%"/>
     <string name="h28" value="56% success rate; final attack damage 240%"/>
     <string name="h29" value="58% success rate; final attack damage 245%"/>
-    <string name="h30" value="60% success rate; final attack damage 250%"/>
+    <string name="h30" value="70% success rate; final attack damage 300%"/>
   </imgdir>
   <imgdir name="1301004">
     <string name="name" value="Spear Booster"/>
@@ -1161,7 +1161,7 @@
     <string name="h17" value="HP -13; MP -13; Increase spear attack speed for 170 sec"/>
     <string name="h18" value="HP -12; MP -12; Increase spear attack speed for 180 sec"/>
     <string name="h19" value="HP -11; MP -11; Increase spear attack speed for 190 sec"/>
-    <string name="h20" value="HP -10; MP -10; Increase spear attack speed for 200 sec"/>
+    <string name="h20" value="HP -10; MP -10; Increase spear attack speed for 900 sec"/>
   </imgdir>
   <imgdir name="1301005">
     <string name="name" value="Pole Arm Booster"/>
@@ -1185,7 +1185,7 @@
     <string name="h17" value="HP -13; MP -13; Increase pole arm attack speed for 170 sec"/>
     <string name="h18" value="HP -12; MP -12; Increase pole arm attack speed for 180 sec"/>
     <string name="h19" value="HP -11; MP -11; Increase pole arm attack speed for 190 sec"/>
-    <string name="h20" value="HP -10; MP -10; Increase pole arm attack speed for 200 sec"/>
+    <string name="h20" value="HP -10; MP -10; Increase pole arm attack speed for 900 sec"/>
   </imgdir>
   <imgdir name="1301006">
     <string name="name" value="Iron Will"/>
@@ -1690,7 +1690,7 @@
   </imgdir>
   <imgdir name="2301004">
     <string name="name" value="Bless"/>
-    <string name="desc" value="[Master Level : 20]\nTemporarily increases the weapon def., magic def., accuracy, and avoidability of all party members around the area. This cannot be combined with a skill or a potion.\nRequired Skill : #cAt least Level 5 on Invincible#"/>
+    <string name="desc" value="[Master Level : 20]\nTemporarily increases the weapon def., magic def., accuracy, avoidability, speed, and jump of all party members around the area. This cannot be combined with a skill or a potion.\nRequired Skill : #cAt least Level 5 on Invincible#"/>
     <string name="h1" value="MP -12; Accuracy +1, Avoidability +1, Weapon Def +1, Magic Def +1 for 10 sec"/>
     <string name="h2" value="MP -12; Accuracy +2, Avoidability +2, Weapon Def +2, Magic Def +2 for 20 sec"/>
     <string name="h3" value="MP -12; Accuracy +3, Avoidability +3, Weapon Def +3, Magic Def +3 for 30 sec"/>
@@ -1710,7 +1710,7 @@
     <string name="h17" value="MP -24; Accuracy +17, Avoidability +17, Weapon Def +17, Magic Def +17 for 170 sec"/>
     <string name="h18" value="MP -24; Accuracy +18, Avoidability +18, Weapon Def +18, Magic Def +18 for 180 sec"/>
     <string name="h19" value="MP -24; Accuracy +19, Avoidability +19, Weapon Def +19, Magic Def +19 for 190 sec"/>
-    <string name="h20" value="MP -24; Accuracy +20, Avoidability +20, Weapon Def +20, Magic Def +20 for 200 sec"/>
+    <string name="h20" value="MP -24; Accuracy +25, Avoidability +25, Weapon Def +50, Magic Def +50, Speed +20, Jump +10 for 900 sec"/>
   </imgdir>
   <imgdir name="2301005">
     <string name="name" value="Holy Arrow"/>
@@ -2457,7 +2457,7 @@
     <string name="h27" value="MP -35; Damage 119%; max combo count 5 for 200 sec"/>
     <string name="h28" value="MP -35; Damage 119%; max combo count 5 for 200 sec"/>
     <string name="h29" value="MP -35; Damage 119%; max combo count 5 for 200 sec"/>
-    <string name="h30" value="MP -35; Damage 120%; max combo count 5 for 200 sec"/>
+    <string name="h30" value="MP -38; Damage 176%; max combo count 6 for 900 sec"/>
   </imgdir>
   <imgdir name="1111003">
     <string name="name" value="Panic : Sword"/>

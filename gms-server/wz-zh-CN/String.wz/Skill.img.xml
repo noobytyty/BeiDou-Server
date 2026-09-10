@@ -522,7 +522,7 @@
         <string name="h27" value="54%概率发动终极攻击，伤害 235%"/>
         <string name="h28" value="56%概率发动终极攻击，伤害 240%"/>
         <string name="h29" value="58%概率发动终极攻击，伤害 245%"/>
-        <string name="h30" value="60%概率发动终极攻击，伤害 250%"/>
+        <string name="h30" value="70%概率发动终极攻击，伤害 300%"/>
     </imgdir>
     <imgdir name="1100003">
         <string name="name" value="终极斧"/>
@@ -556,7 +556,7 @@
         <string name="h27" value="54%概率发动终极攻击，伤害 235%"/>
         <string name="h28" value="56%概率发动终极攻击，伤害 240%"/>
         <string name="h29" value="58%概率发动终极攻击，伤害 245%"/>
-        <string name="h30" value="60%概率发动终极攻击，伤害 250%"/>
+        <string name="h30" value="70%概率发动终极攻击，伤害 300%"/>
     </imgdir>
     <imgdir name="11001001">
         <string name="name" value="圣甲术"/>
@@ -666,7 +666,7 @@
         <string name="h17" value="消耗HP 13，消耗MP 13，剑攻击速度提升，持续170秒"/>
         <string name="h18" value="消耗HP 12，消耗MP 12，剑攻击速度提升，持续180秒"/>
         <string name="h19" value="消耗HP 11，消耗MP 11，剑攻击速度提升，持续190秒"/>
-        <string name="h20" value="消耗HP 10，消耗MP 10，剑攻击速度提升，持续200秒"/>
+        <string name="h20" value="消耗HP 10，消耗MP 10，剑攻击速度提升，持续900秒"/>
     </imgdir>
     <imgdir name="1101005">
         <string name="name" value="快速斧"/>
@@ -690,7 +690,7 @@
         <string name="h17" value="消耗HP 13，消耗MP 13，斧攻击速度提升，持续170秒"/>
         <string name="h18" value="消耗HP 12，消耗MP 12，斧攻击速度提升，持续180秒"/>
         <string name="h19" value="消耗HP 11，消耗MP 11，斧攻击速度提升，持续190秒"/>
-        <string name="h20" value="消耗HP 10，消耗MP 10，斧攻击速度提升，持续200秒"/>
+        <string name="h20" value="消耗HP 10，消耗MP 10，斧攻击速度提升，持续900秒"/>
     </imgdir>
     <imgdir name="1101006">
         <string name="name" value="愤怒之火"/>
@@ -714,7 +714,7 @@
         <string name="h17" value="消耗MP 20，物理攻击力 +22，物理防御力 -22，持续142秒"/>
         <string name="h18" value="消耗MP 20，物理攻击力 +22，物理防御力 -22，持续148秒"/>
         <string name="h19" value="消耗MP 20，物理攻击力 +24，物理防御力 -24，持续154秒"/>
-        <string name="h20" value="消耗MP 20，物理攻击力 +24，物理防御力 -24，持续160秒"/>
+        <string name="h20" value="消耗MP 20，物理攻击力 +24，物理防御力 -24，持续900秒"/>
     </imgdir>
     <imgdir name="1101007">
         <string name="name" value="伤害反击"/>
@@ -1041,7 +1041,7 @@
         <string name="h27" value="消耗MP 35，伤害 170%，最大斗气数量 5，持续220秒"/>
         <string name="h28" value="消耗MP 38，伤害 172%，最大斗气数量 6，持续220秒"/>
         <string name="h29" value="消耗MP 38，伤害 174%，最大斗气数量 6，持续220秒"/>
-        <string name="h30" value="消耗MP 38，伤害 176%，最大斗气数量 6，持续220秒"/>
+        <string name="h30" value="消耗MP 38，伤害 176%，最大斗气数量 6，持续900秒"/>
     </imgdir>
     <imgdir name="1111003">
         <string name="name" value="狂乱之剑"/>
@@ -1822,7 +1822,7 @@
         <string name="h27" value="54%概率发动终极攻击，伤害 263%"/>
         <string name="h28" value="56%概率发动终极攻击，伤害 269%"/>
         <string name="h29" value="58%概率发动终极攻击，伤害 274%"/>
-        <string name="h30" value="60%概率发动终极攻击，伤害 280%"/>
+        <string name="h30" value="70%概率发动终极攻击，伤害 300%"/>
     </imgdir>
     <imgdir name="1200003">
         <string name="name" value="终极钝器"/>
@@ -1856,7 +1856,7 @@
         <string name="h27" value="54%概率发动终极攻击，伤害 263%"/>
         <string name="h28" value="56%概率发动终极攻击，伤害 269%"/>
         <string name="h29" value="58%概率发动终极攻击，伤害 274%"/>
-        <string name="h30" value="60%概率发动终极攻击，伤害 280%"/>
+        <string name="h30" value="70%概率发动终极攻击，伤害 300%"/>
     </imgdir>
     <imgdir name="12001001">
         <string name="name" value="魔法盾"/>
@@ -1956,7 +1956,7 @@
         <string name="h17" value="消耗HP 13，消耗MP 13，剑攻击速度提升，持续170秒"/>
         <string name="h18" value="消耗HP 12，消耗MP 12，剑攻击速度提升，持续180秒"/>
         <string name="h19" value="消耗HP 11，消耗MP 11，剑攻击速度提升，持续190秒"/>
-        <string name="h20" value="消耗HP 10，消耗MP 10，剑攻击速度提升，持续200秒"/>
+        <string name="h20" value="消耗HP 10，消耗MP 10，剑攻击速度提升，持续900秒"/>
     </imgdir>
     <imgdir name="1201005">
         <string name="name" value="快速钝器"/>
@@ -1980,7 +1980,7 @@
         <string name="h17" value="消耗HP 13，消耗MP 13，钝器攻击速度提升，持续170秒"/>
         <string name="h18" value="消耗HP 12，消耗MP 12，钝器攻击速度提升，持续180秒"/>
         <string name="h19" value="消耗HP 11，消耗MP 11，钝器攻击速度提升，持续190秒"/>
-        <string name="h20" value="消耗HP 10，消耗MP 10，钝器攻击速度提升，持续200秒"/>
+        <string name="h20" value="消耗HP 10，消耗MP 10，钝器攻击速度提升，持续900秒"/>
     </imgdir>
     <imgdir name="1201006">
         <string name="name" value="压制术"/>
@@ -3186,7 +3186,7 @@
         <string name="h27" value="54%概率发动终极攻击，伤害 263%"/>
         <string name="h28" value="56%概率发动终极攻击，伤害 269%"/>
         <string name="h29" value="58%概率发动终极攻击，伤害 274%"/>
-        <string name="h30" value="60%概率发动终极攻击，伤害 280%"/>
+        <string name="h30" value="70%概率发动终极攻击，伤害 300%"/>
     </imgdir>
     <imgdir name="1300003">
         <string name="name" value="终极矛"/>
@@ -3220,7 +3220,7 @@
         <string name="h27" value="54%概率发动终极攻击，伤害 263%"/>
         <string name="h28" value="56%概率发动终极攻击，伤害 269%"/>
         <string name="h29" value="58%概率发动终极攻击，伤害 274%"/>
-        <string name="h30" value="60%概率发动终极攻击，伤害 280%"/>
+        <string name="h30" value="70%概率发动终极攻击，伤害 300%"/>
     </imgdir>
     <imgdir name="13001002">
         <string name="name" value="集中术"/>
@@ -3306,7 +3306,7 @@
         <string name="h17" value="消耗HP 13，消耗MP 13，枪攻击速度提升，持续204秒"/>
         <string name="h18" value="消耗HP 12，消耗MP 12，枪攻击速度提升，持续216秒"/>
         <string name="h19" value="消耗HP 11，消耗MP 11，枪攻击速度提升，持续228秒"/>
-        <string name="h20" value="消耗HP 10，消耗MP 10，枪攻击速度提升，持续240秒"/>
+        <string name="h20" value="消耗HP 10，消耗MP 10，枪攻击速度提升，持续900秒"/>
     </imgdir>
     <imgdir name="1301005">
         <string name="name" value="快速矛"/>
@@ -3330,7 +3330,7 @@
         <string name="h17" value="消耗HP 13，消耗MP 13，矛攻击速度提升，持续204秒"/>
         <string name="h18" value="消耗HP 12，消耗MP 12，矛攻击速度提升，持续216秒"/>
         <string name="h19" value="消耗HP 11，消耗MP 11，矛攻击速度提升，持续228秒"/>
-        <string name="h20" value="消耗HP 10，消耗MP 10，矛攻击速度提升，持续240秒"/>
+        <string name="h20" value="消耗HP 10，消耗MP 10，矛攻击速度提升，持续900秒"/>
     </imgdir>
     <imgdir name="1301006">
         <string name="name" value="极限防御"/>
@@ -7843,7 +7843,7 @@
         <string name="h18" value="消耗MP24，命中率+22，回避率+22，物理防御力+22，魔法防御力+22，持续234秒"/>
         <string name="h19" value="消耗MP24，命中率+24，回避率+24，物理防御力+24，魔法防御力+24，持续247秒"/>
         <string name="h2" value="消耗MP12，命中率+2，回避率+2，物理防御力+2，魔法防御力+2，持续26秒"/>
-        <string name="h20" value="消耗MP24，命中率+25，回避率+25，物理防御力+25，魔法防御力+25，持续260秒"/>
+        <string name="h20" value="消耗MP24，命中率+25，回避率+25，物理防御力+50，魔法防御力+50，移动速度+20，跳跃力+10，持续900秒"/>
         <string name="h3" value="消耗MP12，命中率+4，回避率+4，物理防御力+4，魔法防御力+4，持续39秒"/>
         <string name="h4" value="消耗MP12，命中率+5，回避率+5，物理防御力+5，魔法防御力+5，持续52秒"/>
         <string name="h5" value="消耗MP12，命中率+6，回避率+6，物理防御力+6，魔法防御力+6，持续65秒"/>
@@ -7851,7 +7851,7 @@
         <string name="h7" value="消耗MP12，命中率+9，回避率+9，物理防御力+9，魔法防御力+9，持续91秒"/>
         <string name="h8" value="消耗MP12，命中率+10，回避率+10，物理防御力+10，魔法防御力+10，持续104秒"/>
         <string name="h9" value="消耗MP12，命中率+11，回避率+11，物理防御力+11，魔法防御力+11，持续117秒"/>
-        <string name="desc" value="[最高等级 : 20]\n一定时间内，提高周围组队成员的命中率、回避率、物理防御、\n魔法防御。弓箭手的技能：集中术和各种药水不能一起使用.\n必要技能 : #c神之保护等级5以上#"/>
+        <string name="desc" value="[最高等级 : 20]\n一定时间内，提高周围组队成员的命中率、回避率、物理防御、魔法防御、移动速度和跳跃力。\n弓箭手的技能：集中术和各种药水不能一起使用.\n必要技能 : #c神之保护等级5以上#"/>
     </imgdir>
     <imgdir name="2301005">
         <string name="name" value="圣箭术"/>

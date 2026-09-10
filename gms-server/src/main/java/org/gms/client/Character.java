@@ -6690,7 +6690,7 @@ public class Character extends AbstractCharacterObject {
 
     private void normalizeVirtualInventoryEntryItems() {
         normalizeVirtualInventoryEntryItem(ItemId.VIRTUAL_SCROLL_SATCHEL, InventoryType.USE);
-        normalizeVirtualInventoryEntryItem(ItemId.VIRTUAL_ORE_SATCHEL, InventoryType.ETC);
+        normalizeVirtualInventoryEntryItem(ItemId.VIRTUAL_ORE_SATCHEL, InventoryType.USE);
     }
 
     private void normalizeVirtualInventoryEntryItem(int itemId, InventoryType expectedType) {

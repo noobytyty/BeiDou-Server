@@ -423,7 +423,7 @@
           <int name="mpCon" value="38" />
           <int name="damage" value="176" />
           <int name="x" value="6" />
-          <int name="time" value="220" />
+          <int name="time" value="900" />
         </imgdir>
       </imgdir>
       <imgdir name="state">

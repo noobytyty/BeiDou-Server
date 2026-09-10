@@ -61,6 +61,7 @@ public final class UseItemHandler extends AbstractPacketHandler {
             ScriptedItem scriptedItem = ii.getScriptedItemInfo(itemId);
             if (satchel != null && scriptedItem != null) {
                 ItemScriptManager.getInstance().runItemScript(c, scriptedItem);
+                c.sendPacket(PacketCreator.enableActions());
             } else {
                 c.sendPacket(PacketCreator.enableActions());
             }

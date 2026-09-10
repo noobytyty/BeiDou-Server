@@ -55,5 +55,6 @@ public final class ScriptedItemHandler extends AbstractPacketHandler {
 
         ItemScriptManager ism = ItemScriptManager.getInstance();
         ism.runItemScript(c, info);
+        c.sendPacket(PacketCreator.enableActions());
     }
 }

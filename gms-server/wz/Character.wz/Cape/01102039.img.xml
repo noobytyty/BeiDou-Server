@@ -7,8 +7,8 @@
     <canvas name="iconRaw" width="30" height="29">
       <vector name="origin" x="-1" y="30"/>
     </canvas>
-    <string name="islot" value="Cp"/>
-    <string name="vslot" value="Cp"/>
+    <string name="islot" value="Sr"/>
+    <string name="vslot" value="Sr"/>
     <int name="reqJob" value="0"/>
     <int name="reqLevel" value="0"/>
     <int name="reqSTR" value="0"/>

@@ -193,7 +193,7 @@ public final class ItemConstants {
         if (itemId == ItemId.VIRTUAL_SCROLL_SATCHEL) {
             ret = InventoryType.USE;
         } else if (itemId == ItemId.VIRTUAL_ORE_SATCHEL) {
-            ret = InventoryType.ETC;
+            ret = InventoryType.USE;
         } else {
             final byte type = (byte) (itemId / 1000000);
             if (type >= 1 && type <= 5) {
