@@ -7987,7 +7987,7 @@
         <string name="h28" value="消耗MP78，获得经验值+48%，持续171秒"/>
         <string name="h29" value="消耗MP79，获得经验值+49%，持续176秒"/>
         <string name="h3" value="消耗MP53，获得经验值+6%，持续58秒"/>
-        <string name="h30" value="消耗MP80，获得经验值+50%，持续180秒"/>
+        <string name="h30" value="消耗MP80，获得经验值+50%，持续900秒"/>
         <string name="h4" value="消耗MP54，获得经验值+8%，持续63秒"/>
         <string name="h5" value="消耗MP55，获得经验值+10%，持续68秒"/>
         <string name="h6" value="消耗MP56，获得经验值+12%，持续72秒"/>

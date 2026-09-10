@@ -3774,7 +3774,7 @@
     <string name="h27" value="MP -77; for 111 sec, party members gain 147% EXP"/>
     <string name="h28" value="MP -78; for 114 sec, party members gain 148% EXP"/>
     <string name="h29" value="MP -79; for 117 sec, party members gain 149% EXP"/>
-    <string name="h30" value="MP -80; for 120 sec, party members gain 150% EXP"/>
+    <string name="h30" value="MP -80; for 900 sec, party members gain 150% EXP"/>
   </imgdir>
   <imgdir name="2311004">
     <string name="name" value="Shining Ray"/>
